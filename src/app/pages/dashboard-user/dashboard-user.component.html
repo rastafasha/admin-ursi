@@ -1,0 +1,128 @@
+<!-- =======| Main |======= -->
+<div class="container " id="main" class="main" role="main">
+
+    <!-- Page Title -->
+    <div class="pagetitle animated fadeIn">
+        <div class="left">
+            <h1><i class="bx bxs-user-account"></i> {{title}}</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/"><i class="fa fa-home"></i> Inicio</a></li>
+                    <li class="breadcrumb-item active">{{title}}</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="right shadow animated fadeIn">
+
+            <p>Plan: </p>
+            <div *ngIf="userprofile.role == 'MEMBER'">
+                <span class="badge bg-success">Activo</span>
+            </div>
+            <div *ngIf="userprofile.role == 'GUEST'">
+                <span class="badge bg-primary">Inactivo</span>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Title -->
+
+    <!-- banners planes -->
+    <div *ngIf="userprofile.role == 'GUEST'">
+        <app-bannerplanes></app-bannerplanes>
+    </div>
+
+    <!-- banners planes -->
+
+
+    <div class="clear"></div>
+    <!-- acceso iconos -->
+    <app-menuiconos></app-menuiconos>
+
+    <!-- acceso iconos -->
+    <div class="clear"></div>
+    <section class="section dashboard">
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-xl-4">
+
+                <div class="card profile shadow">
+
+                    <div class="filter">
+                        <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                            <li class="dropdown-header text-start">
+                                <h6>Operaciones</h6>
+                            </li>
+
+                            <li><a class="dropdown-item" [routerLink]="['/dashboard/profile/', user.id]">Mi Cuenta</a></li>
+
+                        </ul>
+                    </div>
+                    <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+
+                        <!-- <div *ngIf="!userprofile.directories.image">
+                            <img src="assets/images/no-image.jpg" class="rounded-circle">
+                        </div>
+                        <div *ngIf="userprofile.directories.image">
+                            <img [src]="userprofile.directories[0].image | imagenPipe: 'users'" [alt]="user.username" class="rounded-circle">
+                        </div> -->
+                        <h2>{{user.username}}</h2>
+
+                        <p>Usuario desde:<br>{{user.created_at | date:'MMM d, y, h:mm:ss a'}}</p>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-xs-12 col-sm-8 col-xl-8">
+
+                <div class="card  animated fadeInUp shadow">
+                    <div class="card-body pt-3">
+                        <!-- Bordered Tabs -->
+                        <ul class="nav nav-tabs nav-tabs-bordered">
+
+                            <li class="nav-item">
+                                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#news">Actualidad</button>
+                            </li>
+                            <li class="nav-item" *ngIf="userprofile.role == 'MEMBER'">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#recentPayments">News</button>
+                            </li>
+                            <!-- <div *ngIf="user.role === 'MEMBER'">
+
+                            </div> -->
+
+
+                        </ul>
+                        <div class="tab-content pt-2">
+
+                            <div class="tab-pane fade show active news" id="news">
+                                <br />
+                            </div>
+                            <div class="tab-pane fade show  recentPayments" id="recentPayments">
+                                <div *ngIf="user.role === 'MEMBER'">
+                                    <h4>Bienvenido!</h4>
+                                    <p>Ahora puedes editar tu informacion del directorio de SVCBMF</p>
+                                    <a [routerLink]="['/dashboard/profile/', user.id]">
+                                        <button class="btn btn-outline-success">Ir a Mi Cuenta</button>
+                                    </a>
+                                </div>
+                                <div *ngIf="user.role === 'MEMBER'">
+                                    <!-- <app-planesyproductos></app-planesyproductos> -->
+                                    <app-news></app-news>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <!-- End Bordered Tabs -->
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+</div>
+<!--/main-->

@@ -1,0 +1,109 @@
+<!-- =======| Main |======= -->
+<div class="container " id="main" class="main" role="main ">
+    <div class="col-xs-12 ">
+        <!-- Page Title -->
+        <div class="pagetitle animated fadeIn">
+            <div class="left">
+                <h1><i class="bx bxs-user-account"></i> {{title}}</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <!-- <li class="breadcrumb-item"><a routerLink="/"><i class="bi bi-house"></i> Inicio</a></li> -->
+                        <li class="breadcrumb-item active">{{title}}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <!-- <div *ngIf="user.role == 'SUPERADMIN'">
+            <app-graficas></app-graficas>
+        </div> -->
+        <div *ngIf="user.role == 'SUPERADMIN'|| user.role == 'ADMIN'">
+            <!-- <app-chart></app-chart> -->
+        </div>
+        <!-- banners planes -->
+        <!-- banners planes -->
+
+
+        <div class="clear"></div>
+        <!-- acceso iconos -->
+        <app-menuiconos></app-menuiconos>
+        <!-- acceso iconos -->
+
+        <!-- End Page Title -->
+
+        <section class="section dashboard">
+
+            <div class="row">
+                <div class=" col-xs-12 col-sm-4 col-xl-4">
+
+                    <div class="card profile  animated fadeInUp shadow">
+
+                        <div class="filter">
+                            <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                <li class="dropdown-header text-start">
+                                    <h6>Operaciones</h6>
+                                </li>
+
+                                <li><a class="dropdown-item" [routerLink]="['/dashboard/profile/', user.id]">Mi Cuenta</a></li>
+
+                            </ul>
+                        </div>
+                        <div class="card-body profile-card pt-4   fichasmall">
+                            <!-- <div *ngIf="!userprofile.directories.image">
+                                <img src="assets/img/no-image.jpg" class="rounded-circle">
+                            </div>
+                            <div *ngIf="userprofile.directories.image">
+                                <img [src]="userprofile.directories[0].image | imagenPipe: 'users'" [alt]="user.username" class="rounded-circle">
+                            </div> -->
+                            <div class="inffichasmall">
+                                <!-- <img [src]="userprofile.directories[0].image | imagenPipe: 'users'" [alt]="user.username" class="rounded-circle"> -->
+                                <h2>{{user.username}}</h2>
+
+                                <p>Usuario desde:<br>{{user.created_at | date:'MMM d, y, h:mm:ss a'}}</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class=" col-xs-12 col-sm-8 col-xl-8">
+
+                    <div class="card  animated fadeInUp shadow">
+                        <div class="card-body pt-3">
+                            <!-- Bordered Tabs -->
+                            <ul class="nav nav-tabs nav-tabs-bordered">
+
+                                <li class="nav-item">
+                                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#news">Transacciones Recientes</button>
+                                </li>
+
+                                <li class="nav-item">
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#recentPayments">Usuarios Recientes</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content pt-2">
+
+                                <div class="tab-pane fade show active news" id="news">
+                                    <br />
+                                    <app-pagos-recientes></app-pagos-recientes>
+                                </div>
+                                <div class="tab-pane fade show  recentPayments" id="recentPayments">
+                                    <app-usuarios-recientes></app-usuarios-recientes>
+                                </div>
+                            </div>
+                            <!-- End Bordered Tabs -->
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+
+
+</div>
+<!--/main-->
+<div class="clear"></div>

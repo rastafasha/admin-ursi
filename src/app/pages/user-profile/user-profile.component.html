@@ -1,0 +1,199 @@
+<!-- =======| Main |======= -->
+<div class="container animated fadeInUp" id="main" class="main" role="main" name="profile">
+
+    <div class="col-xs-12">
+        <div class="leftside">
+            <!-- Page Title -->
+            <div class="pagetitle">
+                <h1><i class="bx bxs-user-account"></i> {{title}}</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/"><i class="fa fa-home"></i> Inicio</a></li>
+                        <li class="breadcrumb-item active">{{title}}</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End Page Title -->
+        </div>
+        <div class="buton">
+            <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
+        </div>
+        <div class="clear"></div>
+
+        <section class="section profile">
+            <div class="row">
+                <div class="col-xl-3">
+
+                    <div class="card">
+                        <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                            <div *ngIf="!user">
+                                <img src="./assets/images/no-image.jpg" class="rounded-circle">
+                            </div>
+                            <div *ngIf="user">
+                                <img [src]="user.profiles.image | imagenPipe: 'profiles'" [alt]="user.username" class="rounded-circle">
+                            </div>
+
+                            <h3>{{user.username}}</h3>
+                            <p>{{user.email}}</p>
+                            <h3>
+                                <span class="badge bg-dark-light" *ngIf="user.role === 'SUPERADMIN'">SuperAdmin</span>
+                                <span class="badge bg-primary" *ngIf="user.role === 'ADMIN'">Admin</span>
+                                <span class="badge bg-success" *ngIf="user.role === 'MEMBER'">Miembro</span>
+                                <span class="badge bg-secondary" *ngIf="user.role === 'GUEST'">Invitado</span>
+                            </h3>
+
+                            <a routerLink="/dashboard/rolesconf">
+                                <button class="btn btn-outline-primary btn-sm">Modificar Rol</button>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-xl-9">
+
+                    <div class="card">
+                        <div class="card-body pt-3">
+                            <!-- Bordered Tabs -->
+                            <ul class="nav nav-tabs nav-tabs-bordered">
+                                <li class="nav-item">
+                                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#historial">Historial Pagos</button>
+                                </li>
+                                <li class="nav-item">
+                                    <button class="nav-link " data-bs-toggle="tab" data-bs-target="#detalle">Detalles</button>
+                                </li>
+
+
+
+                            </ul>
+                            <div class="tab-content pt-2">
+
+                                <div class="tab-pane fade show active historial" id="historial">
+                                    <ul *ngFor="let payment of user.payments |  paginate: { itemsPerPage: count, currentPage: p }">
+                                        <li><a [routerLink]="['/dashboard/payment-detail', payment.id]">
+                                        Referencia: {{payment.referencia}} |  Fecha: {{payment.created_at | date:'MMM d, y, h:mm:ss a'}}
+                                      </a>
+                                        </li>
+                                    </ul>
+                                    <br />
+                                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+
+                                </div>
+
+                                <div class="tab-pane fade detail  pt-3" id="detalle">
+
+
+                                    <div *ngIf="!user">
+                                        <p>No posee perfil</p>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div *ngIf="user">
+                                            <div class="row">
+                                                <div class="col-xs-6 col-sm-6 col-md-4 b-r">
+                                                    <div class="col-12  label"><i class="bi bi-person-circle"></i> Nombre</div>
+                                                    <div class="col-12  info">{{user.profiles.nombre}}</div>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-md-4 b-r">
+                                                    <div class="col-12  label"><i class="bi bi-person-circle"></i> Apellido</div>
+                                                    <div class="col-12  info">{{user.profiles.surname}}</div>
+                                                </div>
+
+                                            </div>
+                                            <hr>
+
+                                            <div class="row">
+
+                                                <div class="col-xs-6 col-sm-6 col-md-3 b-r">
+                                                    <div class="col-12  label"><i class="bi bi-telephone"></i> Móvil</div>
+
+                                                    <div class="col-12  info">
+                                                        <a href="tel:{{user.profiles.telmovil}}" target="_blank">
+                                                  {{user.profiles.telmovil}}
+                                                </a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-md-3 b-r">
+                                                    <div class="col-12  label"><i class="bi bi-telephone"></i> Oficina | Home</div>
+                                                    <div class="col-12  info">
+                                                        <a href="tel:{{user.profiles.telhome}}" target="_blank">
+                                                  {{user.profiles.telhome}}
+                                                </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-6 col-md-3 b-r">
+                                                    <div class="col-12  label"><i class="bi bi-telephone"></i> Pais</div>
+                                                    <div class="col-12 info">{{user.profiles.pais}}</div>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-md-3 b-r">
+                                                    <div class="col-12  label"><i class="bi bi-geo"></i> Estado</div>
+                                                    <div class="col-12  info">{{user.profiles.estado}}</div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-6 col-md-3 b-r">
+                                                    <div class="col-12  label"><i class="bi bi-file-text"></i> Dirección</div>
+                                                    <div class="col-12  info">
+                                                        <p>{{user.profiles.direccion}}</p>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-6 col-md-3 b-r">
+                                                    <div class="col-12  label"><i class="fa fa-facebook"></i> Facebook</div>
+                                                    <div class="col-12 info">
+                                                        <a href="https://facebook.com/{{user.profiles.facebook}}" target="_blank" rel="noopener noreferrer">
+                                                        {{user.profiles.facebook}}
+                                                      </a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-md-3 b-r">
+                                                    <div class="col-12  label"><i class="fa fa-instagram"></i> Instagram</div>
+                                                    <div class="col-12  info">
+                                                        <a href="https://instagram.com/{{user.profiles.instagram}}" target="_blank" rel="noopener noreferrer">
+                                                        {{user.profiles.instagram}}
+                                                      </a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-6 col-md-3 b-r">
+                                                    <div class="col-12  label"><i class="fa fa-linkedin"></i> Linkedin</div>
+                                                    <div class="col-12  info">
+                                                        <a href="https://linkedin.com/{{user.profiles.linkedin}}" target="_blank" rel="noopener noreferrer">
+                                                        {{user.profiles.linkedin}}
+                                                      </a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-6 col-md-3 b-r">
+                                                    <div class="col-12  label"><i class="fa fa-twitter"></i> Twitter</div>
+                                                    <div class="col-12  info">
+                                                        <a href="https://linkedin.com/{{user.profiles.twitter}}" target="_blank" rel="noopener noreferrer">
+                                                        {{user.profiles.twitter}}
+                                                      </a>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+
+
+
+
+                            </div>
+                            <!-- End Bordered Tabs -->
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+
+</div>
+<!--/main-->

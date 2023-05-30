@@ -1,0 +1,55 @@
+<!-- =======| Main |======= -->
+<div class="container animated fadeInUp" id="main" class="main" role="main" name="profile">
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-10">
+            <!-- Page Title -->
+            <div class="pagetitle">
+                <h1><i class="bx bxs-user-account"></i> {{title}}</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/"><i class="bi bi-house"></i> Inicio</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/dashboard/payments">Pagos</a></li>
+                        <li class="breadcrumb-item active">{{title}}</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End Page Title -->
+        </div>
+        <!-- <div class="col-xs-12 col-sm-2">
+          <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
+      </div> -->
+    </div>
+
+
+
+
+
+    <section class="section dashboard">
+
+        <div class="card pagodetail">
+            <div class="col-xs-12 col-sm-6">
+                <!-- <p><b>Nombre:</b> {{pago.nombre}}</p> -->
+                <!-- <p><b>Fecha | Hora:</b> {{pago.created_at | date:'MMM d, y, h:mm:ss a'}}</p> -->
+                <p><b>Referencia:</b> {{pago.referencia}}</p>
+                <p><b>Monto:</b> {{pago.monto|currency}}</p>
+                <!-- <p><b>ProductoId:</b> {{pago.producto_id}}</p> -->
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <!-- <p><b>Email:</b> {{pago.email}}</p> -->
+                <!-- <p><b>Txn Id:</b> {{pago.txn_id}}</p> -->
+
+                <h3>Items Data:</h3>
+                <hr>
+                <div *ngFor="let item of items">
+                    <p><b>Name</b>{{item.name}} <b>Units</b>{{item.quantity}} <b>Price/unit</b> $ {{item.unit_amount.value}} </p>
+                </div>
+                <hr>
+                <h3><b>Total:</b>$ {{amount}}</h3>
+            </div>
+
+        </div>
+
+    </section>
+</div>
+<!-- End #main-->

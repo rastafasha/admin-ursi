@@ -1,0 +1,137 @@
+<!-- =======| Main |======= -->
+<div class="container animated fadeInUp" id="main" class="main" role="main" name="users">
+
+    <div class="col-xs-12">
+        <div class="leftside">
+            <!-- Page Title -->
+            <div class="pagetitle">
+                <h1><i class="bx bxs-user-account"></i> {{titlePage}}</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/"><i class="bi bi-house"></i> Inicio</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/dashboard/cursos">Cursos</a></li>
+                        <li class="breadcrumb-item active">{{titlePage}}</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End Page Title -->
+        </div>
+        <div class="buton">
+            <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
+        </div>
+        <div class="clear"></div>
+
+
+
+        <section class="section dashboard">
+
+            <div class="row">
+                <div class="col-12 col-md-6">
+
+
+                    <form enctype="multipart/form-data" [formGroup]="cursoForm" (ngSubmit)="editCurso()">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Titulo<span class="required">*</span></label>
+                            <input formControlName="name" type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Url para compartir<span class="required">*</span></label>
+                            <input formControlName="slug" type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Precio<span class="required">*</span></label>
+                            <input formControlName="price" type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Modal<span class="required">*</span></label>
+                            <input formControlName="modal" type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Tiene video Youtube? (Colocar solo el Código al final del url)</label>
+                            <input formControlName="urlVideo" type="text" class="form-control">
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label for="select-input">Destacado en el home?</label>
+                                    <select class="form-control " formControlName="isFeatured">
+                              <option disabled value="">SELECCIONAR</option>
+                              <option  [value]="1">Activo</option>
+                              <option  [value]="0">Inactivo</option>
+                            </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label>Descripción corta para el carrito<span class="required">*</span></label>
+                            <div class="col-md-12">
+                                <textarea formControlName="description" id="description" cols="30" rows="4" class="form-control"></textarea>
+
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label>Descripción para la tienda<span class="required">*</span></label>
+                            <div class="col-md-12">
+                                <!-- <textarea formControlName="description" id="description" cols="30" rows="4" class="form-control"></textarea> -->
+                                <ckeditor [editor]="Editor" (ready)="onReady($event)" data="<p>Hello, world!</p>" formControlName="adicional" value="adicional" rows="5" class="form-control" required></ckeditor>
+
+                            </div>
+                        </div>
+                        <input type="hidden" formControlName="id">
+                        <button (click)="editCurso()" class="btn btn-primary">Guardar</button>
+                    </form>
+                </div>
+                <div class="col-12 col-md-6">
+                    <label> {{'Anexe su foto'}}</label>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div *ngIf="!curso">
+                                <img src="./assets/images/no-image.jpg" style="height: 100px; width: 100px;" class="img-circle avatar">
+                            </div>
+                            <div *ngIf="curso">
+                                <button *ngIf="curso.image" type="button" class="btn btn-outline-danger" (click)="deleteFotoPerfil()">Eliminar</button>
+                                <img [src]="curso.image | imagenPipe: 'cursos'" style="height: 100px; width: 100px;" class="img-circle avatar">
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="especificaciones">
+                                <h4>{{'Especificaciones'}}:</h4>
+                                <ul>
+                                    <li>{{'Tamaño máximo'}}: 300px X 300px</li>
+                                    <li>{{'Peso máximo'}}: 500 kb</li>
+                                    <li>{{'Formato permitido'}}: jpg, .gif, .png</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <angular-file-uploader [config]="afuConfig " (ApiResponse)="avatarUpload($event) ">
+                            </angular-file-uploader>
+                        </div>
+                        <div class="col-xs-12">
+                            <div *ngIf="!curso">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">No Video</h4>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="curso">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Video</h4>
+                                        <iframe class="videom" [src]="getVideoIframe(curso.urlVideo)" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; " allowfullscreen></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+</div>
+<!--/main-->

@@ -1,0 +1,84 @@
+<!-- =======| Main |======= -->
+<div class="container animated fadeInUp" id="main" class="main" role="main" name="profile">
+
+    <div class="col-xs-12">
+        <div class="leftside">
+            <!-- Page Title -->
+            <div class="pagetitle">
+                <h1><i class="bx bxs-user-account"></i> {{title}}</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/"><i class="bi bi-house"></i> Inicio</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/">Panel Admin</a></li>
+                        <li class="breadcrumb-item active">{{title}}</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End Page Title -->
+        </div>
+        <div class="buton">
+            <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
+        </div>
+
+        <div class="clear"></div>
+        <section class="section dashboard">
+
+
+
+            <!-- Recent Pagos -->
+            <div class="col-12">
+                <div class="card recent-sales overflow-auto">
+
+                    <div class="filter">
+                        <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                            <li class="dropdown-header text-start">
+                                <h6>Filter</h6>
+                            </li>
+
+                            <li><a class="dropdown-item" href="#">Today</a></li>
+                            <li><a class="dropdown-item" href="#">This Month</a></li>
+                            <li><a class="dropdown-item" href="#">This Year</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title"> <i class="bi bi-currency-exchange"> </i> Transacciones <span>| Todas</span>
+                        </h5>
+
+                        <table class="table table-borderless datatable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Referencia</th>
+                                    <th scope="col">Usuario</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Email </th>
+                                    <th scope="col">Artículo</th>
+                                    <th scope="col">Monto</th>
+                                    <th scope="col">Fecha | Hora</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let pago of payments |  paginate: { itemsPerPage: count, currentPage: p }">
+                                    <th scope="row"><a [routerLink]="['/dashboard/payment-detail', pago.id]">{{pago.referencia}}</a></th>
+                                    <th><a [routerLink]="['/dashboard/user/', pago.user_id]">{{pago.user_id}}</a></th>
+                                    <td>{{pago.nombre}}</td>
+                                    <td>{{pago.email}}</td>
+                                    <td>{{pago.name}}</td>
+                                    <td>{{pago.monto | currency}}</td>
+                                    <td>{{pago.created_at | date:'MMM d, y, h:mm:ss a'}}</td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </div>
+
+                </div>
+            </div>
+            <!-- End Recent Pagos -->
+        </section>
+    </div>
+</div>
+<!-- End #main-->

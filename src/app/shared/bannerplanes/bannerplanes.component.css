@@ -1,0 +1,24 @@
+.planss,
+.producto {
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bannerplanes .instruccioness .info {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+@media(max-width:480px) {
+    .bannerplanes .instruccioness .info {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    .info ul {
+        padding: 0;
+    }
+    .planss,
+    .producto {
+        background-position: center;
+    }
+}

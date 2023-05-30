@@ -1,0 +1,149 @@
+<!-- =======| Main |======= -->
+<div class="container animated fadeInUp" id="main" class="main" role="main" name="users">
+
+    <div class="col-xs-12">
+        <div class="leftside">
+            <!-- Page Title -->
+            <div class="pagetitle">
+                <h1><i class="bx bxs-user-account"></i> {{title}}</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/"><i class="fa fa-home"></i> Inicio</a></li>
+                        <li class="breadcrumb-item active">{{title}}</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End Page Title -->
+        </div>
+        <div class="buton">
+            <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
+        </div>
+
+        <div class="clear"></div>
+
+
+        <section class="section dashboard">
+
+
+            <!-- Recent Pagos -->
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-11 col-sm-11">
+                        <!-- buscador -->
+                        <form class="form-horizontal">
+                            <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+                                <div class="input-group">
+                                    <input type="search" name="search" type="text" class="form-control col-xs-12" placeholder="Buscar.." [(ngModel)]="query" aria-describedby="button-addon1" class="form-control border-0 bg-light">
+                                    <div class="input-group-append">
+                                        <button id="button-addon1" type="submit" class="btn btn-link text-primary" (click)="search()" name="submit" data-toggle="tooltip" title="mostrar todos"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- buscador -->
+                    </div>
+                    <div class="col-xs-1 col-sm-1">
+                        <div class="text-right">
+                            <button class="btn btn-primary" [routerLink]="['/dashboard/curso/create/']">
+                <i class="fa fa-pencil"></i>
+                Crear
+              </button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="card recent-sales overflow-auto">
+
+
+                    <div class="card-body">
+
+
+                        <table [ngClass]="loading? 'table table-borderless datatable':'table table-borderless'">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Imagen</th>
+                                    <th>Video</th>
+                                    <th>Nombre</th>
+                                    <th>precio</th>
+                                    <th>Detacado</th>
+                                    <th>Status</th>
+                                    <th>Estado</th>
+                                    <th>Accion</th>
+                                    <th class="text-nowrap">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let curso of cursos |  paginate: { itemsPerPage: count, currentPage: p }">
+                                    <td>{{curso.id}}</td>
+                                    <td>
+                                        <div class="image">
+                                            <div *ngIf="!curso.image ">
+                                                <img [src]="curso.image | imagenPipe: 'cursos'" style="height: 50px; width: 50px;" class="img-circle avatar">
+                                            </div>
+                                            <div *ngIf="curso.image">
+                                                <img [src]="curso.image | imagenPipe: 'cursos'" style="height: 50px; width: 50px;" class="img-circle avatar">
+
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div *ngIf="!curso.urlVideo ">
+                                            <img [src]="curso.image | imagenPipe: 'cursos'" style="height: 50px; width: 120px;">
+                                        </div>
+                                        <div *ngIf="curso.urlVideo">
+                                            <img src="http://img.youtube.com/vi/{{curso.urlVideo}}/2.jpg" style="height: 50px; width: 120px;" alt="{{curso.titulo}}">
+                                        </div>
+                                    </td>
+                                    <td>{{curso.name}}</td>
+                                    <td>{{curso.price|currency}} </td>
+                                    <td>
+                                        <span class="badge bg-success" *ngIf="curso.isFeatured === 1">Si</span>
+                                        <span class="badge bg-danger" *ngIf="curso.isFeatured === 0">No</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-success" *ngIf="curso.status === 'PUBLISHED'">Publicado</span>
+                                        <span class="badge bg-primary" *ngIf="curso.status === 'PENDING'">Pendiente</span>
+                                        <span class="badge bg-danger" *ngIf="curso.status === 'REJECTED'">Rechazado</span>
+                                    </td>
+                                    <td>
+                                        <select class="form-control" [(ngModel)]="curso.status">
+                                          <option value="PUBLISHED">Publicado</option>
+                                          <option value="PENDING">Pendiente</option>
+                                          <option value="REJECTED">Rechazado</option>
+                                        </select>
+                                    </td>
+                                    <td class="text-nowrap text-center">
+                                        <a (click)="cambiarStatus(curso)" class="cursor" data-toggle="tooltip" data-original-title="Edit">
+                                            <button class="btn btn-outline-success">
+                                            <i class="bx bxs-check-circle text-success" style="font-size: 18px;"></i> Aceptar
+                                          </button>
+                                        </a>
+                                    </td>
+                                    <td class="text-nowrap text-center">
+                                        <a [routerLink]="['/dashboard/curso/edit', curso.id]" class="cursor" data-toggle="tooltip" data-original-title="Edit">
+                                            <div class="btn btn-success"><i class="fa fa-edit"></i></div>
+                                        </a>
+                                        <a (click)="eliminarCurso(curso.id)" class="cursor" data-toggle="tooltip" data-original-title="Borrar">
+                                            <div class="btn btn-danger"><i class="fa fa-trash"></i></div>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- End Recent Pagos -->
+
+        </section>
+    </div>
+
+</div>
+<!--/main-->

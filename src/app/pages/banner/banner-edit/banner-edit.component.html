@@ -1,0 +1,118 @@
+<!-- =======| Main |======= -->
+<div class="container animated fadeInUp" id="main" class="main" role="main" name="users">
+
+    <div class="col-xs-12">
+        <div class="leftside">
+            <!-- Page Title -->
+            <div class="pagetitle">
+                <h1><i class="bx bxs-user-account"></i> {{titlePage}}</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/"><i class="bi bi-house"></i> Inicio</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/dashboard/cursos">Cursos</a></li>
+                        <li class="breadcrumb-item active">{{titlePage}}</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End Page Title -->
+        </div>
+        <div class="buton">
+            <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
+        </div>
+        <div class="clear"></div>
+
+
+
+        <section class="section dashboard">
+
+            <div class="row">
+                <div class="col-12 col-md-6">
+
+
+                    <form enctype="multipart/form-data" [formGroup]="bannerForm" (ngSubmit)="editCurso()">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Titulo<span class="required">*</span></label>
+                            <input formControlName="title" type="title" class="form-control" required>
+                        </div>
+
+                        <div class="form-group ">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label for="select-input">Cómo abre?<span class="required">*</span></label>
+                                    <select class="form-control " formControlName="target">
+                                  <option disabled value="">SELECCIONAR</option>
+                                  <option  value ="_self">Ventana Nueva</option>
+                                  <option  value ="_blank">Misma Ventana</option>
+                                </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label for="select-input">tiene Boton?<span class="required">*</span></label>
+                                    <select class="form-control " formControlName="gotBoton">
+                        <option disabled value="">SELECCIONAR</option>
+                        <option  [value]="1">Si</option>
+                        <option  [value]="0">No</option>
+                      </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Nombre boton</label>
+                            <input formControlName="botonName" type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Url<span class="required">*</span></label>
+                            <input formControlName="url" type="title" class="form-control" required>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label>Descripcion <span class="required">*</span></label>
+                            <div class="col-md-12">
+                                <!-- <textarea formControlName="description" id="description" cols="30" rows="4" class="form-control"></textarea> -->
+                                <ckeditor [editor]="Editor" (ready)="onReady($event)" data="<p>Hello, world!</p>" formControlName="description" value="description" rows="5" class="form-control" required></ckeditor>
+
+                            </div>
+                        </div>
+                        <input type="hidden" formControlName="id">
+                        <button (click)="editCurso()" class="btn btn-primary">Guardar</button>
+                    </form>
+                </div>
+                <div class="col-12 col-md-6">
+                    <label> {{'Anexe su foto'}}</label>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div *ngIf="!banner">
+                                <img src="./assets/images/no-image.jpg" style="height: 100px; width: 100px;" class="img-circle avatar">
+                            </div>
+                            <div *ngIf="banner">
+                                <button *ngIf="banner.image" type="button" class="btn btn-outline-danger" (click)="deleteFotoPerfil()">Eliminar</button>
+                                <img [src]="banner.image | imagenPipe: 'banners'" style="height: 100px; width: 100px;" class="img-circle avatar">
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="especificaciones">
+                                <h4>{{'Especificaciones'}}:</h4>
+                                <ul>
+                                    <li>{{'Tamaño máximo'}}: 1920px x 1080px</li>
+                                    <li>{{'Peso máximo'}}: 500 kb</li>
+                                    <li>{{'Formato permitido'}}: jpg, .gif, .png</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <angular-file-uploader [config]="afuConfig " (ApiResponse)="avatarUpload($event) ">
+                            </angular-file-uploader>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+</div>
+<!--/main-->

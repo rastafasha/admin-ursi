@@ -1,0 +1,87 @@
+<div class="loginregister animated fadeIn">
+    <div class="main">
+        <input type="checkbox" id="chk" aria-hidden="true">
+        <img src="./assets/images/logo-solo.png" alt="">
+        <div class="signup">
+            <form [formGroup]="loginForm" id="loginform" (ngSubmit)="login()" autocapitalize="off">
+                <label for="chk" aria-hidden="true"><h1>Login</h1></label>
+                <!-- Errors -->
+                <div *ngIf="errors?.email" class="alert alert-danger mt-3 ">
+                    {{ errors?.email }}
+                </div>
+                <div *ngIf="errors?.password" class="alert alert-danger mt-3 ">
+                    {{ errors?.password }}
+                </div>
+                <div *ngIf="errors?.error" class="alert alert-danger mt-3 ">
+                    {{ errors?.error }}
+                </div>
+                <div class="form-group ">
+                    <div class="col-xs-12">
+                        <input type="text" id="email" formControlName="email" class="form-control" placeholder="Correo Electrónico" required>
+
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <div class="col-xs-12">
+
+                        <input type="password" formControlName="password" class="form-control" id="password" placeholder="Contraseña" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-check rememb">
+                        <input class="form-check-input" type="checkbox" formControlName="remember" id="remember">
+                        <label class="form-check-label" for="remember">Recuerdame</label>
+                    </div>
+                    <br>
+                    <div class="col-sm-12 text-center">
+                        <a routerLink="/password-reset" id="to-recover" class="text-light ">
+                            <i class="fa fa-lock m-r-5"></i> Olvido Contraseña?</a>
+                        <br>
+                        <!-- <br> Don't have an account? <a routerLink="/registro" class="text-primary m-l-5"><b>Sign Up</b></a> -->
+                    </div>
+                </div>
+                <button (click)="login()">Entrar</button>
+                <br>
+                <p class="text-light text-center" style="display: flex;
+                flex-direction: column;"> No posee cuenta? </p>
+            </form>
+        </div>
+
+        <div class="login">
+            <form [formGroup]="registerForm" (ngSubmit)="crearUsuario()" autocapitalize="off" style="margin-top: 10px;">
+                <label for="chk" aria-hidden="true"><h1>Registro</h1></label>
+
+                <div class="form-group ">
+                    <div class="col-xs-12">
+                        <input class="form-control" type="text" formControlName="username" placeholder="username">
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <div class="col-xs-12">
+                        <input class="form-control" type="text" formControlName="email" placeholder="Email">
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <div class="col-xs-12">
+                        <input class="form-control" type="password" formControlName="password" placeholder="Contraseña">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <input class="form-control" type="password" formControlName="password2" placeholder="Confirmar Contraseña">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-danter">
+                        <p *ngIf="campoNoValido('username')"><span>*</span> El username es obligatorio</p>
+                        <p *ngIf="campoNoValido('email')"><span>*</span> El email es obligatorio y debe ser valido</p>
+                        <!-- <p *ngIf="aceptaTerminos()"><span>*</span> Debe aceptar los términos de uso</p> -->
+                        <p *ngIf="passwordNoValido()"><span>*</span> La Contraseña deben ser iguales </p>
+                    </div>
+                </div>
+                <button (click)="crearUsuario()">Registrarme</button>
+            </form>
+        </div>
+    </div>
+</div>

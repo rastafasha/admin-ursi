@@ -1,0 +1,95 @@
+<!-- =======| Main |======= -->
+<div class="container animated fadeInUp" id="main" class="main" role="main" name="users">
+
+    <div class="col-xs-12">
+        <div class="leftside">
+            <!-- Page Title -->
+            <div class="pagetitle">
+                <h1><i class="bx bxs-user-account"></i> {{title}}</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/"><i class="fa fa-home"></i> Inicio</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/dashboard/configuraciones">Configuraciones</a></li>
+                        <li class="breadcrumb-item active">{{title}}</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End Page Title -->
+        </div>
+        <div class="buton">
+            <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
+        </div>
+        <div class="clear"></div>
+
+        <section class="section dashboard">
+
+
+            <!-- Recent Pagos -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-11 col-sm-11">
+                        <!-- buscador -->
+                        <!-- <app-search></app-search> -->
+                        <!-- buscador -->
+                    </div>
+                    <div class="col-xs-1 col-sm-1">
+                        <div class="text-right">
+                            <button class="btn btn-primary" [routerLink]="['/dashboard/categoria/crear/']">
+                        <i class="fa fa-pencil"></i>
+                  Crear
+                </button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="card recent-sales overflow-auto">
+
+
+                    <div class="card-body">
+
+
+                        <table [ngClass]="loading? 'table table-borderless datatable':'table table-borderless'">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Creado</th>
+                                    <th class="text-nowrap">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let category of categories ">
+
+                                    <td>{{category.id}}</td>
+                                    <td>{{category.name}}</td>
+                                    <td>{{category.created_at | date:'MMM d, y, h:mm:ss a'}} </td>
+
+                                    <td class="text-nowrap text-center">
+
+                                        <a [routerLink]="['/dashboard/category/edit', category.id]" class="cursor" data-toggle="tooltip" data-original-title="Edit">
+                                            <i class="fa fa-edit text-success" style="font-size: 18px;"></i>
+                                        </a>
+                                        <a (click)="eliminarCategory(category.id)" class="cursor" data-toggle="tooltip" data-original-title="Borrar">
+                                            <i class="fa fa-trash text-danger" style="font-size: 18px; margin-left: 10px; margin-right: 10px;"></i>
+                                        </a>
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+
+                        </table>
+
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- End Recent Pagos -->
+
+        </section>
+    </div>
+
+</div>
+<!--/main-->

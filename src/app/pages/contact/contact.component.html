@@ -1,0 +1,135 @@
+<!-- =======| Main |======= -->
+<div class="container animated fadeInUp" id="main" class="main" role="main" name="profile">
+    <div class="col-xs-12">
+        <!-- Page Title -->
+        <div class="pagetitle">
+            <h1><i class="bx bxs-user-account"></i> {{title}}</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/"><i class="bi bi-house"></i> Inicio</a></li>
+                    <li class="breadcrumb-item active">{{title}}</li>
+                </ol>
+            </nav>
+        </div>
+        <!-- End Page Title -->
+        <div class="clear"></div>
+
+        <section class="section dashboard">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h3>En la SVCBMF estamos muy atentos a tus comentarios, preguntas y sugerencias.</h3>
+                        <p>Escríbenos utilizando la planilla de contacto y con gusto le responderemos.</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <section class="cmspage mt-4 contact">
+                <div class="container card">
+                    <div class="page-desc row">
+                        <div class="col-12 col-sm-6 col-md-8">
+                            <form (ngSubmit)="enviarEmail()" [formGroup]="contactForm">
+                                <div class="form-group col-12 col-sm-6">
+                                    <label>Nombres <span class="required">*</span></label>
+                                    <input type="text" name="name" id="name" formControlName="name" class="form-control" placeholder=" Nombre y Apellido" required>
+                                    <!-- <div *ngIf="name.invalid && (name.dirty || name.touched)" class="error">
+                          <div *ngIf="name?.errors.required">
+                              First Name is required.
+                          </div>
+                      </div> -->
+                                </div>
+                                <div class=" form-group col-12 col-sm-6">
+                                    <label>Teléfono <span class="required">*</span></label>
+                                    <input type="text" name="phone" id="phone" formControlName="phone" class="form-control" placeholder=" Telefono">
+                                </div>
+                                <div class=" form-group col-12">
+                                    <label>Email <span class="required">*</span></label>
+                                    <input type="text" name="email" id="email" formControlName="email" class="form-control" placeholder="E-Mail" required>
+                                    <!-- <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error">
+                            <div *ngIf="email?.errors.required"> {{ 'Email is required.' }}</div>
+                            <div *ngIf="email?.errors.email"> {{ 'Email must be a valid email address.' }}</div>
+                        </div> -->
+                                </div>
+                                <div class=" form-group col-12 ">
+                                    <label>Tema <span class="required">*</span></label>
+                                    <input type="text" name="subject" id="subject" formControlName="subject" class="form-control" placeholder=" Tema">
+                                </div>
+                                <div class=" form-group col-12">
+                                    <label>Mensaje <span class="required">*</span></label>
+                                    <textarea name="comment" id="comment" formControlName="comment" rows="5" class="form-control" placeholder="Comentario" required></textarea>
+                                    <!-- <div *ngIf="message.invalid && (message.dirty || message.touched)" class="error">
+                            <div *ngIf="message?.errors.required">{{ 'Message is required. ' }}</div>
+                        </div> -->
+                                </div>
+                                <div class="clear"></div><br>
+                                <div class="form-group col-12">
+                                    <button [disabled]="!contactForm.valid" class="btn btn-outline-success col-xs-12 col-md-4 col-md-offset-4"> Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="Social col-12 col-md-4">
+                            <div id="direcc">
+                                <div class="info">
+                                    <div class="icon_cont">
+                                        <div class="icon">
+                                            <i class="fa fa-map-marker"></i>
+                                        </div>
+                                    </div>
+
+                                    <b class="font" style="font-size:18px;">Dirección:</b><br>
+                                    <p>Av.Libertador, Torre Macom, Piso 2, Ofc. 2 A, Chacao, Caracas, Venezuela</p>
+                                </div>
+                                <div class="clear"></div>
+                                <div class="info">
+                                    <div class="icon_cont">
+                                        <div class="icon">
+                                            <i class="fa fa-phone"></i>
+                                        </div>
+                                    </div>
+                                    <b class="font" style="font-size:18px;">Teléfono Presidencia:</b><br>
+                                    <a href="telf:+584143151422" class="tel" target="_blank">+58(414)-315.14.22</a><br>
+                                    <b class="font" style="font-size:18px;">Teléfono Secretaría:</b><br>
+                                    <a href="telf:+584126076369" class="tel" target="_blank">+58(412)-607.63.69</a><br>
+                                    <b class="font" style="font-size:18px;">Teléfono Tesorería:</b><br>
+                                    <a href="telf:+584129714676" class="tel" target="_blank">+58(412)-971.46.76</a>
+                                </div>
+                                <div class="clear"></div>
+                                <div class="info">
+                                    <div class="icon_cont">
+                                        <div class="icon">
+                                            <i class="fa fa-envelope" style="margin-top:-20px;"></i>
+                                        </div>
+                                    </div>
+                                    <b class="font" style="font-size:18px;">Email:</b>
+                                    <a href="mailto:svcbmf@gmail.com" target="_blank">svcbmf@gmail.com</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="service-error" *ngIf="error">
+                <h3>{{error.errorTitle}}</h3>
+                <h4>{{error.errorDesc}}</h4>
+            </div> -->
+                    <!-- <div [hidden]="!submitted" class="contact-message">
+                <div *ngIf="model.id" class="contact-success">
+                    <h3 class="success"> {{ 'Gracias!' }}</h3>
+                    <h4> {{ 'Su mensaje ha sido enviado' }}</h4>
+                    <br />
+                    <button (click)="gotoHome()" class="btn btn-info"> {{ 'Volver al Inicio'  }}</button>
+                </div>
+            </div> -->
+                </div>
+            </section>
+            <div class="clear"></div><br><br>
+            <div class="container mapa">
+                <div class="row">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m22!1m12!1m3!1d125539.83252791694!2d-66.9286229662642!3d10.491223935226108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m7!3e6!4m5!1s0x8c2a58fe521ba9cf%3A0x92e3bc4f4f89945f!2sBrake%20Parts%20JCG%2C%20F4RR%2BFHV%2C%20Av.%20Libertador%2C%20Torre%20Macom%2C%20PH%2C%20Sector%20Los%20Ravelos%2C%20Caracas%2C%20Miranda!3m2!1d10.491231599999999!2d-66.8585824!5e0!3m2!1ses!2sve!4v1676234155406!5m2!1ses!2sve"
+                        frameborder="0" style="border:0" allowfullscreen></iframe>
+                </div>
+
+            </div>
+        </section>
+    </div>
+</div>
+<!-- End #main-->

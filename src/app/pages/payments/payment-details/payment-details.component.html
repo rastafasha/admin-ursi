@@ -1,0 +1,44 @@
+<!-- =======| Main |======= -->
+<div class="container animated fadeInUp" id="main" class="main" role="main" name="profile">
+
+    <div class="col-xs-12">
+        <div class="leftside">
+            <!-- Page Title -->
+            <div class="pagetitle">
+                <h1><i class="bx bxs-user-account"></i> {{title}}</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/"><i class="fa fa-home"></i> Inicio</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/dashboard/payments">Pagos</a></li>
+                        <li class="breadcrumb-item active">{{title}}</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End Page Title -->
+        </div>
+        <div class="buton">
+            <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
+        </div>
+        <div class="clear"></div>
+
+        <section class="section dashboard">
+
+            <div class="card pagodetail">
+                <div class="col-xs-12 col-sm-6">
+                    <p><b>Referencia:</b> {{payment.referencia}}</p>
+                    <p><b>Nombre de la cuenta:</b> {{payment.nombre}}</p>
+                    <p><b>email de la cuenta:</b> {{payment.email}}</p>
+                    <p><b>UserID:</b> {{payment.user_id}}</p>
+                    <p><b>Fecha | Hora:</b> {{payment.created_at | date:'MMM d, y, h:mm:ss a'}}</p>
+                    <p><b>Monto:</b> {{payment.monto|currency}}</p>
+                    <p><b>Producto:</b> {{payment.name}}</p>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                </div>
+
+            </div>
+
+        </section>
+    </div>
+</div>
+<!-- End #main-->

@@ -1,0 +1,88 @@
+<ng-template #loading>
+    <div id="contenedor_carga">
+        <div id="carga"></div>
+    </div>
+</ng-template>
+
+<div *ngIf="user.role === 'SUPERADMIN'|| user.role === 'ADMIN' ">
+    <div class="acces-icons animated fadeIn container">
+        <a class="nav-link collapsed cursor" routerLink="/dashboard/banners">
+
+            <div class="icontext shadow">
+                <i class="fa fa-desktop"></i>
+                <h3>Banner</h3>
+            </div>
+        </a>
+        <a class="nav-link collapsed cursor" routerLink="/dashboard/posts">
+
+            <div class="icontext shadow">
+                <i class="fa fa-pencil-square"></i>
+                <h3>Blog</h3>
+            </div>
+        </a>
+        <a class="nav-link collapsed cursor" routerLink="/dashboard/cursos">
+
+            <div class="icontext shadow">
+                <i class="fa fa-archive"></i>
+                <h3>Cursos</h3>
+            </div>
+        </a>
+        <a class="nav-link collapsed cursor" routerLink="/dashboard/cronogramas">
+
+            <div class="icontext shadow">
+                <i class="fa fa-calendar"></i>
+                <h3>Cronograma</h3>
+            </div>
+        </a>
+        <a class="nav-link collapsed cursor" routerLink="/dashboard/galleries">
+
+            <div class="icontext shadow">
+                <i class="fa fa-picture-o"></i>
+                <h3>Galería</h3>
+            </div>
+        </a>
+        <a class="nav-link collapsed cursor" routerLink="/dashboard/servicios">
+
+            <div class="icontext shadow">
+                <i class="fa fa-bookmark-o"></i>
+                <h3>Servicios</h3>
+            </div>
+        </a>
+        <a class="nav-link collapsed cursor" routerLink="/dashboard/herramientas">
+
+            <div class="icontext shadow">
+                <i class="fa fa-tablet"></i>
+                <h3>Herramientas</h3>
+            </div>
+        </a>
+        <a class="nav-link collapsed cursor" routerLink="/dashboard/users">
+
+            <div class="icontext shadow">
+                <i class="fa fa-users"></i>
+                <h3>Usuarios</h3>
+            </div>
+        </a>
+        <a class="nav-link collapsed cursor" routerLink="/dashboard/payments">
+
+            <div class="icontext shadow">
+                <i class="fa fa-cc"> </i>
+                <h3>Pagos</h3>
+            </div>
+        </a>
+        <a class="nav-link collapsed cursor" [routerLink]="['/dashboard/profile/', user.id]">
+
+            <div class="icontext shadow">
+                <i class="fa fa-user"> </i>
+                <h3>Cuenta</h3>
+            </div>
+        </a>
+        <a class="nav-link collapsed cursor" routerLink="/dashboard/configuraciones">
+
+            <div class="icontext shadow">
+                <i class="fa fa-cogs"> </i>
+                <h3>mas</h3>
+            </div>
+        </a>
+
+    </div>
+</div>

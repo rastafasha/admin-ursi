@@ -1,0 +1,97 @@
+<!-- =======| Main |======= -->
+<div class="container animated fadeInUp" id="main" class="main" role="main" name="users">
+
+    <div class="col-xs-12">
+        <div class="leftside">
+            <!-- Page Title -->
+            <div class="pagetitle">
+                <h1><i class="bx bxs-user-account"></i> {{title}}</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/"><i class="fa fa-home"></i> Inicio</a></li>
+                        <li class="breadcrumb-item active">{{title}}</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End Page Title -->
+        </div>
+        <div class="buton">
+            <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
+        </div>
+
+        <div class="clear"></div>
+
+        <section class="section dashboard">
+
+
+            <!-- Recent Pagos -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-9">
+                        <!-- buscador -->
+                        <!-- <app-search></app-search> -->
+                        <!-- buscador -->
+                    </div>
+                    <div class="col-xs-12 col-sm-3">
+                        <div class="col-12 col-sm-6 botones pull-right">
+                            <button class="btn btn-outline-success" (click)="csvExport()"> <i class="fa fa-download"></i> CSV</button>
+                        </div>
+                        <div class="col-12 col-sm-6 botones pull-right">
+                            <button class="btn btn-outline-success" (click)="excelExport()"><i class="fa fa-download"></i> XLS</button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="card recent-sales overflow-auto">
+
+
+                    <div class="card-body">
+
+
+                        <table [ngClass]="loading? 'table table-borderless datatable':'table table-borderless'">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Email</th>
+                                    <th>Pais</th>
+                                    <th>Estado</th>
+                                    <th>Telefono</th>
+                                    <th>Telefono M.</th>
+                                    <th>Donde Se entero?</th>
+                                    <th>Creado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let orlando of orlandos |  paginate: { itemsPerPage: count, currentPage: p }">
+
+                                    <td>{{orlando.id}}</td>
+                                    <td>{{orlando.firstName}}</td>
+                                    <td>{{orlando.lastName}}</td>
+                                    <td>{{orlando.email}}</td>
+                                    <td>{{orlando.pais}}</td>
+                                    <td>{{orlando.estado}}</td>
+                                    <td>{{orlando.telefono}}</td>
+                                    <td>{{orlando.movil}}</td>
+                                    <td>{{orlando.dondeSeEntero}}</td>
+                                    <td>{{orlando.created_at | date:'MMM d, y, h:mm:ss a'}} </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- End Recent Pagos -->
+
+        </section>
+    </div>
+
+</div>
+<!--/main-->

@@ -1,0 +1,75 @@
+<!-- =======| Main |======= -->
+<div class="container animated fadeInUp" id="main" class="main" role="main" name="users">
+
+    <div class="col-xs-12">
+        <div class="leftside">
+            <!-- Page Title -->
+            <div class="pagetitle">
+                <h1><i class="bx bxs-user-account"></i> {{titlePage}}</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/"><i class="bi bi-house"></i> Inicio</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/dashboard/galleries">Galerías</a></li>
+                        <li class="breadcrumb-item active">{{titlePage}}</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End Page Title -->
+        </div>
+        <div class="buton">
+            <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
+        </div>
+        <div class="clear"></div>
+
+
+
+        <section class="section dashboard">
+
+            <div class="row">
+                <div class="col-12 col-md-6">
+
+                    <form enctype="multipart/form-data" [formGroup]="cursoForm" (ngSubmit)="editCurso()">
+                        <input type="hidden" formControlName="id">
+                        <button (click)="editCurso()" class="btn btn-primary">Guardar</button>
+                    </form>
+                </div>
+                <div class="col-12 col-md-6">
+                    <label> {{'Anexe su foto'}}</label>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-12">
+
+
+                            <div *ngIf="!escuelaSeleccionado">
+                                <img src="./assets/images/no-image.jpg" style="height: 100px; width: 100px;" class="img-circle avatar">
+                            </div>
+                            <div *ngIf="escuelaSeleccionado">
+                                <button *ngIf="escuelaSeleccionado.image" type="button" class="btn btn-outline-danger" (click)="deleteFotoPerfil()">Eliminar</button>
+                                <img [src]="escuelaSeleccionado.image | imagenPipe: 'expocafs'" style="height: 50px; width: 50px;" class="img-circle avatar">
+                            </div>
+
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="especificaciones">
+                                <h4>{{'Especificaciones'}}:</h4>
+                                <ul>
+                                    <li>{{'Tamaño máximo'}}: 300px X 300px</li>
+                                    <li>{{'Peso máximo'}}: 500 kb</li>
+                                    <li>{{'Formato permitido'}}: jpg, .gif, .png</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <angular-file-uploader [config]="afuConfig " (ApiResponse)="avatarUpload($event) ">
+                            </angular-file-uploader>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+</div>
+<!--/main-->

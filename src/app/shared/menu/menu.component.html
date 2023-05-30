@@ -1,0 +1,156 @@
+<!-- ============================================================== -->
+<!-- Left Sidebar - style you can find in sidebar.scss  -->
+<!-- ============================================================== -->
+<aside class="left-sidebar">
+    <!-- Sidebar scroll-->
+    <div class="scroll-sidebar">
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav">
+            <ul id="sidebar-nav">
+                <li class="nav-item">
+                    <a class="nav-link collapsed cursor" routerLink="/">
+                        <i class="fa fa-home"></i>
+                        <span>Inicio</span>
+                    </a>
+                </li>
+                <!-- End Dashboard Nav -->
+
+                <!-- menu superadmin y admin -->
+
+                <div *ngIf="user.role === 'SUPERADMIN' || user.role === 'ADMIN' ">
+
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed cursor" [routerLink]="['/dashboard/banners']" routerLinkActive="active">
+                            <i class="fa fa-desktop"></i>
+                            <span>Banner home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed cursor" [routerLink]="['/dashboard/posts/']" routerLinkActive="active">
+                            <i class="fa fa-pencil-square"></i>
+                            <span>Blog</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed cursor" [routerLink]="['/dashboard/cursos']" routerLinkActive="active">
+                            <i class="fa fa-archive"></i>
+                            <span>Cursos</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed cursor" [routerLink]="['/dashboard/cronogramas']" routerLinkActive="active">
+                            <i class="fa fa-calendar"></i>
+                            <span>Cronograma</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed cursor" [routerLink]="['/dashboard/galleries']" routerLinkActive="active">
+                            <i class="fa fa-picture-o"></i>
+                            <span>Galerias</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed cursor" [routerLink]="['/dashboard/servicios']" routerLinkActive="active">
+                            <i class="fa fa-bookmark-o"></i>
+                            <span>Servicios</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed cursor" [routerLink]="['/dashboard/herramientas']" routerLinkActive="active">
+                            <i class="fa fa-tablet"></i>
+                            <span>Herramientas</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed cursor" routerLink="/dashboard/evento-orlando" routerLinkActive="active">
+                            <i class="fa fa-info-circle"></i>
+                            <span>Evento Orlando</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed cursor" routerLink="/dashboard/subscripciones" routerLinkActive="active">
+                            <i class="fa fa-info-circle"></i>
+                            <span>Subscripciones</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed cursor" routerLink="/dashboard/payments" routerLinkActive="active">
+                            <i class="fa fa-cc"> </i>
+                            <span>Pagos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed cursor" routerLink="/dashboard/users" routerLinkActive="active">
+                            <i class="fa fa-users"></i>
+                            <span>Usuarios</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed cursor" [routerLink]="['/dashboard/profile/', user.id]" routerLinkActive="active">
+                            <i class="fa fa-user"></i>
+                            <span>Mi Cuenta</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed cursor" routerLink="/dashboard/configuraciones" routerLinkActive="active">
+                            <i class="fa fa-cogs"> </i>
+                            <span>Configuraciones</span>
+                        </a>
+                    </li>
+                    <!-- End Payments Page Nav -->
+                </div>
+
+                <!-- menu superadmin y admin -->
+                <!-- menu miembro -->
+
+
+                <div *ngIf="user.role === 'MEMBER' ">
+                    <li class="nav-item">
+                        <a class="nav-link collapsed cursor" [routerLink]="['/dashboard/profile/', user.id]" routerLinkActive="active">
+                            <i class="fa fa-user-md"></i>
+                            <span>Mi Cuenta</span>
+                        </a>
+                    </li>
+                    <!-- End Payments Page Nav -->
+                </div>
+
+
+                <div *ngIf="user.role === 'GUEST' ">
+                    <li class="nav-item">
+                        <a class="nav-link collapsed cursor" [routerLink]="['/dashboard/profile/', user.id]" routerLinkActive="active">
+                            <i class="fa fa-user-md"></i>
+                            <span>Mi Cuenta</span>
+                        </a>
+                    </li>
+                    <!-- End Payments Page Nav -->
+                </div>
+
+                <!-- End Payments Page Nav -->
+                <!-- todos -->
+
+                <!-- End F.A.Q Page Nav -->
+
+
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed cursor" (click)="logout()">
+                        <i class="fa fa-power-off"></i>
+                        <span>Salir</span>
+                    </a>
+                </li>
+                <!-- End Contact Page Nav -->
+
+
+            </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+    </div>
+    <!-- End Sidebar scroll-->
+</aside>
+<!-- ============================================================== -->
+<!-- End Left Sidebar - style you can find in sidebar.scss  -->
+<!-- ============================================================== -->

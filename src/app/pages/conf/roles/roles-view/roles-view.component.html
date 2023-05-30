@@ -1,0 +1,128 @@
+<!-- =======| Main |======= -->
+<div class="container animated fadeInUp" id="main" class="main" role="main" name="users">
+
+    <div class="col-xs-12">
+        <div class="leftside">
+            <!-- Page Title -->
+            <div class="pagetitle">
+                <h1><i class="bx bxs-user-account"></i> {{title}}</h1>
+
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/"><i class="bi bi-house"></i> Inicio</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/">Panel Admin</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/dashboard/configuraciones">Configuraciones</a></li>
+                        <li class="breadcrumb-item active">{{title}}</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End Page Title -->
+        </div>
+        <div class="buton">
+            <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
+        </div>
+        <div class="clear"></div>
+
+
+
+        <section class="section dashboard">
+
+
+            <!-- Recent Pagos -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- buscador -->
+                        <!-- <app-search></app-search> -->
+                        <!-- buscador -->
+                    </div>
+                </div>
+                <div class="card recent-sales overflow-auto">
+
+
+                    <div class="card-body">
+
+
+                        <table class="table table-borderless datatable':'table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Username</th>
+                                    <th>email</th>
+                                    <th>Role</th>
+                                    <th>Role Edit</th>
+                                    <th>Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let user of users |  paginate: { itemsPerPage: count, currentPage: p }">
+
+                                    <td>{{user.id}}</td>
+                                    <td><a [routerLink]="['/dashboard/user/', user.id]">{{user.id}}</a></td>
+                                    <td>{{user.username}}</td>
+                                    <td>{{user.email}} </td>
+                                    <td>
+
+                                        <span class="badge bg-dark" *ngIf="user.role === 'SUPERADMIN'">SuperAdmin</span>
+                                        <span class="badge bg-primary" *ngIf="user.role === 'ADMIN'">Admin</span>
+                                        <span class="badge bg-success" *ngIf="user.role === 'MEMBER'">Miembro</span>
+                                        <span class="badge bg-success" *ngIf="user.role === 'EDITOR'">Editor</span>
+                                        <span class="badge bg-danger" *ngIf="user.role === 'GUEST'">Invitado</span>
+
+                                    </td>
+                                    <td>
+
+                                        <select class="form-control" [(ngModel)]="user.role">
+                                    <option value="SUPERADMIN">Super Admin</option>
+                                    <option value="ADMIN">Admin</option>
+                                    <option value="MEMBER">Miembro</option>
+                                    <option value="EDITOR">Editor</option>
+                                    <option value="GUEST">Invitado</option>
+                                  </select>
+
+                                        <!-- <div class="form-group">
+                                        <div class="col-sm-2">
+                                            <select formControlName="rolesSelected" name="" id="input" ass="form-control" required="required">
+                                          <option *ngFor="let rol of roles" [value]="role.id">{{role.name}}</option>
+
+                                        </select>
+                                        </div>
+                                    </div> -->
+
+                                    </td>
+
+                                    <td class="text-nowrap text-center">
+
+                                        <a (click)="cambiarRole(user)" class="cursor" data-toggle="tooltip" data-original-title="Edit">
+                                            <button class="btn btn-outline-success">
+                                          <i class="bx bxs-check-circle text-success" style="font-size: 18px;"></i> Aceptar
+                                        </button>
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+                            </tbody>
+
+                        </table>
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+                        <!-- <table class="table table-borderless" *ngIf="loading">
+                        <tfoot>
+                            <tr>
+                                <td colspan="6">&nbsp; Encontrados {{ usersCount }} usuarios</td>
+                            </tr>
+                        </tfoot>
+                    </table> -->
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- End Recent Pagos -->
+
+        </section>
+
+    </div>
+</div>
+<!--/main-->

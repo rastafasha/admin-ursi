@@ -1,0 +1,107 @@
+<!-- =======| Main |======= -->
+<div class="container animated fadeInUp" id="main" class="main" role="main" name="users">
+
+    <div class="col-xs-12">
+        <div class="leftside">
+            <!-- Page Title -->
+            <div class="pagetitle">
+                <h1><i class="bx bxs-user-account"></i> {{title}}</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/"><i class="fa fa-home"></i> Inicio</a></li>
+                        <li class="breadcrumb-item active">{{title}}</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End Page Title -->
+        </div>
+        <div class="buton">
+            <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
+        </div>
+
+        <div class="clear"></div>
+
+
+        <section class="section dashboard">
+
+
+            <!-- Recent Pagos -->
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-11 col-sm-11">
+                        <!-- buscador -->
+                        <!-- <app-search></app-search> -->
+                        <!-- buscador -->
+                    </div>
+                    <div class="col-xs-1 col-sm-1">
+                        <div class="text-right">
+                            <button class="btn btn-primary" [routerLink]="['/dashboard/cronograma/create/']">
+              <i class="fa fa-pencil"></i>
+              Crear
+            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="card recent-sales overflow-auto">
+
+
+                    <div class="card-body">
+
+
+                        <table [ngClass]="loading? 'table table-borderless datatable':'table table-borderless'">
+                            <thead>
+                                <tr>
+                                    <th>Imagen</th>
+                                    <th>Modo</th>
+                                    <th>Nombre</th>
+                                    <th>Fecha</th>
+                                    <th>Precio</th>
+                                    <th class="text-nowrap">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let cronograma of cronologiacursos |  paginate: { itemsPerPage: count, currentPage: p }">
+                                    <td>
+                                        <div class="image">
+                                            <div *ngIf="!cronograma.image ">
+                                                <img [src]="cronograma.image | imagenPipe: 'cronologiacursos'" style="height: 50px; width: 50px;" class="img-circle avatar">
+                                            </div>
+                                            <div *ngIf="cronograma.image">
+                                                <img [src]="cronograma.image | imagenPipe: 'cronologiacursos'" style="height: 50px; width: 50px;" class="img-circle avatar">
+
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>{{cronograma.modo}}</td>
+                                    <td>{{cronograma.title}}</td>
+                                    <td>{{cronograma.fecha}}</td>
+                                    <td>{{cronograma.costo|currency}} </td>
+
+                                    <td class="text-nowrap text-center">
+                                        <a [routerLink]="['/dashboard/cronograma/edit', cronograma.id]" class="cursor" data-toggle="tooltip" data-original-title="Edit">
+                                            <div class="btn btn-success"><i class="fa fa-edit"></i></div>
+                                        </a>
+                                        <a (click)="eliminarCurso(cronograma.id)" class="cursor" data-toggle="tooltip" data-original-title="Borrar">
+                                            <div class="btn btn-danger"><i class="fa fa-trash"></i></div>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- End Recent Pagos -->
+
+        </section>
+    </div>
+
+</div>
+<!--/main-->
