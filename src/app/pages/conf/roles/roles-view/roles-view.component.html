@@ -33,7 +33,16 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- buscador -->
-                        <!-- <app-search></app-search> -->
+                        <form class="form-horizontal">
+                            <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+                                <div class="input-group">
+                                    <input type="search" name="search" type="text" class="form-control col-xs-12" placeholder="Buscar.." [(ngModel)]="query" aria-describedby="button-addon1" class="form-control border-0 bg-light">
+                                    <div class="input-group-append">
+                                        <button id="button-addon1" type="submit" class="btn btn-link text-primary" (click)="search()" name="submit" data-toggle="tooltip" title="mostrar todos"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                         <!-- buscador -->
                     </div>
                 </div>
@@ -66,32 +75,21 @@
                                         <span class="badge bg-dark" *ngIf="user.role === 'SUPERADMIN'">SuperAdmin</span>
                                         <span class="badge bg-primary" *ngIf="user.role === 'ADMIN'">Admin</span>
                                         <span class="badge bg-success" *ngIf="user.role === 'MEMBER'">Miembro</span>
-                                        <span class="badge bg-success" *ngIf="user.role === 'EDITOR'">Editor</span>
                                         <span class="badge bg-danger" *ngIf="user.role === 'GUEST'">Invitado</span>
 
                                     </td>
                                     <td>
 
-                                        <select class="form-control" [(ngModel)]="user.role">
-                                    <option value="SUPERADMIN">Super Admin</option>
-                                    <option value="ADMIN">Admin</option>
-                                    <option value="MEMBER">Miembro</option>
-                                    <option value="EDITOR">Editor</option>
-                                    <option value="GUEST">Invitado</option>
-                                  </select>
-
-                                        <!-- <div class="form-group">
-                                        <div class="col-sm-2">
-                                            <select formControlName="rolesSelected" name="" id="input" ass="form-control" required="required">
-                                          <option *ngFor="let rol of roles" [value]="role.id">{{role.name}}</option>
-
-                                        </select>
-                                        </div>
-                                    </div> -->
+                                            <select class="form-control" [(ngModel)]="user.role" (change)="cambiarRole(user)">
+                                              <option value="SUPERADMIN">Super Admin</option>
+                                              <option value="ADMIN">Admin</option>
+                                              <option value="MEMBER">Miembro</option>
+                                              <option value="GUEST">Invitado</option>
+                                            </select>
 
                                     </td>
 
-                                    <td class="text-nowrap text-center">
+                                    <!-- <td class="text-nowrap text-center">
 
                                         <a (click)="cambiarRole(user)" class="cursor" data-toggle="tooltip" data-original-title="Edit">
                                             <button class="btn btn-outline-success">
@@ -99,7 +97,7 @@
                                         </button>
                                         </a>
 
-                                    </td>
+                                    </td> -->
 
                                 </tr>
                             </tbody>

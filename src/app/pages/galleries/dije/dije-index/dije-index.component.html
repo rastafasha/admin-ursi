@@ -62,7 +62,6 @@
                                     <th>precio</th>
                                     <th>Status</th>
                                     <th>Estado</th>
-                                    <th>Accion</th>
                                     <th class="text-nowrap">Acciones</th>
                                 </tr>
                             </thead>
@@ -89,19 +88,19 @@
                                         <span class="badge bg-danger" *ngIf="dije.status === 'REJECTED'">Rechazado</span>
                                     </td>
                                     <td>
-                                        <select class="form-control" [(ngModel)]="dije.status">
+                                        <select class="form-control" [(ngModel)]="dije.status" (change)="cambiarStatus(dije)">
                                       <option value="PUBLISHED">Publicado</option>
                                       <option value="PENDING">Pendiente</option>
                                       <option value="REJECTED">Rechazado</option>
                                     </select>
                                     </td>
-                                    <td class="text-nowrap text-center">
+                                    <!-- <td class="text-nowrap text-center">
                                         <a (click)="cambiarStatus(dije)" class="cursor" data-toggle="tooltip" data-original-title="Edit">
                                             <button class="btn btn-outline-success">
                                         <i class="bx bxs-check-circle text-success" style="font-size: 18px;"></i> Aceptar
                                       </button>
                                         </a>
-                                    </td>
+                                    </td> -->
                                     <td class="text-nowrap text-center">
                                         <a [routerLink]="['/dashboard/dije/edit', dije.id]" class="cursor" data-toggle="tooltip" data-original-title="Edit">
                                             <div class="btn btn-success"><i class="fa fa-edit"></i></div>

@@ -70,4 +70,9 @@ export class PostService {
   deleteFoto(id) {
     return this.http.delete(baseUrl + '/post/delete-foto/' + id);
   }
+
+  search(query=''){
+    return this.http.get(`${baseUrl}/post/search/`, {params: {buscar: query}})
+
+  }
 }

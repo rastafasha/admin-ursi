@@ -31,7 +31,16 @@
                 <div class="row">
                     <div class="col-xs-11 col-sm-11">
                         <!-- buscador -->
-                        <!-- <app-search></app-search> -->
+                        <form class="form-horizontal">
+                            <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+                                <div class="input-group">
+                                    <input type="search" name="search" type="text" class="form-control col-xs-12" placeholder="Buscar.." [(ngModel)]="query" aria-describedby="button-addon1" class="form-control border-0 bg-light">
+                                    <div class="input-group-append">
+                                        <button id="button-addon1" type="submit" class="btn btn-link text-primary" (click)="search()" name="submit" data-toggle="tooltip" title="mostrar todos"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                         <!-- buscador -->
                     </div>
                     <div class="col-xs-1 col-sm-1">
@@ -58,7 +67,7 @@
                                     <th>title</th>
                                     <th>Status</th>
                                     <th>Estado</th>
-                                    <th>Accion</th>
+                                    <!-- <th>Accion</th> -->
                                     <th class="text-nowrap">Acciones</th>
                                 </tr>
                             </thead>
@@ -83,19 +92,19 @@
                                         <span class="badge bg-danger" *ngIf="post.status === 'REJECTED'">Rechazado</span>
                                     </td>
                                     <td>
-                                        <select class="form-control" [(ngModel)]="post.status">
+                                        <select class="form-control" [(ngModel)]="post.status" (change)="cambiarStatus(post)">
                                       <option value="PUBLISHED">Publicado</option>
                                       <option value="PENDING">Pendiente</option>
                                       <option value="REJECTED">Rechazado</option>
                                     </select>
                                     </td>
-                                    <td class="text-nowrap text-center">
+                                    <!-- <td class="text-nowrap text-center">
                                         <a (click)="cambiarStatus(post)" class="cursor" data-toggle="tooltip" data-original-title="Edit">
                                             <button class="btn btn-outline-success">
                                               <i class="bx bxs-check-circle text-success" style="font-size: 18px;"></i> Aceptar
                                             </button>
                                         </a>
-                                    </td>
+                                    </td> -->
                                     <td class="text-nowrap text-center">
                                         <a [routerLink]="['/dashboard/post/edit', post.id]" class="cursor" data-toggle="tooltip" data-original-title="Edit">
                                             <div class="btn btn-success"><i class="fa fa-edit"></i></div>

@@ -16,10 +16,12 @@ export class PaymentsComponent implements OnInit {
 
   title = "Pagos"
 
-  payments: Payment;
+  payments: any;
   error:string;
   p: number = 1;
   count: number = 8;
+
+  query:string ='';
 
   public user;
 
@@ -75,6 +77,16 @@ export class PaymentsComponent implements OnInit {
     this.location.back(); // <-- go back to previous location on cancel
   }
 
+
+  search() {
+    return this.paymentService.search(this.query).subscribe(
+      res=>{
+        this.payments = res;
+        if(!this.query){
+          this.ngOnInit();
+        }
+      });
+  }
 
 
 }

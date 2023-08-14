@@ -10,6 +10,7 @@ export class Banner {
   botonName: string;
   url: string;
   image: string;
+  imagemovil: string;
   created_at: string;
   updated_at: string;
   status?: 'PUBLISHED' | 'PENDING' | 'REJECTED';
@@ -29,5 +30,19 @@ export class Banner {
     }
 
   }
+
+  get imagenUrlMovil(){
+
+    if(!this.imagemovil){
+      return `${base_url}movil/no-image.jpg`;
+    } else if(this.imagemovil.includes('https')){
+      return this.imagemovil;
+    } else if(this.imagemovil){
+      return `${base_url}movil/${this.imagemovil}`;
+    }else {
+      return `${base_url}/no-image.jpg`;
+      // return `./assets/img/no-image.jpg`;
+    }
+    }
 
 }

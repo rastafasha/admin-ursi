@@ -61,4 +61,9 @@ export class CategoryService {
     const url = `${baseUrl}/category/destroy/${category}`;
     return this.http.delete(url, this.headers);
   }
+
+  search(query=''){
+    return this.http.get(`${baseUrl}/category/search/`, {params: {buscar: query}})
+
+  }
 }

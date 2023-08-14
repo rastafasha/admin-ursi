@@ -73,4 +73,9 @@ export class CronogramaService {
     return this.http.delete(url, this.headers);
   }
 
+  search(query=''){
+    return this.http.get(`${baseUrl}/cronologiacurso/search`, {params: {buscar: query}})
+
+  }
+
 }

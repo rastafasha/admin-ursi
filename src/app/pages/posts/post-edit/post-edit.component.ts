@@ -36,13 +36,24 @@ export class PostEditComponent implements OnInit {
   public post: Post;
 
   public imgSelect : String | ArrayBuffer;
-  public categories: Category;
+  
 
   titlePage: string;
 
   public postSeleccionado: Post;
   public user: User;
   id:any;
+
+
+  public categories: Category;
+  public categorySeleccionado: Category;
+  // categories: Category;
+  categoriaslista: Category;
+  public msm_error = '';
+  categoryForm: FormGroup;
+
+
+
 
   imagePath: string;
   error: string;
@@ -97,6 +108,7 @@ export class PostEditComponent implements OnInit {
   ngOnInit(): void {
     this.getCategories();
     this.validarFormulario();
+    this.validarFormularioCategoria();
     this.getUser();
     this.activatedRoute.params.subscribe( ({id}) => this.getPost(id));
     window.scrollTo(0,0);
@@ -257,6 +269,61 @@ export class PostEditComponent implements OnInit {
       }
     );
   }
+
+  // get name() {
+  //   return this.categoryForm.get('name');
+  // }
+
+  updateCategory(){
+
+    const {name } = this.categoryForm.value;
+
+    if(this.categorySeleccionado){
+      //actualizar
+      const data = {
+        ...this.categoryForm.value,
+        id: this.categorySeleccionado.id
+      }
+      this.categoryService.updateCategory(data).subscribe(
+        resp =>{
+          this.getCategories();
+        });
+
+    }else{
+      //crear
+      this.categoryService.createCategory(this.categoryForm.value)
+      .subscribe( (resp: any) =>{
+        this.getCategories();
+        // this.enviarNotificacion();
+      })
+    }
+
+  }
+
+  cargarCategory(id: number){
+    if (id !== null && id !== undefined) {
+      this.categoryService.getCategory(id).subscribe(
+        res => {
+          this.categoryForm.patchValue({
+            id: res.id,
+            name: res.name,
+          });
+          this.categorySeleccionado = res;
+          console.log(this.categorySeleccionado);
+        }
+      );
+    } 
+
+  }
+
+
+  validarFormularioCategoria(){
+    this.categoryForm = this.fb.group({
+      name: ['',Validators.required],
+    })
+  }
+
+  
 
   //ckeditor
 

@@ -80,6 +80,9 @@ export class BannerService {
   deleteFoto(id) {
     return this.http.delete(baseUrl + '/banner/delete-foto/' + id);
   }
+  deleteFotoMovl(id) {
+    return this.http.delete(baseUrl + '/banner/delete-foto/movil/' + id);
+  }
 
 
   deleteBanner(banner: Banner) {

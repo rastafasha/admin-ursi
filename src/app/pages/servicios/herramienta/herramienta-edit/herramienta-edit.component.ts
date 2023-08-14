@@ -111,7 +111,7 @@ getUser(): void {
 
 getServicio(id: number){
   if (id !== null && id !== undefined) {
-    this.titlePage = 'Editando Servicio';
+    this.titlePage = 'Editando Herramienta';
     this.herramientaService.getHerramienta(+id).subscribe(
       res => {
         this.servicioForm.patchValue({
@@ -126,7 +126,7 @@ getServicio(id: number){
       }
     );
   } else {
-    this.titlePage = 'Creando Servicio';
+    this.titlePage = 'Creando Herramienta';
   }
 }
 

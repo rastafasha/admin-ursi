@@ -5,16 +5,16 @@
     overflow: hidden;
     position: relative;
     border-radius: 10px;
-    box-shadow: 5px 20px 50px #000;
-    background: #353888;
+    box-shadow: 0px -50px 50px #000;
+    background: var(--vinotinto);
     /* Old browsers */
-    background: -moz-linear-gradient(top, #f2f2f2 0%, #921014 100%);
+    background: -moz-linear-gradient(top, var(--vinotinto) 0%, var(--vinotintooscuro) 100%);
     /* FF3.6-15 */
-    background: -webkit-linear-gradient(top, #f2f2f2 0%, #921014 100%);
+    background: -webkit-linear-gradient(top, var(--vinotinto) 0%, var(--vinotintooscuro) 100%);
     /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, #f2f2f2 0%, #921014 100%);
+    background: linear-gradient(to bottom, var(--vinotinto) 0%, var(--vinotintooscuro) 100%);
     /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#f2f2f2', endColorstr='#921014', GradientType=0);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#921014', endColorstr='#4b080a', GradientType=0);
     /* IE6-9 */
 }
 
@@ -29,8 +29,7 @@
     align-items: center;
     min-height: 100vh;
     font-family: 'Jost', sans-serif;
-    background: var(--white);
-    /* background: linear-gradient(to bottom, #0f0c29, var(--vinotinto), var(--white)); */
+    background: linear-gradient(to bottom, #0f0c29, var(--vinotinto), var(--vinotintooscuro));
 }
 
 #chk {
@@ -172,7 +171,7 @@ button {
 }
 
 button:hover {
-    background: var(--vinotinto);
+    background: var(--vinotintooscuro);
 }
 
 .login {
@@ -242,6 +241,7 @@ button:hover {
     margin: auto;
     display: flex;
     margin-top: 10px;
+    filter: invert(1);
 }
 
 .signup .checkbox {
@@ -252,17 +252,48 @@ button:hover {
     align-items: center;
 }
 
+@media(min-width:768px) and (max-width:990px) {
+    .main {
+        width: 350px;
+        height: 540px;
+        border-radius: 0px;
+    }
+}
+
+@media(min-width:990px) and (max-width:1200px) {
+    .main {
+        width: 350px;
+        height: 540px;
+        border-radius: 0px;
+    }
+}
+
+@media(min-width:1200px)  {
+    .main {
+        width: 350px;
+        height: 540px;
+        border-radius: 0px;
+    }
+}
+
+@media(min-width:1260px)  {
+    .main {
+        width: 350px;
+        height: 540px;
+        border-radius: 0px;
+    }
+}
 @media(min-width:768px) {
     .loginregister {
         justify-content: center;
         align-items: center;
         min-height: 100vh;
     }
-    .main {
+    /* .main {
         width: 350px;
         height: 76vh;
         border-radius: 0px;
-    }
+    } */
     .main img {
         width: 25%;
     }

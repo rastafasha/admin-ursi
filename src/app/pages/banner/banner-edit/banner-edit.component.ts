@@ -75,7 +75,39 @@ export class BannerEditComponent implements OnInit {
        attachPinBtn: 'Seleccionar una imagen',
        afterUploadMsg_success: 'Se cargó correctamente el archivo !',
        afterUploadMsg_error: 'Se produjo un error al subir el archivo!',
-       sizeLimit: 'Límite de tamaño 2 Megas'
+       sizeLimit: 'Límite de tamaño 500kb'
+     }
+   };
+
+   public movilConfig = {
+     multiple: false,
+     formatsAllowed: '.jpg, .png, .gif, .jpeg',
+     method: 'POST',
+     maxSize: '2',
+     uploadAPI: {
+       url: environment.apiUrl + '/banner/upload/movil',
+       headers: {
+         Accept: 'application/json',
+         Authorization: 'Bearer ' + this.accountService.headers
+
+       },
+       responseType: 'json',
+     },
+     theme: 'dragNDrop',
+     selectFileBtn: 'Select Files',
+     hideProgressBar: false,
+     hideResetBtn: false,
+     hideSelectBtn: false,
+     fileNameIndex: true,
+     replaceTexts: {
+       selectFileBtn: 'Seleccionar imagen',
+       resetBtn: 'Resetear',
+       uploadBtn: 'Subir',
+       dragNDropBox: 'Arrastre y suelte aquí',
+       attachPinBtn: 'Seleccionar una imagen',
+       afterUploadMsg_success: 'Se cargó correctamente el archivo !',
+       afterUploadMsg_error: 'Se produjo un error al subir el archivo!',
+       sizeLimit: 'Límite de tamaño 500kb'
      }
    };
 
@@ -95,7 +127,7 @@ export class BannerEditComponent implements OnInit {
    ngOnInit(): void {
      this.validarFormulario();
      this.getUser();
-     this.activatedRoute.params.subscribe( ({id}) => this.getCurso(id));
+     this.activatedRoute.params.subscribe( ({id}) => this.getBann(id));
      window.scrollTo(0,0);
    }
 
@@ -110,9 +142,9 @@ export class BannerEditComponent implements OnInit {
        this.id = this.user.id;
    }
 
-   getCurso(id: number){
+   getBann(id: number){
      if (id !== null && id !== undefined) {
-       this.titlePage = 'Editando Curso';
+       this.titlePage = 'Editando Banner';
        this.bannerService.getBanner(+id).subscribe(
          res => {
            this.bannerForm.patchValue({
@@ -124,13 +156,15 @@ export class BannerEditComponent implements OnInit {
              url: res.url,
              description: res.description,
              status: res.status,
+             image: res.image,
+             imagemovil: res.imagemovil,
            });
            this.banner = res;
           //  console.log(this.banner);
          }
        );
      } else {
-       this.titlePage = 'Creando Curso';
+       this.titlePage = 'Creando Banner';
      }
    }
 
@@ -145,6 +179,7 @@ export class BannerEditComponent implements OnInit {
        url: [''],
        status: ['PENDING'],
        image: [''],
+       imagemovil: [''],
      })
    }
    get title() {
@@ -174,6 +209,9 @@ export class BannerEditComponent implements OnInit {
    get image() {
      return this.bannerForm.get('image');
    }
+   get imagemovil() {
+     return this.bannerForm.get('imagemovil');
+   }
 
 
 
@@ -191,9 +229,26 @@ export class BannerEditComponent implements OnInit {
      });
    }
 
+   avatarUploadMovil(datos) {
+     const data = JSON.parse(datos.response);
+     this.bannerForm.controls['imagemovil'].setValue(data.image);//almaceno el nombre de la imagen
+    //  this.banner.imagemovil = data.imagemovil;
+     
+    //  console.log('imagermovil', data.image);
+   }
+
+   deleteFotoPerfilMovil(){
+     this.bannerService.deleteFotoMovl(this.bannerForm.value['id']).subscribe(response => {
+       Swal.fire(response['msg']['summary'], response['msg']['detail'], 'success');
+       this.ngOnInit();
+     }, error => {
+       Swal.fire('Error al eliminar', 'Intente de nuevo', 'error');
+     });
+   }
 
 
-   editCurso(){
+
+   editCurso(){debugger
 
      const formData = new FormData();
      formData.append('title', this.bannerForm.get('title').value);
@@ -203,6 +258,7 @@ export class BannerEditComponent implements OnInit {
      formData.append('description', this.bannerForm.get('description').value);
      formData.append('url', this.bannerForm.get('url').value);
      formData.append('image', this.bannerForm.get('image').value);
+     formData.append('imagemovil', this.bannerForm.get('imagemovil').value);
      formData.append('status', 'PENDING');
 
      const id = this.bannerForm.get('id').value;
@@ -241,8 +297,6 @@ export class BannerEditComponent implements OnInit {
 goBack() {
   this.location.back(); // <-- go back to previous location on cancel
 }
-
-
 
 
    //ckeditor

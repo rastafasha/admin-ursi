@@ -55,13 +55,14 @@
                             <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Imagen</th>
+                                    <th>Imagen Web</th>
+                                    <th>Imagen Movil</th>
                                     <th>Nombre</th>
                                     <th>target</th>
                                     <th>Nombre Boton</th>
                                     <th>Status</th>
                                     <th>Estado</th>
-                                    <th>Accion</th>
+                                    <!-- <th>Accion</th> -->
                                     <th class="text-nowrap">Acciones</th>
                                 </tr>
                             </thead>
@@ -71,10 +72,21 @@
                                     <td>
                                         <div class="image">
                                             <div *ngIf="!banner.image ">
-                                                <img [src]="banner.image | imagenPipe: 'banners'" style="height: 50px; width: 50px;" class="img-circle avatar">
+                                                <img [src]="banner.image | imagenPipe: 'banners'" style="height: 50px; width: 50px;" class="avatar">
                                             </div>
                                             <div *ngIf="banner.image">
-                                                <img [src]="banner.image | imagenPipe: 'banners'" style="height: 50px; width: 50px;" class="img-circle avatar">
+                                                <img [src]="banner.image | imagenPipe: 'banners'" style="height: auto; width: 90px;" >
+
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="imagemovil">
+                                            <div *ngIf="!banner.imagemovil ">
+                                                <img [src]="banner.imagemovil | imagenPipe: 'movil'" style="height: 50px; width: 50px;" class=" avatar">
+                                            </div>
+                                            <div *ngIf="banner.image">
+                                                <img [src]="banner.imagemovil | imagenPipe: 'movil'" style="height: auto; width: 50px;">
 
                                             </div>
                                         </div>
@@ -88,19 +100,19 @@
                                         <span class="badge bg-danger" *ngIf="banner.status === 'REJECTED'">Rechazado</span>
                                     </td>
                                     <td>
-                                        <select class="form-control" [(ngModel)]="banner.status">
+                                        <select class="form-control" [(ngModel)]="banner.status" (change)="cambiarStatus(banner)">
                                         <option value="PUBLISHED">Publicado</option>
                                         <option value="PENDING">Pendiente</option>
                                         <option value="REJECTED">Rechazado</option>
                                       </select>
                                     </td>
-                                    <td class="text-nowrap text-center">
+                                    <!-- <td class="text-nowrap text-center">
                                         <a (click)="cambiarStatus(banner)" class="cursor" data-toggle="tooltip" data-original-title="Edit">
                                             <button class="btn btn-outline-success">
                                           <i class="bx bxs-check-circle text-success" style="font-size: 18px;"></i> Aceptar
                                         </button>
                                         </a>
-                                    </td>
+                                    </td> -->
                                     <td class="text-nowrap text-center">
                                         <a [routerLink]="['/dashboard/banner/edit', banner.id]" class="cursor" data-toggle="tooltip" data-original-title="Edit">
                                             <div class="btn btn-success"><i class="fa fa-edit"></i></div>

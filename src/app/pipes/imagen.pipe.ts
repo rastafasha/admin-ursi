@@ -10,7 +10,7 @@ export class ImagenPipe implements PipeTransform {
 
   transform(img: string, tipo:
     'users'|'payments'|'posts'|'profiles'|'cursos'|'services'|'anillos'|'aretes'|'dijes'
-    |'galleryschools'|'expocafs'|'joyas'|'publicacions'|'pulseras'|'herramientas'|'cronologiacursos'
+    |'galleryschools'|'expocafs'|'joyas'|'publicacions'|'pulseras'|'herramientas'|'cronologiacursos'|'movil'
   ): string {
 
     if(!img){

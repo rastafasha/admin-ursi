@@ -60,7 +60,6 @@
                                     <th>SubTitulo</th>
                                     <th>Status</th>
                                     <th>Estado</th>
-                                    <th>Accion</th>
                                     <th class="text-nowrap">Acciones</th>
                                 </tr>
                             </thead>
@@ -86,18 +85,11 @@
                                         <span class="badge bg-danger" *ngIf="herramienta.status === 'REJECTED'">Rechazado</span>
                                     </td>
                                     <td>
-                                        <select class="form-control" [(ngModel)]="herramienta.status">
+                                        <select class="form-control" [(ngModel)]="herramienta.status" (change)="cambiarStatus(herramienta)">
                                       <option value="PUBLISHED">Publicado</option>
                                       <option value="PENDING">Pendiente</option>
                                       <option value="REJECTED">Rechazado</option>
                                     </select>
-                                    </td>
-                                    <td class="text-nowrap text-center">
-                                        <a (click)="cambiarStatus(herramienta)" class="cursor" data-toggle="tooltip" data-original-title="Edit">
-                                            <button class="btn btn-outline-success">
-                                        <i class="bx bxs-check-circle text-success" style="font-size: 18px;"></i> Aceptar
-                                      </button>
-                                        </a>
                                     </td>
                                     <td class="text-nowrap text-center">
                                         <a [routerLink]="['/dashboard/herramienta/edit', herramienta.id]" class="cursor" data-toggle="tooltip" data-original-title="Edit">

@@ -13,7 +13,7 @@ import { UserService } from 'src/app/services/user.service';
 export class RolesViewComponent implements OnInit {
 
    title = "Roles";
-  users: User[] = [];
+  users: any;
   user: User;
 
   p: number = 1;
@@ -26,6 +26,7 @@ export class RolesViewComponent implements OnInit {
   rolesSelected:number;
 
   rolesForm: FormGroup;
+  query:string ='';
 
   constructor(
     private fb:FormBuilder,
@@ -77,6 +78,16 @@ export class RolesViewComponent implements OnInit {
 
   goBack() {
     this.location.back(); // <-- go back to previous location on cancel
+  }
+
+  search() {
+    return this.userService.search(this.query).subscribe(
+      res=>{
+        this.users = res;
+        if(!this.query){
+          this.ngOnInit();
+        }
+      });
   }
 
 }

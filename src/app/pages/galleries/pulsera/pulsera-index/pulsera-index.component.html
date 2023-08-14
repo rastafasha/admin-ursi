@@ -62,7 +62,6 @@
                                     <th>precio</th>
                                     <th>Status</th>
                                     <th>Estado</th>
-                                    <th>Accion</th>
                                     <th class="text-nowrap">Acciones</th>
                                 </tr>
                             </thead>
@@ -89,18 +88,11 @@
                                         <span class="badge bg-danger" *ngIf="pulsera.status === 'REJECTED'">Rechazado</span>
                                     </td>
                                     <td>
-                                        <select class="form-control" [(ngModel)]="pulsera.status">
+                                        <select class="form-control" [(ngModel)]="pulsera.status" (change)="cambiarStatus(pulsera)">
                                       <option value="PUBLISHED">Publicado</option>
                                       <option value="PENDING">Pendiente</option>
                                       <option value="REJECTED">Rechazado</option>
                                     </select>
-                                    </td>
-                                    <td class="text-nowrap text-center">
-                                        <a (click)="cambiarStatus(pulsera)" class="cursor" data-toggle="tooltip" data-original-title="Edit">
-                                            <button class="btn btn-outline-success">
-                                        <i class="bx bxs-check-circle text-success" style="font-size: 18px;"></i> Aceptar
-                                      </button>
-                                        </a>
                                     </td>
                                     <td class="text-nowrap text-center">
                                         <a [routerLink]="['/dashboard/pulsera/edit', pulsera.id]" class="cursor" data-toggle="tooltip" data-original-title="Edit">

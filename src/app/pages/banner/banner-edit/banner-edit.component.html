@@ -9,7 +9,7 @@
                 <nav>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a routerLink="/"><i class="bi bi-house"></i> Inicio</a></li>
-                        <li class="breadcrumb-item"><a routerLink="/dashboard/cursos">Cursos</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/dashboard/banners">Banners</a></li>
                         <li class="breadcrumb-item active">{{titlePage}}</li>
                     </ol>
                 </nav>
@@ -86,25 +86,50 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <div *ngIf="!banner">
-                                <img src="./assets/images/no-image.jpg" style="height: 100px; width: 100px;" class="img-circle avatar">
+                                <img src="./assets/images/no-image.jpg" style="height: 100px; width: 100px;" class="avatar">
                             </div>
                             <div *ngIf="banner">
-                                <button *ngIf="banner.image" type="button" class="btn btn-outline-danger" (click)="deleteFotoPerfil()">Eliminar</button>
-                                <img [src]="banner.image | imagenPipe: 'banners'" style="height: 100px; width: 100px;" class="img-circle avatar">
+                                <p>imagen web</p>
+                                <div class="imagenpost">
+                                    <img [src]="banner.image | imagenPipe: 'banners'" style="height: auto; width: 50%;" class=" ">
+                                <button *ngIf="banner.image" type="button" class="btn btn-outline-danger" (click)="deleteFotoPerfil()">Eliminar</button><br>
+                                </div>
+                                <p>imagen movil</p>
+                                <div class="imagenpost">
+                                    <img [src]="banner.imagemovil | imagenPipe: 'movil'" style="height: auto; width: 30%;" class="">
+                                <button *ngIf="banner.imagemovil" type="button" class="btn btn-outline-danger" (click)="deleteFotoPerfilMovil()">Eliminar</button>
+                                </div>
                             </div>
                         </div>
+                        <div class="clear"></div>
+                        <br><br>
                         <div class="col-xs-12">
                             <div class="especificaciones">
-                                <h4>{{'Especificaciones'}}:</h4>
+                                <h4>{{'Especificaciones para Web'}}:</h4>
                                 <ul>
-                                    <li>{{'Tamaño máximo'}}: 1920px x 1080px</li>
+                                    <li>{{'Tamaño'}}: 1920px x 1080px</li>
                                     <li>{{'Peso máximo'}}: 500 kb</li>
                                     <li>{{'Formato permitido'}}: jpg, .gif, .png</li>
                                 </ul>
                             </div>
+
+                            <angular-file-uploader [config]="afuConfig " formControlName="image" (ApiResponse)="avatarUpload($event) ">
+                            </angular-file-uploader>
                         </div>
+                        <div class="clear"></div>
+                        <br><br>
                         <div class="col-xs-12">
-                            <angular-file-uploader [config]="afuConfig " (ApiResponse)="avatarUpload($event) ">
+
+                            <div class="especificaciones">
+                                <h4>{{'Especificaciones para Movil'}}:</h4>
+                                <ul>
+                                    <li>{{'Tamaño'}}: 1980px x 1920px</li>
+                                    <li>{{'Peso máximo'}}: 500 kb</li>
+                                    <li>{{'Formato permitido'}}: jpg, .gif, .png</li>
+                                </ul>
+                            </div>
+                            
+                            <angular-file-uploader [config]="movilConfig " formControlName="imagemovil" (ApiResponse)="avatarUploadMovil($event) ">
                             </angular-file-uploader>
                         </div>
                     </div>

@@ -15,7 +15,7 @@ export class CronogramaIndexComponent implements OnInit {
 
 
   title = "Cronograma de Cursos"
-  cronologiacursos: Cronograma;
+  cronologiacursos: any;
   cronologiacurso: Cronograma;
   user: User;
   p: number = 1;
@@ -23,6 +23,8 @@ export class CronogramaIndexComponent implements OnInit {
   error: string;
   msm_error: string;
   loading = false;
+
+  query:string ='';
 
   constructor(
     private location: Location,
@@ -74,5 +76,15 @@ export class CronogramaIndexComponent implements OnInit {
     this.location.back(); // <-- go back to previous location on cancel
   }
 
+
+  search() {
+    return this.cronogramaService.search(this.query).subscribe(
+      res=>{
+        this.cronologiacursos = res;
+        if(!this.query){
+          this.ngOnInit();
+        }
+      });
+  }
 
 }

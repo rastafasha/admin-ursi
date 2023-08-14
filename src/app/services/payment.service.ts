@@ -102,6 +102,14 @@ export class PaymentService {
       )
   }
 
+  search(query=''){
+    return this.http.get(`${baseUrl}/payment/search/`, {params: {buscar: query}})
+
+  }
+
+
+
+
   get_data_dashboard():Observable<any>{
     const url = `${baseUrl}/ventas/venta_data/dashboard`;
     return this.http.get<any>(url, this.headers)
@@ -117,5 +125,7 @@ export class PaymentService {
         map((resp:{ok: boolean, payments: Payment}) => resp.payments)
       )
   }
+
+  
 
 }

@@ -19,13 +19,15 @@ export class CategoryIndexComponent implements OnInit {
 
 
   title = "Categorias"
-  categories: Category;
+  categories: any;
   user: User;
   p: number = 1;
   count: number = 8;
   error: string;
   msm_error: string;
   loading = false;
+
+  query:string ='';
 
   constructor(
     private location: Location,
@@ -90,6 +92,16 @@ export class CategoryIndexComponent implements OnInit {
 
   goBack() {
     this.location.back(); // <-- go back to previous location on cancel
+  }
+
+  search() {
+    return this.categoryService.search(this.query).subscribe(
+      res=>{
+        this.categories = res;
+        if(!this.query){
+          this.ngOnInit();
+        }
+      });
   }
 
 }
