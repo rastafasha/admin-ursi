@@ -19,6 +19,7 @@ import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleu
 @Component({
   selector: 'app-cursos-edit',
   templateUrl: './cursos-edit.component.html',
+  standalone: false,
   styleUrls: ['./cursos-edit.component.css']
 })
 export class CursosEditComponent implements OnInit {

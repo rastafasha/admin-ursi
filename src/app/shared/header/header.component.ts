@@ -11,6 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
+  standalone: false,
   styles: []
 })
 export class HeaderComponent implements OnInit {

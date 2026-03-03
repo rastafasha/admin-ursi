@@ -9,6 +9,7 @@ import { HerramientaService } from 'src/app/services/herramienta.service';
 @Component({
   selector: 'app-herramienta-index',
   templateUrl: './herramienta-index.component.html',
+  standalone: false,
   styleUrls: ['./herramienta-index.component.css']
 })
 export class HerramientaIndexComponent implements OnInit {

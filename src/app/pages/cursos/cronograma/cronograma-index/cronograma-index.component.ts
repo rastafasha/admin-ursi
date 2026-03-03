@@ -9,6 +9,7 @@ import { CronogramaService } from 'src/app/services/cronograma.service';
 @Component({
   selector: 'app-cronograma-index',
   templateUrl: './cronograma-index.component.html',
+  standalone: false,
   styleUrls: ['./cronograma-index.component.css']
 })
 export class CronogramaIndexComponent implements OnInit {

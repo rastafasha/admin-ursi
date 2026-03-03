@@ -20,6 +20,7 @@ import { ServicioService } from 'src/app/services/servicio.service';
 @Component({
   selector: 'app-servicios-edit',
   templateUrl: './servicios-edit.component.html',
+  standalone: false,
   styleUrls: ['./servicios-edit.component.css']
 })
 export class ServiciosEditComponent implements OnInit {

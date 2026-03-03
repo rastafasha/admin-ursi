@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-passwordreset',
   templateUrl: './passwordreset.component.html',
+  standalone: false,
   styleUrls: ['./passwordreset.component.css']
 })
 export class PasswordresetComponent implements OnInit {

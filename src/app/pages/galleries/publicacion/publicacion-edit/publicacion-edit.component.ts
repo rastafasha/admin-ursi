@@ -14,6 +14,7 @@ const baseUrl = environment.apiUrl;
 @Component({
   selector: 'app-publicacion-edit',
   templateUrl: './publicacion-edit.component.html',
+  standalone: false,
   styleUrls: ['./publicacion-edit.component.css']
 })
 export class PublicacionEditComponent implements OnInit {

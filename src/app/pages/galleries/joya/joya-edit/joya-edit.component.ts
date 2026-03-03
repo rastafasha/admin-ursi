@@ -14,6 +14,7 @@ const baseUrl = environment.apiUrl;
 @Component({
   selector: 'app-joya-edit',
   templateUrl: './joya-edit.component.html',
+  standalone: false,
   styleUrls: ['./joya-edit.component.css']
 })
 export class JoyaEditComponent implements OnInit {

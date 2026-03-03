@@ -18,6 +18,7 @@ import { DijeService } from 'src/app/services/dije.service';
 @Component({
   selector: 'app-dije-edit',
   templateUrl: './dije-edit.component.html',
+  standalone: false,
   styleUrls: ['./dije-edit.component.css']
 })
 export class DijeEditComponent implements OnInit {

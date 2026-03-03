@@ -8,6 +8,7 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-roles-view',
   templateUrl: './roles-view.component.html',
+  standalone: false,
   styleUrls: ['./roles-view.component.css']
 })
 export class RolesViewComponent implements OnInit {

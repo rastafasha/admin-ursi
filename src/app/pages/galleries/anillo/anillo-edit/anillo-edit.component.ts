@@ -18,6 +18,7 @@ import { AnilloService } from 'src/app/services/anillo.service';
 @Component({
   selector: 'app-anillo-edit',
   templateUrl: './anillo-edit.component.html',
+  standalone: false,
   styleUrls: ['./anillo-edit.component.css']
 })
 export class AnilloEditComponent implements OnInit {

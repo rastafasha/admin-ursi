@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Payment } from 'src/app/models/payment';
@@ -6,12 +6,12 @@ import { User } from 'src/app/models/user';
 import { AlertService } from 'src/app/services/alert.service';
 import { PaymentService } from 'src/app/services/payment.service';
 import { UserService } from 'src/app/services/user.service';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
+  standalone: false,
   styleUrls: ['./modal.component.css']
 })
 export class ModalComponent implements OnInit {
@@ -24,7 +24,7 @@ export class ModalComponent implements OnInit {
   @Input() surname;
   @Input() status;
 
-
+  @Output() close = new EventEmitter<void>();
 
   public PaymentRegisterForm: FormGroup;
   paymentSeleccionado:Payment;
@@ -32,7 +32,6 @@ export class ModalComponent implements OnInit {
   pagopaypal;
   user:User;
   constructor(
-    public activeModal:NgbActiveModal,
     public router: Router,
     private paymentService: PaymentService,
     private fb: FormBuilder,
@@ -51,7 +50,7 @@ export class ModalComponent implements OnInit {
   }
 
   closeModal(): void{
-    this.activeModal.dismiss('Cross click');
+    this.close.emit();
     this.router.navigateByUrl('/dashboard/historial-pagos');
 
   }
@@ -63,7 +62,7 @@ export class ModalComponent implements OnInit {
 
   procesarPagoPaypal(reference: any, email: any, name: any, surname: any,
     status: any, amount: any, items:any,
-    ){debugger
+    ){
     //crear
 
     let data = {
@@ -101,3 +100,4 @@ export class ModalComponent implements OnInit {
   }
 
 }
+

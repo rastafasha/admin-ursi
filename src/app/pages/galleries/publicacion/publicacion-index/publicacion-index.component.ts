@@ -9,6 +9,7 @@ import { PublicacionService } from 'src/app/services/publicacion.service';
 @Component({
   selector: 'app-publicacion-index',
   templateUrl: './publicacion-index.component.html',
+  standalone: false,
   styleUrls: ['./publicacion-index.component.css']
 })
 export class PublicacionIndexComponent implements OnInit {

@@ -9,6 +9,7 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
+  standalone: false,
   styleUrls: ['./contact.component.css']
 })
 export class ContactComponent implements OnInit {

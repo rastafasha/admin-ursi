@@ -13,6 +13,7 @@ import { SubcripcionService } from 'src/app/services/subcripcion.service';
 @Component({
   selector: 'app-subcripciones',
   templateUrl: './subcripciones.component.html',
+  standalone: false,
   styleUrls: ['./subcripciones.component.css']
 })
 export class SubcripcionesComponent implements OnInit {

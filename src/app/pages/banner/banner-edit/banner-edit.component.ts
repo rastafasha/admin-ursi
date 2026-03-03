@@ -19,6 +19,7 @@ import { BannerService } from 'src/app/services/banner.service';
 @Component({
   selector: 'app-banner-edit',
   templateUrl: './banner-edit.component.html',
+  standalone: false,
   styleUrls: ['./banner-edit.component.css']
 })
 export class BannerEditComponent implements OnInit {

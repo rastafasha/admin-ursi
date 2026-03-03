@@ -14,6 +14,7 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-payment-edit',
   templateUrl: './payment-edit.component.html',
+  standalone: false,
   styleUrls: ['./payment-edit.component.css']
 })
 export class PaymentEditComponent implements OnInit {

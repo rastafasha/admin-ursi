@@ -9,6 +9,7 @@ import { AreteService } from 'src/app/services/arete.service';
 @Component({
   selector: 'app-arete-index',
   templateUrl: './arete-index.component.html',
+  standalone: false,
   styleUrls: ['./arete-index.component.css']
 })
 export class AreteIndexComponent implements OnInit {

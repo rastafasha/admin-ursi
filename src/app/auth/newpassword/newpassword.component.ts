@@ -6,6 +6,7 @@ import { AccountService } from 'src/app/services/account.service';
 @Component({
   selector: 'app-newpassword',
   templateUrl: './newpassword.component.html',
+  standalone: false,
   styleUrls: ['./newpassword.component.css']
 })
 export class NewpasswordComponent implements OnInit {

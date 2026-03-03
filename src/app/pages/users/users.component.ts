@@ -13,6 +13,7 @@ import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
+  standalone: false,
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {

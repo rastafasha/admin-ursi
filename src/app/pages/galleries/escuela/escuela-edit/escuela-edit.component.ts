@@ -14,6 +14,7 @@ const baseUrl = environment.apiUrl;
 @Component({
   selector: 'app-escuela-edit',
   templateUrl: './escuela-edit.component.html',
+  standalone: false,
   styleUrls: ['./escuela-edit.component.css']
 })
 export class EscuelaEditComponent implements OnInit {

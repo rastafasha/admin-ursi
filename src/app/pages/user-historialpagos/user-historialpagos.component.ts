@@ -8,6 +8,7 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-user-historialpagos',
   templateUrl: './user-historialpagos.component.html',
+  standalone: false,
   styleUrls: ['./user-historialpagos.component.css']
 })
 export class UserHistorialpagosComponent implements OnInit {

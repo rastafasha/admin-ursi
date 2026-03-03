@@ -7,6 +7,7 @@ import { Location } from '@angular/common';
 @Component({
   selector: 'app-galleries',
   templateUrl: './galleries.component.html',
+  standalone: false,
   styleUrls: ['./galleries.component.css']
 })
 export class GalleriesComponent implements OnInit {

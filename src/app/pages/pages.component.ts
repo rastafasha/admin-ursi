@@ -9,6 +9,7 @@ import { UserService } from '../services/user.service';
 @Component({
   selector: 'app-pages',
   templateUrl: './pages.component.html',
+  standalone: false,
   styles: [
   ]
 })

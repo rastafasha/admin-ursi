@@ -9,6 +9,7 @@ import { PulseraService } from 'src/app/services/pulsera.service';
 @Component({
   selector: 'app-pulsera-index',
   templateUrl: './pulsera-index.component.html',
+  standalone: false,
   styleUrls: ['./pulsera-index.component.css']
 })
 export class PulseraIndexComponent implements OnInit {

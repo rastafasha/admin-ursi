@@ -6,6 +6,7 @@ declare let Chart;
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
+  standalone: false,
   styleUrls: ['./chart.component.css']
 })
 export class ChartComponent implements OnInit {

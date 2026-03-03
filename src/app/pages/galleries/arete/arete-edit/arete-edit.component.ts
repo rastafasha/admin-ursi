@@ -18,6 +18,7 @@ import { AreteService } from 'src/app/services/arete.service';
 @Component({
   selector: 'app-arete-edit',
   templateUrl: './arete-edit.component.html',
+  standalone: false,
   styleUrls: ['./arete-edit.component.css']
 })
 export class AreteEditComponent implements OnInit {

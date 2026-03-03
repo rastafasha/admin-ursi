@@ -11,6 +11,7 @@ import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-orlando-index',
   templateUrl: './orlando-index.component.html',
+  standalone: false,
   styleUrls: ['./orlando-index.component.css']
 })
 export class OrlandoIndexComponent implements OnInit {

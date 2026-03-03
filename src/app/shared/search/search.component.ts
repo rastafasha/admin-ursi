@@ -8,6 +8,7 @@ const baseUrl = environment.apiUrl;
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
+  standalone: false,
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {

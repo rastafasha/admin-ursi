@@ -20,6 +20,7 @@ const baseUrl = environment.apiUrl;
 @Component({
   selector: 'app-post-edit',
   templateUrl: './post-edit.component.html',
+  standalone: false,
   styleUrls: ['./post-edit.component.css']
 })
 export class PostEditComponent implements OnInit {

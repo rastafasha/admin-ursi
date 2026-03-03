@@ -18,6 +18,7 @@ import { CronogramaService } from 'src/app/services/cronograma.service';
 @Component({
   selector: 'app-cronograma-edit',
   templateUrl: './cronograma-edit.component.html',
+  standalone: false,
   styleUrls: ['./cronograma-edit.component.css']
 })
 export class CronogramaEditComponent implements OnInit {

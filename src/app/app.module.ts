@@ -12,7 +12,7 @@ import { PagesModule } from './pages/pages.module';
 import { SharedModule } from './shared/shared.module';
 
 // import { httpInterceptorProviders } from './http-interceptors/index';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { AuthInterceptor } from './http-interceptors/auth-interceptor';
 
 // paginacion
@@ -38,7 +38,7 @@ import { AngularFileUploaderModule } from 'angular-file-uploader';
     PagesModule,
     NgxPaginationModule,
     NgxPayPalModule,
-    NgbModule,
+    // NgbModule,
     NgxSpinnerModule,
     // AngularFileUploaderModule,
 

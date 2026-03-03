@@ -8,6 +8,7 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-configuraciones',
   templateUrl: './configuraciones.component.html',
+  standalone: false,
   styleUrls: ['./configuraciones.component.css']
 })
 export class ConfiguracionesComponent implements OnInit, DoCheck {

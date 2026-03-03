@@ -11,6 +11,7 @@ import { Expocaf } from 'src/app/models/expocaf';
 @Component({
   selector: 'app-expocaf-index',
   templateUrl: './expocaf-index.component.html',
+  standalone: false,
   styleUrls: ['./expocaf-index.component.css']
 })
 export class ExpocafIndexComponent implements OnInit {

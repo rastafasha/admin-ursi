@@ -14,6 +14,7 @@ import { CategoryService } from 'src/app/services/category.service';
 @Component({
   selector: 'app-category-edit',
   templateUrl: './category-edit.component.html',
+  standalone: false,
   styleUrls: ['./category-edit.component.css']
 })
 export class CategoryEditComponent implements OnInit {

@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-category-index',
   templateUrl: './category-index.component.html',
+  standalone: false,
   styleUrls: ['./category-index.component.css']
 })
 export class CategoryIndexComponent implements OnInit {

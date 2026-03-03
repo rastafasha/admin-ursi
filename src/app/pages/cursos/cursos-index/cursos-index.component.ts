@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-cursos-index',
   templateUrl: './cursos-index.component.html',
+  standalone: false,
   styleUrls: ['./cursos-index.component.css']
 })
 export class CursosIndexComponent implements OnInit {

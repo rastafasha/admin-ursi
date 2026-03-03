@@ -18,6 +18,7 @@ import { Pulsera } from 'src/app/models/pulsera';
 @Component({
   selector: 'app-pulsera-edit',
   templateUrl: './pulsera-edit.component.html',
+  standalone: false,
   styleUrls: ['./pulsera-edit.component.css']
 })
 export class PulseraEditComponent implements OnInit {

@@ -18,6 +18,7 @@ import { HerramientaService } from 'src/app/services/herramienta.service';
 @Component({
   selector: 'app-herramienta-edit',
   templateUrl: './herramienta-edit.component.html',
+  standalone: false,
   styleUrls: ['./herramienta-edit.component.css']
 })
 export class HerramientaEditComponent implements OnInit {

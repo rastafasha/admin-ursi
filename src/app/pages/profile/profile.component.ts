@@ -14,6 +14,7 @@ import { Profile } from 'src/app/models/profile';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
+  standalone: false,
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {

@@ -14,6 +14,7 @@ const baseUrl = environment.apiUrl;
 @Component({
   selector: 'app-expocaf-edit',
   templateUrl: './expocaf-edit.component.html',
+  standalone: false,
   styleUrls: ['./expocaf-edit.component.css']
 })
 export class ExpocafEditComponent implements OnInit {

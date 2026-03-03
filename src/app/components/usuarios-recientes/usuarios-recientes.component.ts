@@ -7,6 +7,7 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-usuarios-recientes',
   templateUrl: './usuarios-recientes.component.html',
+  standalone: false,
   styleUrls: ['./usuarios-recientes.component.css']
 })
 export class UsuariosRecientesComponent implements OnInit {

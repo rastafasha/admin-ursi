@@ -9,6 +9,7 @@ import { JoyaService } from 'src/app/services/joya.service';
 @Component({
   selector: 'app-joya-index',
   templateUrl: './joya-index.component.html',
+  standalone: false,
   styleUrls: ['./joya-index.component.css']
 })
 export class JoyaIndexComponent implements OnInit {

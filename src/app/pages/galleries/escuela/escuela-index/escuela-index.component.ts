@@ -9,6 +9,7 @@ import { EscuelaService } from 'src/app/services/escuela.service';
 @Component({
   selector: 'app-escuela-index',
   templateUrl: './escuela-index.component.html',
+  standalone: false,
   styleUrls: ['./escuela-index.component.css']
 })
 export class EscuelaIndexComponent implements OnInit {

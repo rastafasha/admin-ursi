@@ -9,6 +9,7 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-payments',
   templateUrl: './payments.component.html',
+  standalone: false,
   styleUrls: ['./payments.component.css']
 })
 export class PaymentsComponent implements OnInit {

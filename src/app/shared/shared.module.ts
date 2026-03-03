@@ -17,7 +17,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 //paypal
 import { NgxPayPalModule } from 'ngx-paypal';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { SearchComponent } from './search/search.component';
 import { FormsModule } from '@angular/forms';
@@ -31,7 +31,7 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     PipesModule,
     NgxPayPalModule,
-    NgbModule,
+    // NgbModule,
     NgxSpinnerModule,
     NgxPaginationModule,
     FormsModule

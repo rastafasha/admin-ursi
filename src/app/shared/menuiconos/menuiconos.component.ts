@@ -6,6 +6,7 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-menuiconos',
   templateUrl: './menuiconos.component.html',
+  standalone: false,
   styleUrls: ['./menuiconos.component.css']
 })
 export class MenuiconosComponent implements OnInit {

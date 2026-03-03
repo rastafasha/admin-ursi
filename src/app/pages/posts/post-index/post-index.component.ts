@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-post-index',
   templateUrl: './post-index.component.html',
+  standalone: false,
   styleUrls: ['./post-index.component.css']
 })
 export class PostIndexComponent implements OnInit {

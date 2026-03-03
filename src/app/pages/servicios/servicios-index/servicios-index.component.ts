@@ -9,6 +9,7 @@ import { ServicioService } from 'src/app/services/servicio.service';
 @Component({
   selector: 'app-servicios-index',
   templateUrl: './servicios-index.component.html',
+  standalone: false,
   styleUrls: ['./servicios-index.component.css']
 })
 export class ServiciosIndexComponent implements OnInit {

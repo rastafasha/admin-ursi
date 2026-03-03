@@ -6,6 +6,7 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-dashboard-user',
   templateUrl: './dashboard-user.component.html',
+  standalone: false,
   styleUrls: ['./dashboard-user.component.css']
 })
 export class DashboardUserComponent implements OnInit {

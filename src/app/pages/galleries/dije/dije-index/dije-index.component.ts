@@ -9,6 +9,7 @@ import { DijeService } from 'src/app/services/dije.service';
 @Component({
   selector: 'app-dije-index',
   templateUrl: './dije-index.component.html',
+  standalone: false,
   styleUrls: ['./dije-index.component.css']
 })
 export class DijeIndexComponent implements OnInit {

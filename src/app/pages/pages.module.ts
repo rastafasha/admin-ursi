@@ -74,7 +74,6 @@ import { SubcripcionesComponent } from './subcripciones/subcripciones.component'
   declarations: [
     DashboardComponent,
     DashboardAdminComponent,
-    PagesComponent,
     ProfileComponent,
     UsersComponent,
     UserHistorialpagosComponent,
@@ -173,11 +172,11 @@ import { SubcripcionesComponent } from './subcripciones/subcripciones.component'
     ConfModule,
     ComponentsModule,
     NgxPayPalModule,
-    NgbModule,
+    // NgbModule,
     NgxSpinnerModule,
     NgxPaginationModule,
     CKEditorModule,
-    AngularFileUploaderModule,
+    // AngularFileUploaderModule,
 
   ],
   providers: [
