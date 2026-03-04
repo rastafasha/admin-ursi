@@ -61,6 +61,7 @@ export class CategoryEditComponent implements OnInit {
   validarFormulario(){
     this.categoryForm = this.fb.group({
       name: ['',Validators.required],
+      name_eng: [''],
     })
   }
 
@@ -72,9 +73,9 @@ export class CategoryEditComponent implements OnInit {
           this.categoryForm.patchValue({
             id: res.id,
             name: res.name,
+            name_eng: res.name_eng,
           });
           this.categorySeleccionado = res;
-          console.log(this.categorySeleccionado);
         }
       );
     } else {
@@ -85,7 +86,7 @@ export class CategoryEditComponent implements OnInit {
 
   updateCategory(){
 
-    const {name } = this.categoryForm.value;
+    const {name, name_eng } = this.categoryForm.value;
 
     if(this.categorySeleccionado){debugger
       //actualizar

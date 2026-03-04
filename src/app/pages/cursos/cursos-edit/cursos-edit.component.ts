@@ -38,6 +38,8 @@ export class CursosEditComponent implements OnInit {
    public imgSelect : String | ArrayBuffer;
 
    titlePage: string;
+   option_selectedd: number = 1;
+  solicitud_selectedd: any = null;
 
    public user: User;
    id:any;
@@ -125,6 +127,9 @@ export class CursosEditComponent implements OnInit {
              description: res.description,
              adicional: res.adicional,
              isFeatured: res.isFeatured,
+             name_eng: res.name_eng,
+             description_eng: res.description_eng,
+             adicional_eng: res.adicional_eng,
              slug: res.slug,
              user_id: res.user_id,
              status: res.status,
@@ -149,6 +154,9 @@ export class CursosEditComponent implements OnInit {
        slug: ['', Validators.required],
        urlVideo: [''],
        isFeatured: [''],
+       name_eng: [''],
+       description_eng: [''],
+       adicional_eng: [''],
        status: ['PENDING'],
        image: [''],
        user_id: [' '],
@@ -163,6 +171,16 @@ export class CursosEditComponent implements OnInit {
    }
    get adicional() {
      return this.cursoForm.get('adicional');
+   }
+   get name_eng() {
+     return this.cursoForm.get('name_eng');
+   }
+
+   get description_eng() {
+     return this.cursoForm.get('description_eng');
+   }
+   get adicional_eng() {
+     return this.cursoForm.get('adicional_eng');
    }
    get price() {
     return this.cursoForm.get('price');
@@ -218,6 +236,9 @@ export class CursosEditComponent implements OnInit {
      formData.append('urlVideo', this.cursoForm.get('urlVideo').value);
      formData.append('description', this.cursoForm.get('description').value);
      formData.append('adicional', this.cursoForm.get('adicional').value);
+     formData.append('name_eng', this.cursoForm.get('name_eng').value);
+     formData.append('description_eng', this.cursoForm.get('description_eng').value);
+     formData.append('adicional_eng', this.cursoForm.get('adicional_eng').value);
      formData.append('slug', this.cursoForm.get('slug').value);
      formData.append('user_id', this.cursoForm.get('user_id').value);
      formData.append('isFeatured', this.cursoForm.get('isFeatured').value);
@@ -299,6 +320,16 @@ goBack() {
      // Headers sent along with the XMLHttpRequest to the upload server.
 
    }
+
+   optionSelected(value: number) {
+    this.option_selectedd = value;
+    if (this.option_selectedd === 1) {
+      // this.ngOnInit();
+    }
+    if (this.option_selectedd === 2) {
+      this.solicitud_selectedd = null;
+    }
+  }
 
 
 }

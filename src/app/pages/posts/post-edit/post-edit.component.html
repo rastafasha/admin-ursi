@@ -7,12 +7,12 @@
         }
 
         if (id == "seleccione") {
-        $("#crearcategoria").hide();
+            $("#crearcategoria").hide();
+
+        }
 
     }
-        
-    }
-    </script>
+</script>
 <div class="container animated fadeInUp" id="main" class="main" role="main" name="users">
 
     <div class="col-xs-12">
@@ -30,118 +30,105 @@
             <!-- End Page Title -->
         </div>
         <div class="buton">
-            <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
+            <button class="btn btn-outline-danger pull-right" href="javascript:void(0)"
+                (click)="goBack()">Volver</button>
         </div>
         <div class="clear"></div>
-
-
 
         <section class="section dashboard">
 
             <div class="row">
                 <div class="col-12 col-md-6">
-                    <!-- editarcategoria -->
-                    <label for="exampleInputEmail1">Desea una nueva categoria? <span class="required">*</span></label>
-                    <div class="row crearcategoria " id="crearcategoria" >
-
-                       <div class="col-md-6">
-                           <div class="card">
-                               <div class="card-body">
-                                   <!-- <h4 class="card-title" *ngIf="categorySeleccionado">{{title}}: {{categorySeleccionado.name}}</h4> -->
-                                   <!-- <h4 class="card-title" *ngIf="!categorySeleccionado">{{title}}</h4> -->
-                                   <form class="form p-t-20 form-horizontal form-material" [formGroup]="categoryForm" (submit)="updateCategory()">
-                                       <div class="form-group" style="margin-bottom: 25px;">
-                                           <label for="exampleInputuname">Nombre<span class="required">*</span></label>
-                                           <div class="input-group">
-       
-                                               <input type="text" formControlName="name" class="form-control" id="exampleInputuname" placeholder="Nombre" required>
-                                           </div>
-                                       </div>
-                                       <button type="submit"  class="btn btn-success waves-effect waves-light m-r-10 btn-block">
-                                       <i class="fa fa-save"></i> Guardar cambios
-                                       </button>
-                                   </form>
-                               </div>
-                           </div>
-                       </div>
-                       <div class="col-md-6 form-group">
-                           <div class="row">
-                               <div class="col-lg-12" *ngIf="msm_error">
-                                   <div class="alert alert-primary alert-danger fade show" role="alert">
-                                       <span class="font-weight-medium">Mensaje:</span> {{msm_error}}
-                                       <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="close_alert()">
-                                   <span aria-hidden="true">&times;</span>
-                                 </button>
-                                   </div>
-                               </div>
-                               <div class="col-lg-12 card listacategorias">
-                                   <div class="table-responsive table-sm">
-                                       <table class="table table-sm">
-                                           <thead class="thead-dark">
-                                               <tr>
-           
-                                                   <th>Nombre</th>
-                                               </tr>
-                                           </thead>
-                                           <tbody *ngFor="let item of categories">
-                                               <tr>
-                                                   <td style="font-size: 13px;">{{item.name}}</td>
-                                                   <td class="text-center">
-                                                       <a class="nav-link-style text-danger" data-toggle="modal" [attr.data-target]="'#delete-'+item._id" style="cursor:pointer">
-                                                           <div class="czi-trash"></div>
-                                                       </a>
-                                                       
-                                                   </td>
-                                               </tr>
-                                           </tbody>
-                                       </table>
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
-                   </div>
-                   <!-- editarcategoria -->
-
-                    <form enctype="multipart/form-data" [formGroup]="postForm" (ngSubmit)="editPost()">
-                        <div class="form-group">
-                            <label for="select-input" style="line-height: 2.2;">Categoria <span class="required">*</span></label>
-                            <select class="form-control " formControlName="category_id">
-                            <option disabled  value="">SELECCIONAR</option>
-                            <option *ngFor="let item of categories" [value]="item.id" >{{item.name}}</option>
-                        </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Titulo</label>
-                            <input formControlName="title" type="text" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">slug<span class="required">*</span></label>
-                            <input formControlName="slug" type="text" class="form-control">
-                        </div>
-                        <div class="form-group ">
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <label for="select-input">Destacado?<span class="required">*</span></label>
-                                    <select class="form-control " formControlName="isFeatured">
-                            <option disabled value="">SELECCIONAR</option>
-                            <option  value="1">Activo</option>
-                            <option  value="0">Inactivo</option>
-                          </select>
+                    <div class="tab-content-set">
+                        <ul class="nav">
+                            <li>
+                                <a href="#" onclick="return false;" [ngClass]="{'active': option_selectedd == 1}"
+                                    (click)="optionSelected(1)">Español</a>
+                            </li>
+                            <li>
+                                <a href="#" onclick="return false;" [ngClass]="{'active': option_selectedd == 2}"
+                                    (click)="optionSelected(2)">English</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div *ngIf="option_selectedd == 1">
+                        <form enctype="multipart/form-data" [formGroup]="postForm" (ngSubmit)="editPost()">
+                            <div class="form-group">
+                                <label for="select-input" style="line-height: 2.2;">Categoria <span
+                                        class="required">*</span></label>
+                                <select class="form-control " formControlName="category_id">
+                                    <option disabled value="">SELECCIONAR</option>
+                                    <option *ngFor="let item of categories" [value]="item.id">{{item.name}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Titulo</label>
+                                <input formControlName="title" type="text" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">slug<span class="required">*</span></label>
+                                <input formControlName="slug" type="text" class="form-control">
+                            </div>
+                            <div class="form-group ">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label for="select-input">Destacado?<span class="required">*</span></label>
+                                        <select class="form-control " formControlName="isFeatured">
+                                            <option disabled value="">SELECCIONAR</option>
+                                            <option value="1">Activo</option>
+                                            <option value="0">Inactivo</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-12">
-                            <label>Descripcion <span class="required">*</span></label>
                             <div class="col-md-12">
-                                <!-- <textarea formControlName="description" id="description" cols="30" rows="4" class="form-control"></textarea> -->
-                                <ckeditor [editor]="Editor" (ready)="onReady($event)" data="<p>Hello, world!</p>" formControlName="description" value="description" rows="5" class="form-control" required></ckeditor>
+                                <label>Descripcion <span class="required">*</span></label>
+                                <div class="col-md-12">
+                                    <textarea formControlName="description" id="description" cols="30" rows="4" class="form-control"></textarea>
+                                    <!-- <ckeditor [editor]="Editor" (ready)="onReady($event)" data="<p>Hello, world!</p>"
+                                        formControlName="description" value="description" rows="5" class="form-control"
+                                        required></ckeditor> -->
 
+                                </div>
                             </div>
-                        </div>
-                        <input type="hidden" formControlName="id">
-                        <button (click)="editPost()" class="btn btn-primary">Guardar</button>
-                    </form>
+                            <input type="hidden" formControlName="id">
+                            <button (click)="editPost()" class="btn btn-primary">Guardar</button>
+                        </form>
+                    </div>
+
+                    <div *ngIf="option_selectedd == 2">
+
+                        <form enctype="multipart/form-data" [formGroup]="postForm" (ngSubmit)="editPost()">
+                            <div class="form-group">
+                                <label for="select-input" style="line-height: 2.2;">Category <span
+                                        class="required">*</span></label>
+                                <select class="form-control " formControlName="category_id">
+                                    <option disabled value="">Select</option>
+                                    <option *ngFor="let item of categories" [value]="item.id">{{item.name_eng}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Title</label>
+                                <input formControlName="title_eng" type="text" class="form-control">
+                            </div>
+                            
+
+                            <div class="col-md-12">
+                                <label>Description <span class="required">*</span></label>
+                                <div class="col-md-12">
+                                    <textarea formControlName="description_eng" id="description" cols="30" rows="4" class="form-control"></textarea>
+                                    <!-- <ckeditor [editor]="Editor" (ready)="onReady($event)" data="<p>Hello, world!</p>"
+                                        formControlName="description" value="description" rows="5" class="form-control"
+                                        required></ckeditor> -->
+
+                                </div>
+                            </div>
+                            <input type="hidden" formControlName="id">
+                            <button (click)="editPost()" class="btn btn-primary">Guardar</button>
+                        </form>
+                    </div>
+
                 </div>
                 <div class="col-12 col-md-6">
                     <label> {{'Anexe su foto'}}</label>
@@ -151,12 +138,15 @@
 
 
                             <div *ngIf="!postSeleccionado">
-                                <img src="./assets/images/no-image.jpg" style="height: 100px; width: 100px;" class="img-circle avatar">
+                                <img src="./assets/images/no-image.jpg" style="height: 100px; width: 100px;"
+                                    class="img-circle avatar">
                             </div>
 
                             <div *ngIf="postSeleccionado">
-                                <button *ngIf="postSeleccionado.image" type="button" class="btn btn-outline-danger" (click)="deleteFotoPerfil()">Eliminar</button>
-                                <img [src]="postSeleccionado.image | imagenPipe: 'posts'" style="height: 100px; width: 100px;" class="img-circle avatar">
+                                <button *ngIf="postSeleccionado.image" type="button" class="btn btn-outline-danger"
+                                    (click)="deleteFotoPerfil()">Eliminar</button>
+                                <img [src]="postSeleccionado.image | imagenPipe: 'posts'"
+                                    style="height: 100px; width: 100px;" class="img-circle avatar">
                             </div>
 
                         </div>

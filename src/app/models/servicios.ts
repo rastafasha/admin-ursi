@@ -5,8 +5,11 @@ export class Servicios {
   id: number;
   title: string;
   subtitle: string;
-  model: string;
   description: string;
+  title_eng: string;
+  subtitle_eng: string;
+  description_eng: string;
+  model: string;
   price: any;
   videoUrl: string;
   image?: string = "";

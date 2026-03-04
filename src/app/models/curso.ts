@@ -4,12 +4,15 @@ const base_url = environment.apiUrlMedia;
 export class Curso {
   id: number;
   user_id: number;
-  name: string;
   price: any;
   modal: string;
   urlVideo?: string;
+  name: string;
   description: string;
   adicional: string;
+  name_eng: string;
+  description_eng: string;
+  adicional_eng: string;
   slug: string;
   image: string;
   isFeatured: boolean;

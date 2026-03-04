@@ -53,7 +53,8 @@ export class PostEditComponent implements OnInit {
   public msm_error = '';
   categoryForm: FormGroup;
 
-
+option_selectedd:number = 1;
+  solicitud_selectedd:any = null;
 
 
   imagePath: string;
@@ -109,7 +110,6 @@ export class PostEditComponent implements OnInit {
   ngOnInit(): void {
     this.getCategories();
     this.validarFormulario();
-    this.validarFormularioCategoria();
     this.getUser();
     this.activatedRoute.params.subscribe( ({id}) => this.getPost(id));
     window.scrollTo(0,0);
@@ -135,8 +135,10 @@ export class PostEditComponent implements OnInit {
             id: res.id,
             title: res.title,
             description: res.description,
+            title_eng: res.title_eng,
+            description_eng: res.description_eng,
             slug: res.slug,
-            category_id: this.categories.id,
+            category_id: res.category_id,
             isFeatured: res.isFeatured,
             status: res.status,
             user_id: res.user_id,
@@ -159,6 +161,8 @@ export class PostEditComponent implements OnInit {
       status: ['PENDING'],
       image: [''],
       isFeatured: [''],
+      title_eng: [''],
+      description_eng: [''],
       category_id: [''],
       user_id: [' '],
     })
@@ -169,6 +173,13 @@ export class PostEditComponent implements OnInit {
 
   get description() {
     return this.postForm.get('description');
+  }
+  get title_eng() {
+    return this.postForm.get('title_eng');
+  }
+
+  get description_eng() {
+    return this.postForm.get('description_eng');
   }
   get slug() {
     return this.postForm.get('slug');
@@ -213,6 +224,8 @@ export class PostEditComponent implements OnInit {
     const formData = new FormData();
     formData.append('title', this.postForm.get('title').value);
     formData.append('description', this.postForm.get('description').value);
+    formData.append('title_eng', this.postForm.get('title_eng').value);
+    formData.append('description_eng', this.postForm.get('description_eng').value);
     formData.append('slug', this.postForm.get('slug').value);
     formData.append('category_id', this.postForm.get('category_id').value);
     formData.append('isFeatured', this.postForm.get('isFeatured').value);
@@ -275,55 +288,6 @@ export class PostEditComponent implements OnInit {
   //   return this.categoryForm.get('name');
   // }
 
-  updateCategory(){
-
-    const {name } = this.categoryForm.value;
-
-    if(this.categorySeleccionado){
-      //actualizar
-      const data = {
-        ...this.categoryForm.value,
-        id: this.categorySeleccionado.id
-      }
-      this.categoryService.updateCategory(data).subscribe(
-        resp =>{
-          this.getCategories();
-        });
-
-    }else{
-      //crear
-      this.categoryService.createCategory(this.categoryForm.value)
-      .subscribe( (resp: any) =>{
-        this.getCategories();
-        // this.enviarNotificacion();
-      })
-    }
-
-  }
-
-  cargarCategory(id: number){
-    if (id !== null && id !== undefined) {
-      this.categoryService.getCategory(id).subscribe(
-        res => {
-          this.categoryForm.patchValue({
-            id: res.id,
-            name: res.name,
-          });
-          this.categorySeleccionado = res;
-          console.log(this.categorySeleccionado);
-        }
-      );
-    } 
-
-  }
-
-
-  validarFormularioCategoria(){
-    this.categoryForm = this.fb.group({
-      name: ['',Validators.required],
-    })
-  }
-
   
 
   //ckeditor
@@ -347,6 +311,17 @@ export class PostEditComponent implements OnInit {
     // Headers sent along with the XMLHttpRequest to the upload server.
 
   }
+
+
+optionSelected(value:number){
+      this.option_selectedd = value;
+      if(this.option_selectedd === 1){
+        // this.ngOnInit();
+      }
+      if(this.option_selectedd === 2){
+        this.solicitud_selectedd = null;
+      }
+    }
 
 
 

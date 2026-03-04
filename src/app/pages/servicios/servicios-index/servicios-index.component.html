@@ -58,7 +58,7 @@
                                     <th>Imagen</th>
                                     <th>Video</th>
                                     <th>Nombre</th>
-                                    <th>precio</th>
+                                    <th>Nombre Eng</th>
                                     <th>Status</th>
                                     <th>Estado</th>
                                     <th class="text-nowrap">Acciones</th>
@@ -87,7 +87,7 @@
                                         </div>
                                     </td>
                                     <td>{{servicio.title}}</td>
-                                    <td>{{servicio.price|currency}} </td>
+                                    <td>{{servicio.title_eng}}</td>
                                     <td>
                                         <span class="badge bg-success" *ngIf="servicio.status === 'PUBLISHED'">Publicado</span>
                                         <span class="badge bg-primary" *ngIf="servicio.status === 'PENDING'">Pendiente</span>

@@ -67,6 +67,7 @@
                                     <th>Imagen</th>
                                     <th>Video</th>
                                     <th>Nombre</th>
+                                    <th>Nombre Eng</th>
                                     <th>precio</th>
                                     <th>Detacado</th>
                                     <th>Status</th>
@@ -96,7 +97,8 @@
                                             <img src="http://img.youtube.com/vi/{{curso.urlVideo}}/2.jpg" style="height: 50px; width: 120px;" alt="{{curso.titulo}}">
                                         </div>
                                     </td>
-                                    <td>{{curso.name}}</td>
+                                    <td>{{curso.name | slice:0:15}}...</td>
+                                    <td>{{curso.name_eng | slice:0:15}}...</td>
                                     <td>{{curso.price|currency}} </td>
                                     <td>
                                         <span class="badge bg-success" *ngIf="curso.isFeatured === 1">Si</span>

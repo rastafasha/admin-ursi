@@ -30,7 +30,8 @@ export class ServiciosEditComponent implements OnInit {
    */
   public Editor = DecoupledEditor;
   public editorData = `<p>This is a CKEditor 5 WYSIWYG editor instance created with Angular.</p>`;
-
+  option_selectedd:number = 1;
+  solicitud_selectedd:any = null;
 
   public servicioForm: FormGroup;
 
@@ -122,6 +123,9 @@ export class ServiciosEditComponent implements OnInit {
             title: res.title,
             price: res.price,
             subtitle: res.subtitle,
+            title_eng: res.title_eng,
+            subtitle_eng: res.subtitle_eng,
+            description_eng: res.description_eng,
             videoUrl: res.videoUrl,
             description: res.description,
             status: res.status,
@@ -143,6 +147,9 @@ export class ServiciosEditComponent implements OnInit {
       description: ['', Validators.required],
       price: [''],
       videoUrl: [''],
+      title_eng: [''],
+      subtitle_eng: [''],
+      description_eng: [''],
       status: ['PENDING'],
       image: [''],
     })
@@ -158,6 +165,17 @@ export class ServiciosEditComponent implements OnInit {
   get description() {
     return this.servicioForm.get('description');
   }
+  get title_eng() {
+  return this.servicioForm.get('title_eng');
+}
+
+get subtitle_eng() {
+  return this.servicioForm.get('subtitle_eng');
+}
+
+get description_eng() {
+  return this.servicioForm.get('description_eng');
+}
   get price() {
    return this.servicioForm.get('price');
  }
@@ -196,6 +214,9 @@ export class ServiciosEditComponent implements OnInit {
     formData.append('title', this.servicioForm.get('title').value);
     formData.append('price', this.servicioForm.get('price').value);
     formData.append('subtitle', this.servicioForm.get('subtitle').value);
+    formData.append('title_eng', this.servicioForm.get('title_eng').value);
+  formData.append('subtitle_eng', this.servicioForm.get('subtitle_eng').value);
+  formData.append('description_eng', this.servicioForm.get('description_eng').value);
     formData.append('videoUrl', this.servicioForm.get('videoUrl').value);
     formData.append('description', this.servicioForm.get('description').value);
     formData.append('image', this.servicioForm.get('image').value);
@@ -273,4 +294,14 @@ export class ServiciosEditComponent implements OnInit {
     // Headers sent along with the XMLHttpRequest to the upload server.
 
   }
+
+  optionSelected(value:number){
+      this.option_selectedd = value;
+      if(this.option_selectedd === 1){
+        // this.ngOnInit();
+      }
+      if(this.option_selectedd === 2){
+        this.solicitud_selectedd = null;
+      }
+    }
 }

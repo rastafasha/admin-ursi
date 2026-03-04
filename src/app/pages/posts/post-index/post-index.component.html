@@ -64,7 +64,8 @@
                             <thead>
                                 <tr>
                                     <th>imagen</th>
-                                    <th>title</th>
+                                    <th>Titulo</th>
+                                    <th>Titulo Eng</th>
                                     <th>Status</th>
                                     <th>Estado</th>
                                     <!-- <th>Accion</th> -->
@@ -84,7 +85,8 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td>{{post.title}}</td>
+                                    <td>{{post.title| slice:0:15}}...</td>
+                                    <td>{{post.title_eng| slice:0:15}}...</td>
 
                                     <td>
                                         <span class="badge bg-success" *ngIf="post.status === 'PUBLISHED'">Publicado</span>
