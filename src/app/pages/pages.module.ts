@@ -45,7 +45,7 @@ import { ServiciosIndexComponent } from './servicios/servicios-index/servicios-i
 import { ServiciosEditComponent } from './servicios/servicios-edit/servicios-edit.component';
 
 // angular file uploader
-import { AngularFileUploaderModule } from 'angular-file-uploader';
+import { AngularFileUploaderComponent } from '../shared/angular-file-uploader/angular-file-uploader.component';
 import { AnilloIndexComponent } from './galleries/anillo/anillo-index/anillo-index.component';
 import { AnilloEditComponent } from './galleries/anillo/anillo-edit/anillo-edit.component';
 import { AreteIndexComponent } from './galleries/arete/arete-index/arete-index.component';
@@ -176,7 +176,7 @@ import { SubcripcionesComponent } from './subcripciones/subcripciones.component'
     NgxSpinnerModule,
     NgxPaginationModule,
     CKEditorModule,
-    // AngularFileUploaderModule,
+    AngularFileUploaderComponent,
 
   ],
   providers: [

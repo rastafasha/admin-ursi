@@ -58,6 +58,8 @@
                                     <th>Imagen</th>
                                     <th>Titulo</th>
                                     <th>SubTitulo</th>
+                                    <th>Titulo Eng</th>
+                                    <th>SubTitulo Eng</th>
                                     <th>Status</th>
                                     <th>Estado</th>
                                     <th class="text-nowrap">Acciones</th>
@@ -79,6 +81,8 @@
                                     </td>
                                     <td>{{herramienta.title}}</td>
                                     <td>{{herramienta.subtitle}}</td>
+                                    <td>{{herramienta.title_eng}}</td>
+                                    <td>{{herramienta.subtitle_eng}}</td>
                                     <td>
                                         <span class="badge bg-success" *ngIf="herramienta.status === 'PUBLISHED'">Publicado</span>
                                         <span class="badge bg-primary" *ngIf="herramienta.status === 'PENDING'">Pendiente</span>

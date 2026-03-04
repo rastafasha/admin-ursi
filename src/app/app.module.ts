@@ -22,8 +22,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerModule } from "ngx-spinner";
-// angular file uploader
-import { AngularFileUploaderModule } from 'angular-file-uploader';
+// angular file uploader - removed, using custom component in shared module
 @NgModule({
   declarations: [
     AppComponent
@@ -40,7 +39,6 @@ import { AngularFileUploaderModule } from 'angular-file-uploader';
     NgxPayPalModule,
     // NgbModule,
     NgxSpinnerModule,
-    // AngularFileUploaderModule,
 
   ],
   providers: [

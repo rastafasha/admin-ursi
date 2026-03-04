@@ -6,6 +6,9 @@ export class Herramienta {
   title: string;
   subtitle: string;
   description: string;
+  title_eng: string;
+  subtitle_eng: string;
+  description_eng: string;
   price: any;
   image: string;
   created_at: string;

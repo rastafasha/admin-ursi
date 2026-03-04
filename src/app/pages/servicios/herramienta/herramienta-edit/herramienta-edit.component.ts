@@ -26,7 +26,9 @@ export class HerramientaEditComponent implements OnInit {
    * Editor type area wyswyg
    */
 public Editor = DecoupledEditor;
+public Editor1 = DecoupledEditor;
 public editorData = `<p>This is a CKEditor 5 WYSIWYG editor instance created with Angular.</p>`;
+public editorData1 = `<p>This is a CKEditor 5 WYSIWYG editor instance created with Angular.</p>`;
 
 
 public servicioForm: FormGroup;
@@ -40,6 +42,9 @@ titlePage: string;
 public servicioSeleccionado: Herramienta;
 public user: User;
 id:any;
+
+option_selectedd:number = 1;
+  solicitud_selectedd:any = null;
 
 imagePath: string;
 error: string;
@@ -120,8 +125,14 @@ getServicio(id: number){
           title: res.title,
           subtitle: res.subtitle,
           description: res.description,
+          title_eng: res.title_eng,
+          subtitle_eng: res.subtitle_eng,
+          description_eng: res.description_eng,
           status: res.status,
         });
+        // Update editor data with existing content
+        this.editorData = res.description || '<p></p>';
+        this.editorData1 = res.description_eng || '<p></p>';
         this.servicioSeleccionado = res;
         // console.log(this.servicioSeleccionado);
       }
@@ -137,6 +148,9 @@ validarFormulario(){
     title: ['', Validators.required],
     subtitle: [''],
     description: ['', Validators.required],
+    title_eng: [''],
+    subtitle_eng: [''],
+    description_eng: [''],
     status: ['PENDING'],
     image: [''],
   })
@@ -151,6 +165,17 @@ get subtitle() {
 
 get description() {
   return this.servicioForm.get('description');
+}
+get title_eng() {
+  return this.servicioForm.get('title_eng');
+}
+
+get subtitle_eng() {
+  return this.servicioForm.get('subtitle_eng');
+}
+
+get description_eng() {
+  return this.servicioForm.get('description_eng');
 }
 
 get status() {
@@ -185,6 +210,9 @@ editServicio(){
   formData.append('title', this.servicioForm.get('title').value);
   formData.append('subtitle', this.servicioForm.get('subtitle').value);
   formData.append('description', this.servicioForm.get('description').value);
+  formData.append('title_eng', this.servicioForm.get('title_eng').value);
+  formData.append('subtitle_eng', this.servicioForm.get('subtitle_eng').value);
+  formData.append('description_eng', this.servicioForm.get('description_eng').value);
   formData.append('image', this.servicioForm.get('image').value);
   formData.append('status', 'PENDING');
 
@@ -247,5 +275,16 @@ simpleUpload: {
   // Headers sent along with the XMLHttpRequest to the upload server.
 
 }
+
+
+optionSelected(value:number){
+      this.option_selectedd = value;
+      if(this.option_selectedd === 1){
+        // this.ngOnInit();
+      }
+      if(this.option_selectedd === 2){
+        this.solicitud_selectedd = null;
+      }
+    }
 
 }
