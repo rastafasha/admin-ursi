@@ -10,11 +10,10 @@ import Swal from 'sweetalert2';
   selector: 'app-cursos-index',
   templateUrl: './cursos-index.component.html',
   standalone: false,
-  styleUrls: ['./cursos-index.component.css']
+  styleUrls: ['./cursos-index.component.css'],
 })
 export class CursosIndexComponent implements OnInit {
-
-  title = "Cursos"
+  title = 'Cursos';
   cursos: any;
   curso: Curso;
   user: User;
@@ -23,67 +22,54 @@ export class CursosIndexComponent implements OnInit {
   error: string;
   msm_error: string;
   loading = false;
-  query:string ='';
-
+  query: string = '';
 
   constructor(
     private location: Location,
     private cursoService: CursoService,
-    handler: HttpBackend
-  ) {
-   }
+    handler: HttpBackend,
+  ) {}
 
   ngOnInit(): void {
     this.getCursos();
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
   }
 
   getCursos(): void {
     // return this.planesService.carga_info();
-    this.cursoService.getCursos().subscribe(
-      res =>{
-        this.cursos = res;
-        error => this.error = error
-        // console.log(this.cursos);
-      }
-    );
+    this.cursoService.getCursos().subscribe((res) => {
+      this.cursos = res;
+      (error) => (this.error = error);
+      // console.log(this.cursos);
+    });
   }
 
-  eliminarCurso(curso:Curso){
+  eliminarCurso(curso: Curso) {
     Swal.fire({
       title: 'Estas Seguro?',
-      text: "No podras recuperarlo!",
+      text: 'No podras recuperarlo!',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, Borrar!'
+      confirmButtonText: 'Si, Borrar!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.cursoService.deleteCurso(curso).subscribe(
-          response =>{
-            this.getCursos();
-          }
-          );
-        Swal.fire(
-          'Borrado!',
-          'El Archivo fue borrado.',
-          'success'
-        )
+        this.cursoService.deleteCurso(curso).subscribe((response) => {
+          this.getCursos();
+        });
+        Swal.fire('Borrado!', 'El Archivo fue borrado.', 'success');
         this.ngOnInit();
       }
     });
-
   }
 
-  cambiarStatus(curso:Curso){
-    this.cursoService.updateStatus(curso).subscribe(
-      resp =>{
-        // console.log(resp);
-        Swal.fire('Actualizado', `actualizado correctamente`, 'success');
-        this.getCursos();
-      }
-    )
+  cambiarStatus(curso: Curso) {
+    this.cursoService.updateStatus(curso).subscribe((resp) => {
+      // console.log(resp);
+      Swal.fire('Actualizado', `actualizado correctamente`, 'success');
+      this.getCursos();
+    });
   }
 
   goBack() {
@@ -91,13 +77,16 @@ export class CursosIndexComponent implements OnInit {
   }
 
   search() {
-    return this.cursoService.search(this.query).subscribe(
-      res=>{
-        this.cursos = res;
-        if(!this.query){
-          this.ngOnInit();
-        }
-      });
+    return this.cursoService.search(this.query).subscribe((res) => {
+      this.cursos = res;
+      if (!this.query) {
+        this.ngOnInit();
+      }
+    });
   }
 
+  public PageSize(): void {
+    this.getCursos();
+    this.query = '';
+  }
 }

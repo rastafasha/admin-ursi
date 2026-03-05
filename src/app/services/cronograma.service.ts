@@ -33,6 +33,10 @@ export class CronogramaService {
     }
   }
 
+   get status(): 'PUBLISHED' | 'PENDING' | 'REJECTED' {
+    return this.cronologiacurso.status!;
+  }
+
 
   getCronogramas()  {
     const url = `${baseUrl}/cronologiacursos`;
@@ -72,6 +76,13 @@ export class CronogramaService {
     const url = `${baseUrl}/cronologiacurso/destroy/${cronologiacurso}`;
     return this.http.delete(url, this.headers);
   }
+
+  updateStatus(cronologiacurso: Cronograma) {
+      const url = `${baseUrl}/cronologiacurso/update/status/${cronologiacurso.id}`;
+      return this.http.put(url, cronologiacurso, this.headers);
+  
+    }
+  
 
   search(query=''){
     return this.http.get(`${baseUrl}/cronologiacurso/search`, {params: {buscar: query}})

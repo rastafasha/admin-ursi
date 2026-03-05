@@ -38,7 +38,7 @@ export class OrlandoService {
     const url = `${baseUrl}/eventoorlandos`;
     return this.http.get<any>(url, this.headers)
       .pipe(
-        map((resp:{ok: boolean, eventoorlando: Orlando}) => resp.eventoorlando)
+        map((resp:{ok: boolean, eventoorlandos: Orlando}) => resp.eventoorlandos)
       )
   }
 

@@ -37,6 +37,8 @@
                                     <input type="search" name="search" type="text" class="form-control col-xs-12" placeholder="Buscar.." [(ngModel)]="query" aria-describedby="button-addon1" class="form-control border-0 bg-light">
                                     <div class="input-group-append">
                                         <button id="button-addon1" type="submit" class="btn btn-link text-primary" (click)="search()" name="submit" data-toggle="tooltip" title="mostrar todos"><i class="fa fa-search"></i></button>
+                                        <a href="javascript:;" (click)="PageSize()"
+                                        class="btn btn-primary doctor-refresh ms-2 circle"><i class="fa fa-refresh"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -66,8 +68,11 @@
                                     <th>Imagen</th>
                                     <th>Modo</th>
                                     <th>Nombre</th>
+                                    <th>Nombre Eng</th>
                                     <th>Fecha</th>
                                     <th>Precio</th>
+                                    <th>Status</th>
+                                    <th>Estado</th>
                                     <th class="text-nowrap">Acciones</th>
                                 </tr>
                             </thead>
@@ -85,9 +90,22 @@
                                         </div>
                                     </td>
                                     <td>{{cronograma.modo}}</td>
-                                    <td>{{cronograma.title}}</td>
+                                    <td>{{cronograma.title| slice:0:15}}...</td>
+                                    <td>{{cronograma.title_eng| slice:0:15}}...</td>
                                     <td>{{cronograma.fecha}}</td>
                                     <td>{{cronograma.costo|currency}} </td>
+                                    <td>
+                                        <span class="badge bg-success" *ngIf="cronograma.status === 'PUBLISHED'">Publicado</span>
+                                        <span class="badge bg-primary" *ngIf="cronograma.status === 'PENDING'">Pendiente</span>
+                                        <span class="badge bg-danger" *ngIf="cronograma.status === 'REJECTED'">Rechazado</span>
+                                    </td>
+                                    <td>
+                                        <select class="form-control" [(ngModel)]="cronograma.status" (change)="cambiarStatus(cronograma)">
+                                          <option value="PUBLISHED">Publicado</option>
+                                          <option value="PENDING">Pendiente</option>
+                                          <option value="REJECTED">Rechazado</option>
+                                        </select>
+                                    </td>
 
                                     <td class="text-nowrap text-center">
                                         <a [routerLink]="['/dashboard/cronograma/edit', cronograma.id]" class="cursor" data-toggle="tooltip" data-original-title="Edit">

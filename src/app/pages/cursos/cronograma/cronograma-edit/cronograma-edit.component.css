@@ -1,0 +1,23 @@
+
+.tab-content-set .nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 5px;
+
+}
+
+.tab-content-set li {
+    padding: 5px;
+    font-size: 14px;
+}
+
+.tab-content-set a {
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+.active {
+     color: var(--vinotinto);
+}

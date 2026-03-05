@@ -11,10 +11,19 @@ export class Cronograma {
   clases: string;
   proyecto: string;
   duracion: string;
+  modo_eng: string;
+  title_eng: string;
+  description_eng: string;
+  fecha_eng: string;
+  hora_eng: string;
+  clases_eng: string;
+  proyecto_eng: string;
+  duracion_eng: string;
   costo: any;
   image: string;
   created_at: string;
   updated_at: string;
+  status?: 'PUBLISHED' | 'PENDING' | 'REJECTED';
 
 
 

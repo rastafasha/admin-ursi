@@ -49,6 +49,11 @@ export class PostIndexComponent implements OnInit {
     );
   }
 
+  public PageSize(): void {
+    this.getPosts();
+    this.query = '';
+  }
+
   eliminarPost(post:Post){
     Swal.fire({
       title: 'Estas Seguro?',

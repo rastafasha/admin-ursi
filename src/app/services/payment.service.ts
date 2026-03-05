@@ -55,6 +55,13 @@ export class PaymentService {
         map((resp:{ok: boolean, payment: Payment}) => resp.payment)
         );
   }
+  getPagoByUser(user): Observable<any> {
+    const url = `${baseUrl}/payment/user/${user}`;
+    return this.http.get<any>(url, this.headers)
+      .pipe(
+        map((resp:{ok: boolean, payment: Payment}) => resp.payment)
+        );
+  }
 
   create(data:any): Observable<any> {
     const url = `${baseUrl}/payment/store`;

@@ -45,6 +45,13 @@ export class ProfileService {
         map((resp:{ok: boolean, profile: Profile}) => resp.profile)
         );
   }
+  getProfileByUser(user: any) {
+    const url = `${baseUrl}/profile/user/${user}`;
+    return this.http.get<any>(url, this.headers)
+      .pipe(
+        map((resp:{ok: boolean, profile: Profile}) => resp.profile)
+        );
+  }
 
 
   createProfile(profile:any) {

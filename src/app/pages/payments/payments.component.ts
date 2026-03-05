@@ -74,6 +74,11 @@ export class PaymentsComponent implements OnInit {
       }
     );
   }
+
+  public PageSize(): void {
+    this.getPagos();
+    this.query = '';
+  }
   goBack() {
     this.location.back(); // <-- go back to previous location on cancel
   }

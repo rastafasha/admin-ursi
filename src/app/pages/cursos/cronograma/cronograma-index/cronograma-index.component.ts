@@ -5,17 +5,16 @@ import { User } from 'src/app/models/user';
 import Swal from 'sweetalert2';
 import { Cronograma } from 'src/app/models/cronograma';
 import { CronogramaService } from 'src/app/services/cronograma.service';
+import { Curso } from 'src/app/models/curso';
 
 @Component({
   selector: 'app-cronograma-index',
   templateUrl: './cronograma-index.component.html',
   standalone: false,
-  styleUrls: ['./cronograma-index.component.css']
+  styleUrls: ['./cronograma-index.component.css'],
 })
 export class CronogramaIndexComponent implements OnInit {
-
-
-  title = "Cronograma de Cursos"
+  title = 'Cronograma de Cursos';
   cronologiacursos: any;
   cronologiacurso: Cronograma;
   user: User;
@@ -25,67 +24,79 @@ export class CronogramaIndexComponent implements OnInit {
   msm_error: string;
   loading = false;
 
-  query:string ='';
+  query: string = '';
 
   constructor(
     private location: Location,
     private cronogramaService: CronogramaService,
-    handler: HttpBackend
-  ) {
-   }
+    handler: HttpBackend,
+  ) {}
 
   ngOnInit(): void {
     this.getCursos();
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
   }
 
   getCursos(): void {
     // return this.planesService.carga_info();
-    this.cronogramaService.getCronogramas().subscribe(
-      res =>{
-        this.cronologiacursos = res;
-        error => this.error = error
-        // console.log(this.cronologiacursos);
-      }
-    );
-  }
-
-  eliminarCurso(cronologiacurso:Cronograma){
-    this.cronogramaService.deleteCronograma(cronologiacurso).subscribe(
-      response =>{
-        this.getCursos();
-      },
-      error=>{
-        this.msm_error = 'No se pudo eliminar, vuelva a intentar.'
-      }
-      );
-      this.ngOnInit();
-  }
-
-  deleteFotoPerfil(){
-    this.cronogramaService.deleteFoto(this.cronologiacurso.id).subscribe(response => {
-      Swal.fire(response['msg']['summary'], response['msg']['detail'], 'success');
-      this.ngOnInit();
-    }, error => {
-      Swal.fire('Error al eliminar', 'Intente de nuevo', 'error');
+    this.cronogramaService.getCronogramas().subscribe((res) => {
+      this.cronologiacursos = res;
+      (error) => (this.error = error);
+      // console.log(this.cronologiacursos);
     });
   }
 
+  eliminarCurso(cronologiacurso: Cronograma) {
+    this.cronogramaService.deleteCronograma(cronologiacurso).subscribe(
+      (response) => {
+        this.getCursos();
+      },
+      (error) => {
+        this.msm_error = 'No se pudo eliminar, vuelva a intentar.';
+      },
+    );
+    this.ngOnInit();
+  }
 
+  deleteFotoPerfil() {
+    this.cronogramaService.deleteFoto(this.cronologiacurso.id).subscribe(
+      (response) => {
+        Swal.fire(
+          response['msg']['summary'],
+          response['msg']['detail'],
+          'success',
+        );
+        this.ngOnInit();
+      },
+      (error) => {
+        Swal.fire('Error al eliminar', 'Intente de nuevo', 'error');
+      },
+    );
+  }
 
   goBack() {
     this.location.back(); // <-- go back to previous location on cancel
   }
 
-
   search() {
-    return this.cronogramaService.search(this.query).subscribe(
-      res=>{
-        this.cronologiacursos = res;
-        if(!this.query){
-          this.ngOnInit();
-        }
-      });
+    return this.cronogramaService.search(this.query).subscribe((res) => {
+      this.cronologiacursos = res;
+      if (!this.query) {
+        this.ngOnInit();
+      }
+    });
   }
 
+  cambiarStatus(cronologiacurso: Cronograma) {
+    this.cronogramaService.updateStatus(cronologiacurso).subscribe((resp) => {
+      // console.log(resp);
+      Swal.fire('Actualizado', `actualizado correctamente`, 'success');
+      this.getCursos();
+    });
+  }
+
+  public PageSize(): void {
+    this.getCursos();
+    this.query = '';
+  }
 }

@@ -7,6 +7,7 @@ import { User } from 'src/app/models/user';
 import { AlertService } from 'src/app/services/alert.service';
 import { PaymentService } from 'src/app/services/payment.service';
 import { UserService } from 'src/app/services/user.service';
+import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -34,6 +35,7 @@ export class UserProfileComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private location: Location,
     private alertService: AlertService,
+    private profileService: ProfileService,
 
   ) {
     this.user = userService.user;
@@ -54,14 +56,8 @@ export class UserProfileComponent implements OnInit {
       }
   }
 
-  getUser(): void {
 
-    this.user = JSON.parse(localStorage.getItem('user'));
-    // return this.userService.getUserLocalStorage();
-    // console.log(this.user);
-
-
-  }
+  
 
   getUserRemoto(id:number){
     this.userService.getUserById(+id).subscribe(
@@ -69,10 +65,21 @@ export class UserProfileComponent implements OnInit {
         this.user = res[0];
         error => this.error = error
         // console.log(this.userprofile);
+        this.getProfileUser();
+        this.getPaymentUser();
       }
     );
+  }
 
-
+  getProfileUser(){
+    this.profileService.getProfileByUser(this.user.id).subscribe((resp:any)=>{
+      this.userprofile = resp;
+    })
+  }
+  getPaymentUser(){
+    this.paymentService.getPagoByUser(this.user.id).subscribe((resp:any)=>{
+      this.payments = resp;
+    })
   }
 
   getDirectory(id:number): void {

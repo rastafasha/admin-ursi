@@ -64,6 +64,11 @@ export class UsersComponent implements OnInit {
     );
   }
 
+  public PageSize(): void {
+    this.getUsers();
+    this.query = '';
+  }
+
 
 
   // showDeleteConfirm(id: any) {

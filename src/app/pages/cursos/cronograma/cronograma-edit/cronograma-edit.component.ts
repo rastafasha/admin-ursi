@@ -29,7 +29,8 @@ export class CronogramaEditComponent implements OnInit {
    */
    public Editor = DecoupledEditor;
    public editorData = `<p>This is a CKEditor 5 WYSIWYG editor instance created with Angular.</p>`;
-
+  option_selectedd: number = 1;
+  solicitud_selectedd: any = null;
 
    public cronologiacursoForm: FormGroup;
 
@@ -125,6 +126,14 @@ export class CronogramaEditComponent implements OnInit {
              clases: res.clases,
              proyecto: res.proyecto,
              duracion: res.duracion,
+             modo_eng: res.modo_eng,
+             title_eng: res.title_eng,
+             description_eng: res.description_eng,
+             fecha_eng: res.fecha_eng,
+             hora_eng: res.hora_eng,
+             clases_eng: res.clases_eng,
+             proyecto_eng: res.proyecto_eng,
+             duracion_eng: res.duracion_eng,
              costo: res.costo,
            });
            this.cursoSeleccionado = res;
@@ -147,6 +156,14 @@ export class CronogramaEditComponent implements OnInit {
        clases: [' '],
        proyecto: [' '],
        duracion: [' '],
+       modo_eng: [' '],
+       title_eng: [' '],
+       description_eng: [' '],
+       fecha_eng: [' '],
+       hora_eng: [' '],
+       clases_eng: [' '],
+       proyecto_eng: [' '],
+       duracion_eng: [' '],
        costo: [''],
        image: [''],
      })
@@ -158,9 +175,7 @@ export class CronogramaEditComponent implements OnInit {
    get description() {
      return this.cronologiacursoForm.get('description');
    }
-   get price() {
-    return this.cronologiacursoForm.get('price');
-  }
+   
    get fecha() {
      return this.cronologiacursoForm.get('fecha');
    }
@@ -181,6 +196,35 @@ export class CronogramaEditComponent implements OnInit {
    get duracion() {
      return this.cronologiacursoForm.get('duracion');
    }
+   get title_eng() {
+     return this.cronologiacursoForm.get('title_eng');
+   }
+
+   get description_eng() {
+     return this.cronologiacursoForm.get('description_eng');
+   }
+
+   get fecha_eng() {
+     return this.cronologiacursoForm.get('fecha_eng');
+   }
+
+   get modo_eng() {
+     return this.cronologiacursoForm.get('modo_eng');
+   }
+
+   get hora_eng() {
+     return this.cronologiacursoForm.get('hora_eng');
+   }
+   get clases_eng() {
+     return this.cronologiacursoForm.get('clases_eng');
+   }
+   get proyecto_eng() {
+     return this.cronologiacursoForm.get('proyecto_eng');
+   }
+   get duracion_eng() {
+     return this.cronologiacursoForm.get('duracion_eng');
+   }
+   
    get costo() {
      return this.cronologiacursoForm.get('costo');
    }
@@ -211,12 +255,19 @@ export class CronogramaEditComponent implements OnInit {
      const formData = new FormData();
      formData.append('modo', this.cronologiacursoForm.get('modo').value);
      formData.append('title', this.cronologiacursoForm.get('title').value);
+     formData.append('title_eng', this.cronologiacursoForm.get('title_eng').value);
      formData.append('description', this.cronologiacursoForm.get('description').value);
+     formData.append('description_eng', this.cronologiacursoForm.get('description_eng').value);
      formData.append('fecha', this.cronologiacursoForm.get('fecha').value);
+     formData.append('fecha_eng', this.cronologiacursoForm.get('fecha_eng').value);
      formData.append('hora', this.cronologiacursoForm.get('hora').value);
+     formData.append('hora_eng', this.cronologiacursoForm.get('hora_eng').value);
      formData.append('clases', this.cronologiacursoForm.get('clases').value);
+     formData.append('clases_eng', this.cronologiacursoForm.get('clases_eng').value);
      formData.append('proyecto', this.cronologiacursoForm.get('proyecto').value);
+     formData.append('proyecto_eng', this.cronologiacursoForm.get('proyecto_eng').value);
      formData.append('duracion', this.cronologiacursoForm.get('duracion').value);
+     formData.append('duracion_eng', this.cronologiacursoForm.get('duracion_eng').value);
      formData.append('costo', this.cronologiacursoForm.get('costo').value);
      formData.append('image', this.cronologiacursoForm.get('image').value);
 
@@ -281,5 +332,15 @@ export class CronogramaEditComponent implements OnInit {
      // Headers sent along with the XMLHttpRequest to the upload server.
 
    }
+
+   optionSelected(value: number) {
+    this.option_selectedd = value;
+    if (this.option_selectedd === 1) {
+      // this.ngOnInit();
+    }
+    if (this.option_selectedd === 2) {
+      this.solicitud_selectedd = null;
+    }
+  }
 
 }
