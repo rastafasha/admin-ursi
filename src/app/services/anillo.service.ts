@@ -62,7 +62,7 @@ export class AnilloService {
   }
 
    updateAnillo(anillo, id: number) {
-    return this.http.put<any>(baseUrl + '/anillo/update/' + id, anillo, this.headers)
+    return this.http.post<any>(baseUrl + '/anillo/update/' + id, anillo, this.headers)
 
   }
 

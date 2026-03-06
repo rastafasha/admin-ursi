@@ -22,12 +22,10 @@
         </div>
         <div class="clear"></div>
 
-
-
         <section class="section dashboard">
 
             <div class="row">
-                <div class="col-12 col-md-6">
+                <div class="col-12 ">
                     <div class="tab-content-set">
                         <ul class="nav">
                             <li>
@@ -41,148 +39,173 @@
                         </ul>
                     </div>
                     <div *ngIf="option_selectedd == 1">
-                        <form enctype="multipart/form-data" [formGroup]="cronologiacursoForm" (ngSubmit)="editCurso()">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Titulo<span class="required">*</span></label>
-                                <input formControlName="title" type="text" class="form-control" required>
-                            </div>
+                        <form method="POST" [formGroup]="cronologiacursoForm" (ngSubmit)="editCurso()">
                             <div class="row">
-                                <div class="form-group col-xs-12 col-sm-6">
-                                    <label for="exampleInputEmail1">Modo<span class="required">*</span></label>
-                                    <input formControlName="modo" type="text" class="form-control" required>
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Titulo<span class="required">*</span></label>
+                                        <input formControlName="title" type="text" class="form-control" required>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-xs-12 col-sm-6">
+                                            <label for="exampleInputEmail1">Modo<span class="required">*</span></label>
+                                            <input formControlName="modo" type="text" class="form-control" required>
+                                        </div>
+                                        <div class="form-group col-xs-12 col-sm-6">
+                                            <label for="exampleInputEmail1">Fecha<span class="required">*</span></label>
+                                            <input formControlName="fecha" type="text" class="form-control" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-xs-12 col-sm-6">
+                                            <label for="exampleInputEmail1">Hora<span class="required">*</span></label>
+                                            <input formControlName="hora" type="text" class="form-control" required>
+                                        </div>
+                                        <div class="form-group col-xs-12 col-sm-6">
+                                            <label for="exampleInputEmail1">Clases<span
+                                                    class="required">*</span></label>
+                                            <input formControlName="clases" type="text" class="form-control" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-xs-12 col-sm-4">
+                                            <label for="exampleInputEmail1">Duración<span
+                                                    class="required">*</span></label>
+                                            <input formControlName="duracion" type="text" class="form-control" required>
+                                        </div>
+                                        <div class="form-group col-xs-12 col-sm-4">
+                                            <label for="exampleInputEmail1">Proyecto<span
+                                                    class="required">*</span></label>
+                                            <input formControlName="proyecto" type="text" class="form-control" required>
+                                        </div>
+                                        <div class="form-group col-xs-12 col-sm-4">
+                                            <label for="exampleInputEmail1">Costo<span class="required">*</span></label>
+                                            <input formControlName="costo" type="text" class="form-control" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <label>Descripción <span class="required">*</span></label>
+                                        <div class="col-md-12">
+                                            <textarea formControlName="description" id="description" cols="30" rows="4"
+                                                class="form-control"></textarea>
+                                            <!-- <ckeditor [editor]="Editor" (ready)="onReady($event)" data="<p>Hello, world!</p>" formControlName="description" value="description" rows="5" class="form-control" required></ckeditor> -->
+
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group col-xs-12 col-sm-6">
-                                    <label for="exampleInputEmail1">Fecha<span class="required">*</span></label>
-                                    <input formControlName="fecha" type="text" class="form-control" required>
+                                <div class="col-12 col-md-6">
+                                    <label> 'Anexe su foto'</label>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-xs-12">
+
+                                            <img [src]="herramientaSeleccionado?.avatar | imagenPipe: 'herramientas'"
+                                                class=" shadow" style="width: 100%; height: auto;">
+                                            <div *ngIf="FILE_AVATAR">
+                                                <!-- IMAGE_PREVISUALIZA is already a base64 data URL from FileReader, don't use imagenPipe -->
+                                                <img [src]="IMAGE_PREVISUALIZA" style="width: 250px;" alt="Preview">
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <div class="especificaciones">
+                                                <h4>{{'Especificaciones'}}:</h4>
+                                                <ul>
+                                                    <li>{{'Tamaño máximo'}}: 300px X 300px</li>
+                                                    <li>{{'Peso máximo'}}: 500 kb</li>
+                                                    <li>{{'Formato permitido'}}: jpg, .gif, .png</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <div class="form-group local-top-form">
+                                                <div class="settings-btn upload-files-avator">
+                                                    <label for="file" class="upload labelgoogle">
+                                                        <input type="file" accept="image/*" name="image" id="file"
+                                                            (change)="loadFile($event)" class="hide-input input">
+                                                        <span class="label__name">
+                                                            {{'Select a Photo'}}
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="form-group col-xs-12 col-sm-6">
-                                    <label for="exampleInputEmail1">Hora<span class="required">*</span></label>
-                                    <input formControlName="hora" type="text" class="form-control" required>
-                                </div>
-                                <div class="form-group col-xs-12 col-sm-6">
-                                    <label for="exampleInputEmail1">Clases<span class="required">*</span></label>
-                                    <input formControlName="clases" type="text" class="form-control" required>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group col-xs-12 col-sm-4">
-                                    <label for="exampleInputEmail1">Duración<span class="required">*</span></label>
-                                    <input formControlName="duracion" type="text" class="form-control" required>
-                                </div>
-                                <div class="form-group col-xs-12 col-sm-4">
-                                    <label for="exampleInputEmail1">Proyecto<span class="required">*</span></label>
-                                    <input formControlName="proyecto" type="text" class="form-control" required>
-                                </div>
-                                <div class="form-group col-xs-12 col-sm-4">
-                                    <label for="exampleInputEmail1">Costo<span class="required">*</span></label>
-                                    <input formControlName="costo" type="text" class="form-control" required>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <label>Descripción <span class="required">*</span></label>
-                                <div class="col-md-12">
-                                    <textarea formControlName="description" id="description" cols="30" rows="4"
-                                        class="form-control"></textarea>
-                                    <!-- <ckeditor [editor]="Editor" (ready)="onReady($event)" data="<p>Hello, world!</p>" formControlName="description" value="description" rows="5" class="form-control" required></ckeditor> -->
-
-                                </div>
-                            </div>
                             <input type="hidden" formControlName="id">
                             <button (click)="editCurso()" class="btn btn-primary">Guardar</button>
                         </form>
                     </div>
                     <div *ngIf="option_selectedd == 2">
-                        <form enctype="multipart/form-data" [formGroup]="cronologiacursoForm" (ngSubmit)="editCurso()">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Title<span class="required">*</span></label>
-                                <input formControlName="title_eng" type="text" class="form-control" required>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-xs-12 col-sm-6">
-                                    <label for="exampleInputEmail1">Mode<span class="required">*</span></label>
-                                    <input formControlName="modo_eng" type="text" class="form-control" required>
-                                </div>
-                                
-                                <div class="form-group col-xs-12 col-sm-6">
-                                    <label for="exampleInputEmail1">Date<span class="required">*</span></label>
-                                    <input formControlName="fecha_eng" type="text" class="form-control" required>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-xs-12 col-sm-6">
-                                    <label for="exampleInputEmail1">Time<span class="required">*</span></label>
-                                    <input formControlName="hora_eng" type="text" class="form-control" required>
-                                </div>
-                                <div class="form-group col-xs-12 col-sm-6">
-                                    <label for="exampleInputEmail1">Classes<span class="required">*</span></label>
-                                    <input formControlName="clases_eng" type="text" class="form-control" required>
-                                </div>
-                            </div>
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <form method="POST" [formGroup]="cronologiacursoForm" (ngSubmit)="editCurso()">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Title<span class="required">*</span></label>
+                                        <input formControlName="title_eng" type="text" class="form-control" required>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-xs-12 col-sm-6">
+                                            <label for="exampleInputEmail1">Mode<span class="required">*</span></label>
+                                            <input formControlName="modo_eng" type="text" class="form-control" required>
+                                        </div>
 
-                            <div class="row">
-                                <div class="form-group col-xs-12 col-sm-6">
-                                    <label for="exampleInputEmail1">Duration<span class="required">*</span></label>
-                                    <input formControlName="duracion_eng" type="text" class="form-control" required>
-                                </div>
-                                <div class="form-group col-xs-12 col-sm-6">
-                                    <label for="exampleInputEmail1">Project<span class="required">*</span></label>
-                                    <input formControlName="proyecto_eng" type="text" class="form-control" required>
-                                </div>
-                            </div>
+                                        <div class="form-group col-xs-12 col-sm-6">
+                                            <label for="exampleInputEmail1">Date<span class="required">*</span></label>
+                                            <input formControlName="fecha_eng" type="text" class="form-control"
+                                                required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-xs-12 col-sm-6">
+                                            <label for="exampleInputEmail1">Time<span class="required">*</span></label>
+                                            <input formControlName="hora_eng" type="text" class="form-control" required>
+                                        </div>
+                                        <div class="form-group col-xs-12 col-sm-6">
+                                            <label for="exampleInputEmail1">Classes<span
+                                                    class="required">*</span></label>
+                                            <input formControlName="clases_eng" type="text" class="form-control"
+                                                required>
+                                        </div>
+                                    </div>
 
-                            <div class="col-md-12">
-                                <label>Description <span class="required">*</span></label>
-                                <div class="col-md-12">
-                                    <textarea formControlName="description_eng" id="description" cols="30" rows="4"
-                                        class="form-control"></textarea>
-                                    <!-- <ckeditor [editor]="Editor" (ready)="onReady($event)" data="<p>Hello, world!</p>" formControlName="description" value="description" rows="5" class="form-control" required></ckeditor> -->
+                                    <div class="row">
+                                        <div class="form-group col-xs-12 col-sm-6">
+                                            <label for="exampleInputEmail1">Duration<span
+                                                    class="required">*</span></label>
+                                            <input formControlName="duracion_eng" type="text" class="form-control"
+                                                required>
+                                        </div>
+                                        <div class="form-group col-xs-12 col-sm-6">
+                                            <label for="exampleInputEmail1">Project<span
+                                                    class="required">*</span></label>
+                                            <input formControlName="proyecto_eng" type="text" class="form-control"
+                                                required>
+                                        </div>
+                                    </div>
 
-                                </div>
+                                    <div class="col-md-12">
+                                        <label>Description <span class="required">*</span></label>
+                                        <div class="col-md-12">
+                                            <textarea formControlName="description_eng" id="description" cols="30"
+                                                rows="4" class="form-control"></textarea>
+                                            <!-- <ckeditor [editor]="Editor" (ready)="onReady($event)" data="<p>Hello, world!</p>" formControlName="description" value="description" rows="5" class="form-control" required></ckeditor> -->
+
+                                        </div>
+                                    </div>
+                                    <input type="hidden" formControlName="id">
+                                    <button (click)="editCurso()" class="btn btn-primary">Guardar</button>
+                                </form>
                             </div>
-                            <input type="hidden" formControlName="id">
-                            <button (click)="editCurso()" class="btn btn-primary">Guardar</button>
-                        </form>
+                        </div>
                     </div>
 
                 </div>
-                <div class="col-12 col-md-6">
-                    <label> {{'Anexe su foto'}}</label>
-                    <br>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div *ngIf="!cursoSeleccionado">
-                                <img src="./assets/images/no-image.jpg" style="height: 100px; width: 100px;"
-                                    class="img-circle avatar">
-                            </div>
-                            <div *ngIf="cursoSeleccionado">
-                                <button *ngIf="cursoSeleccionado.image" type="button" class="btn btn-outline-danger"
-                                    (click)="deleteFotoPerfil()">Eliminar</button>
-                                <img [src]="cursoSeleccionado.image | imagenPipe: 'cronologiacursos'"
-                                    style="height: 100px; width: 100px;" class="img-circle avatar">
-                            </div>
 
-                        </div>
-                        <div class="col-xs-12">
-                            <div class="especificaciones">
-                                <h4>{{'Especificaciones'}}:</h4>
-                                <ul>
-                                    <li>{{'Tamaño máximo'}}: 300px X 300px</li>
-                                    <li>{{'Peso máximo'}}: 500 kb</li>
-                                    <li>{{'Formato permitido'}}: jpg, .gif, .png</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-xs-12">
-                            <angular-file-uploader [config]="afuConfig " (ApiResponse)="avatarUpload($event) ">
-                            </angular-file-uploader>
-                        </div>
-                    </div>
-                </div>
             </div>
 
         </section>

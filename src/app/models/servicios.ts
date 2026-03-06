@@ -12,7 +12,8 @@ export class Servicios {
   model: string;
   price: any;
   videoUrl: string;
-  image?: string = "";
+  image: string = "";
+    avatar: string = "";
   created_at: string;
   updated_at: string;
   status?: 'PUBLISHED' | 'PENDING' | 'REJECTED';
@@ -20,13 +21,13 @@ export class Servicios {
   get imagenUrl(){
 
     if(!this.image){
-      return `${base_url}servicios/no-image.jpg`;
+      return `${base_url}servicios/no-image.png`;
     } else if(this.image.includes('https')){
       return this.image;
     } else if(this.image){
       return `${base_url}servicios/${this.image}`;
     }else {
-      return `${base_url}/no-image.jpg`;
+      return `${base_url}/no-image.png`;
       // return `./assets/img/no-image.jpg`;
     }
   }

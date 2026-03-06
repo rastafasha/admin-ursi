@@ -78,11 +78,11 @@
                                 <tr *ngFor="let post of posts |  paginate: { itemsPerPage: count, currentPage: p }">
                                     <td>
                                         <div class="image">
-                                            <div *ngIf="!post.image ">
-                                                <img [src]="post.image | imagenPipe: 'posts'" style="height: 50px; width: 50px;" class="img-circle avatar">
+                                            <div *ngIf="!post.avatar ">
+                                                <img [src]="post.avatar | imagenPipe: 'posts'" style="height: 50px; width: 50px;" class="img-circle avatar">
                                             </div>
-                                            <div *ngIf="post.image">
-                                                <img [src]="post.image | imagenPipe: 'posts'" style="height: 50px; width: 50px;" class="img-circle avatar">
+                                            <div *ngIf="post.avatar">
+                                                <img [src]="post.avatar | imagenPipe: 'posts'" style="height: 50px; width: 50px;" class="img-circle avatar">
 
                                             </div>
                                         </div>

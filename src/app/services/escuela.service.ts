@@ -59,7 +59,7 @@ export class EscuelaService {
   }
 
    updateEscuela(galleryschool, id: number) {
-    return this.http.put<any>(baseUrl + '/galleryschool/update/' + id, galleryschool, this.headers)
+    return this.http.post<any>(baseUrl + '/galleryschool/update/' + id, galleryschool, this.headers)
 
   }
 

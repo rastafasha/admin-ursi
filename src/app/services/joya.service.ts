@@ -62,7 +62,7 @@ export class JoyaService {
   }
 
    updateJoya(joya, id: number) {
-    return this.http.put<any>(baseUrl + '/joya/update/' + id, joya, this.headers)
+    return this.http.post<any>(baseUrl + '/joya/update/' + id, joya, this.headers)
 
   }
 

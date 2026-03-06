@@ -24,11 +24,11 @@
         <section class="section dashboard">
 
             <div class="row">
-                <div class="col-12 col-md-6">
+                <div class="col-12">
                     <div class="tab-content-set">
                         <ul class="nav">
                             <li>
-                                <a href="#" onclick="return false;"  [ngClass]="{'active': option_selectedd == 1}"
+                                <a href="#" onclick="return false;" [ngClass]="{'active': option_selectedd == 1}"
                                     (click)="optionSelected(1)">Español</a>
                             </li>
                             <li>
@@ -38,149 +38,149 @@
                         </ul>
                     </div>
                     <div *ngIf="option_selectedd == 1">
-                        <form enctype="multipart/form-data" [formGroup]="cursoForm" (ngSubmit)="editCurso()">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Titulo<span class="required">*</span></label>
-                            <input formControlName="name" type="text" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Url para compartir<span class="required">*</span></label>
-                            <input formControlName="slug" type="text" class="form-control" required>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-xs-12 col-md-6">
-                                <label for="exampleInputEmail1">Precio<span class="required">*</span></label>
-                                <input formControlName="price" type="text" class="form-control" required>
-                            </div>
-                            <div class="form-group col-xs-12 col-md-6">
-                                <label for="exampleInputEmail1">Modal<span class="required">*</span></label>
-                                <input formControlName="modal" type="text" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-groupcol-xs-12 col-md-6">
-                                <label for="exampleInputEmail1">Tiene video Youtube? (Colocar solo el Código al final del
-                                    url)</label>
-                                <input formControlName="urlVideo" type="text" class="form-control">
-                            </div>
-                            <div class="form-group col-xs-12 col-md-6">
-                                <div class="col-lg-12">
+                        <form method="POST" [formGroup]="cursoForm" (ngSubmit)="editCurso()">
+                            <div class="row">
+                                <div class="col-12 col-md-6">
                                     <div class="form-group">
-                                        <label for="select-input">Destacado en el home?</label>
-                                        <select class="form-control " formControlName="isFeatured">
-                                            <option disabled value="">SELECCIONAR</option>
-                                            <option [value]="1">Activo</option>
-                                            <option [value]="0">Inactivo</option>
-                                        </select>
+                                        <label for="exampleInputEmail1">Titulo<span class="required">*</span></label>
+                                        <input formControlName="name" type="text" class="form-control" required>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <label>Descripción corta para el carrito<span class="required">*</span></label>
-                            <div class="col-md-12">
-                                <textarea formControlName="description" id="description" cols="30" rows="4"
-                                    class="form-control"></textarea>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Url para compartir<span
+                                                class="required">*</span></label>
+                                        <input formControlName="slug" type="text" class="form-control" required>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-xs-12 col-md-6">
+                                            <label for="exampleInputEmail1">Precio<span
+                                                    class="required">*</span></label>
+                                            <input formControlName="price" type="text" class="form-control" required>
+                                        </div>
+                                        <div class="form-group col-xs-12 col-md-6">
+                                            <label for="exampleInputEmail1">Modal<span class="required">*</span></label>
+                                            <input formControlName="modal" type="text" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-groupcol-xs-12 col-md-6">
+                                            <label for="exampleInputEmail1">Tiene video Youtube? (Colocar solo el Código
+                                                al final del
+                                                url)</label>
+                                            <input formControlName="urlVideo" type="text" class="form-control">
+                                        </div>
+                                        <div class="form-group col-xs-12 col-md-6">
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="select-input">Destacado en el home?</label>
+                                                    <select class="form-control " formControlName="isFeatured">
+                                                        <option disabled value="">SELECCIONAR</option>
+                                                        <option [value]="1">Activo</option>
+                                                        <option [value]="0">Inactivo</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label>Descripción corta para el carrito<span class="required">*</span></label>
+                                        <div class="col-md-12">
+                                            <textarea formControlName="description" id="description" cols="30" rows="4"
+                                                class="form-control"></textarea>
 
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <label>Descripción para la tienda<span class="required">*</span></label>
-                            <div class="col-md-12">
-                                <textarea formControlName="adicional" id="description" cols="30" rows="4" class="form-control"></textarea>
-                                <!-- <ckeditor [editor]="Editor" (ready)="onReady($event)" data="<p>Hello, world!</p>"
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label>Descripción para la tienda<span class="required">*</span></label>
+                                        <div class="col-md-12">
+                                            <textarea formControlName="adicional" id="description" cols="30" rows="4"
+                                                class="form-control"></textarea>
+                                            <!-- <ckeditor [editor]="Editor" (ready)="onReady($event)" data="<p>Hello, world!</p>"
                                     formControlName="adicional" value="adicional" rows="5" class="form-control"
                                     required></ckeditor> -->
 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label> 'Anexe su foto'</label>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-xs-12">
+
+                                            <img [src]="herramientaSeleccionado?.avatar | imagenPipe: 'herramientas'"
+                                                class=" shadow" style="width: 100%; height: auto;">
+                                            <div *ngIf="FILE_AVATAR">
+                                                <!-- IMAGE_PREVISUALIZA is already a base64 data URL from FileReader, don't use imagenPipe -->
+                                                <img [src]="IMAGE_PREVISUALIZA" style="width: 250px;" alt="Preview">
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <div class="especificaciones">
+                                                <h4>{{'Especificaciones'}}:</h4>
+                                                <ul>
+                                                    <li>{{'Tamaño máximo'}}: 300px X 300px</li>
+                                                    <li>{{'Peso máximo'}}: 500 kb</li>
+                                                    <li>{{'Formato permitido'}}: jpg, .gif, .png</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <div class="form-group local-top-form">
+                                                <div class="settings-btn upload-files-avator">
+                                                    <label for="file" class="upload labelgoogle">
+                                                        <input type="file" accept="image/*" name="image" id="file"
+                                                            (change)="loadFile($event)" class="hide-input input">
+                                                        <span class="label__name">
+                                                            {{'Select a Photo'}}
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <input type="hidden" formControlName="id">
-                        <button (click)="editCurso()" class="btn btn-primary">Guardar</button>
-                    </form>
+
+                            <input type="hidden" formControlName="id">
+                            <button (click)="editCurso()" class="btn btn-primary">Guardar</button>
+                        </form>
                     </div>
                     <div *ngIf="option_selectedd == 2">
-                        <form enctype="multipart/form-data" [formGroup]="cursoForm" (ngSubmit)="editCurso()">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Title<span class="required">*</span></label>
-                            <input formControlName="name_eng" type="text" class="form-control" required>
-                        </div>
-                        
-                        <div class="col-md-12">
-                            <label>Short description for the cart<span class="required">*</span></label>
-                            <div class="col-md-12">
-                                <textarea formControlName="description_eng" id="description" cols="30" rows="4"
-                                    class="form-control"></textarea>
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <form method="POST" [formGroup]="cursoForm" (ngSubmit)="editCurso()">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Title<span class="required">*</span></label>
+                                        <input formControlName="name_eng" type="text" class="form-control" required>
+                                    </div>
 
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <label>Description for the store<span class="required">*</span></label>
-                            <div class="col-md-12">
-                                <textarea formControlName="adicional_eng" id="description" cols="30" rows="4" class="form-control"></textarea>
-                                <!-- <ckeditor [editor]="Editor" (ready)="onReady($event)" data="<p>Hello, world!</p>"
+                                    <div class="col-md-12">
+                                        <label>Short description for the cart<span class="required">*</span></label>
+                                        <div class="col-md-12">
+                                            <textarea formControlName="description_eng" id="description" cols="30"
+                                                rows="4" class="form-control"></textarea>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label>Description for the store<span class="required">*</span></label>
+                                        <div class="col-md-12">
+                                            <textarea formControlName="adicional_eng" id="description" cols="30"
+                                                rows="4" class="form-control"></textarea>
+                                            <!-- <ckeditor [editor]="Editor" (ready)="onReady($event)" data="<p>Hello, world!</p>"
                                     formControlName="adicional" value="adicional" rows="5" class="form-control"
                                     required></ckeditor> -->
 
-                            </div>
-                        </div>
-                        <input type="hidden" formControlName="id">
-                        <button (click)="editCurso()" class="btn btn-primary">Guardar</button>
-                    </form>
-                    </div>
-
-                    
-                </div>
-                <div class="col-12 col-md-6">
-                    <label> {{'Anexe su foto'}}</label>
-                    <br>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div *ngIf="!curso">
-                                <img src="./assets/images/no-image.jpg" style="height: 100px; width: 100px;"
-                                    class="img-circle avatar">
-                            </div>
-                            <div *ngIf="curso">
-                                <button *ngIf="curso.image" type="button" class="btn btn-outline-danger"
-                                    (click)="deleteFotoPerfil()">Eliminar</button>
-                                <img [src]="curso.image | imagenPipe: 'cursos'" style="height: 100px; width: 100px;"
-                                    class="img-circle avatar">
-                            </div>
-                        </div>
-                        <div class="col-xs-12">
-                            <div class="especificaciones">
-                                <h4>{{'Especificaciones'}}:</h4>
-                                <ul>
-                                    <li>{{'Tamaño máximo'}}: 300px X 300px</li>
-                                    <li>{{'Peso máximo'}}: 500 kb</li>
-                                    <li>{{'Formato permitido'}}: jpg, .gif, .png</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-xs-12">
-                            <angular-file-uploader [config]="afuConfig " (ApiResponse)="avatarUpload($event) ">
-                            </angular-file-uploader>
-                        </div>
-                        <div class="col-xs-12">
-                            <div *ngIf="!curso">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title">No Video</h4>
-
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div *ngIf="curso">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title">Video</h4>
-                                        <iframe class="videom" [src]="getVideoIframe(curso.urlVideo)" frameborder="0"
-                                            allow="accelerometer; autoplay; encrypted-media; gyroscope; "
-                                            allowfullscreen></iframe>
-                                    </div>
-                                </div>
+                                    <input type="hidden" formControlName="id">
+                                    <button (click)="editCurso()" class="btn btn-primary">Guardar</button>
+                                </form>
                             </div>
                         </div>
                     </div>
+
+
                 </div>
             </div>
 

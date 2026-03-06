@@ -25,11 +25,6 @@ import { ServicioService } from 'src/app/services/servicio.service';
 })
 export class ServiciosEditComponent implements OnInit {
 
-  /**
-   * Editor type area wyswyg
-   */
-  public Editor = DecoupledEditor;
-  public editorData = `<p>This is a CKEditor 5 WYSIWYG editor instance created with Angular.</p>`;
   option_selectedd:number = 1;
   solicitud_selectedd:any = null;
 
@@ -48,39 +43,12 @@ export class ServiciosEditComponent implements OnInit {
   imagePath: string;
   error: string;
   uploadError: string;
-  public storage = environment.apiUrlMedia
+  imageUrl = environment.apiUrlMedia;
+  public FILE_AVATAR: any;
+  public IMAGE_PREVISUALIZA: any = "assets/images/no-image.png";
+  text_validation: any = null;
+  public loading: boolean = false;
 
-  public afuConfig = {
-    multiple: false,
-    formatsAllowed: '.jpg, .png, .gif, .jpeg',
-    method: 'POST',
-    maxSize: '2',
-    uploadAPI: {
-      url: environment.apiUrl + '/servicio/upload',
-      headers: {
-        Accept: 'application/json',
-        Authorization: 'Bearer ' + this.accountService.headers
-
-      },
-      responseType: 'json',
-    },
-    theme: 'dragNDrop',
-    selectFileBtn: 'Select Files',
-    hideProgressBar: false,
-    hideResetBtn: false,
-    hideSelectBtn: false,
-    fileNameIndex: true,
-    replaceTexts: {
-      selectFileBtn: 'Seleccionar imagen',
-      resetBtn: 'Resetear',
-      uploadBtn: 'Subir',
-      dragNDropBox: 'Arrastre y suelte aquí',
-      attachPinBtn: 'Seleccionar una imagen',
-      afterUploadMsg_success: 'Se cargó correctamente el archivo !',
-      afterUploadMsg_error: 'Se produjo un error al subir el archivo!',
-      sizeLimit: 'Límite de tamaño 2 Megas'
-    }
-  };
 
   constructor(
     private fb: FormBuilder,
@@ -131,6 +99,7 @@ export class ServiciosEditComponent implements OnInit {
             status: res.status,
           });
           this.servicioSeleccionado = res;
+          this.imagePath = res.avatar;
           // console.log(this.servicioSeleccionado);
         }
       );
@@ -187,26 +156,19 @@ get description_eng() {
   get status() {
     return this.servicioForm.get('status');
   }
-  get image() {
-    return this.servicioForm.get('image');
+  
+
+ loadFile($event: any) {
+     if ($event.target.files[0].type.indexOf("image")) {
+      this.text_validation = "Solamente pueden ser archivos de tipo imagen";
+      return;
+    }
+    this.text_validation = "";
+    this.FILE_AVATAR = $event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(this.FILE_AVATAR);
+    reader.onloadend = () => (this.IMAGE_PREVISUALIZA = reader.result);
   }
-
-
-  avatarUpload(datos) {
-    const data = JSON.parse(datos.response);
-    this.servicioForm.controls['image'].setValue(data.image);//almaceno el nombre de la imagen
-  }
-
-  deleteFotoPerfil(){
-    this.servicioService.deleteFoto(this.servicioForm.value['id']).subscribe(response => {
-      Swal.fire(response['msg']['summary'], response['msg']['detail'], 'success');
-      this.ngOnInit();
-    }, error => {
-      Swal.fire('Error al eliminar', 'Intente de nuevo', 'error');
-    });
-  }
-
-
 
   editServicio(){
 
@@ -219,18 +181,19 @@ get description_eng() {
   formData.append('description_eng', this.servicioForm.get('description_eng').value);
     formData.append('videoUrl', this.servicioForm.get('videoUrl').value);
     formData.append('description', this.servicioForm.get('description').value);
-    formData.append('image', this.servicioForm.get('image').value);
+    // formData.append('image', this.servicioForm.get('image').value);
     formData.append('status', 'PENDING');
 
     const id = this.servicioForm.get('id').value;
 
-    if(id){
-      //actualizar
-      const data = {
-        ...this.servicioForm.value
-      }
+    if (this.FILE_AVATAR) {
+          formData.append("imagen", this.FILE_AVATAR);
+        }
+    
 
-      this.servicioService.updateServicio(data, +id).subscribe(
+    if(id){
+
+      this.servicioService.updateServicio(formData, +id).subscribe(
         resp =>{
           this.servicioSeleccionado =resp;
           Swal.fire('Actualizado', `Actualizado correctamente`, 'success');
@@ -243,7 +206,7 @@ get description_eng() {
     const data = {
       ...this.servicioForm.value
     }
-      this.servicioService.createServicio(data).subscribe(
+      this.servicioService.createServicio(formData).subscribe(
         (resp: any) =>{
           this.servicioSeleccionado =resp;
         Swal.fire('Creado', ` creado correctamente`, 'success');

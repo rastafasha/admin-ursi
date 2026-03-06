@@ -3,7 +3,8 @@ const base_url = environment.apiUrlMedia;
 
 export class Escuela {
   id: number;
-  image: string;
+  image: string = "";
+    avatar: string = "";
   title: string;
   created_at: string;
   updated_at: string;

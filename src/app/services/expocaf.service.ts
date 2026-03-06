@@ -62,7 +62,7 @@ export class ExpocafService {
   }
 
    updateExpocaf(expocaf, id: number) {
-    return this.http.put<any>(baseUrl + '/expocaf/update/' + id, expocaf, this.headers)
+    return this.http.post<any>(baseUrl + '/expocaf/update/' + id, expocaf, this.headers)
 
   }
 

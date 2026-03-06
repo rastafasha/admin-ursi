@@ -62,7 +62,7 @@ export class CronogramaService {
   }
 
    updateCronograma(cronologiacurso, id: number) {
-    return this.http.put<any>(baseUrl + '/cronologiacurso/update/' + id, cronologiacurso, this.headers)
+    return this.http.post<any>(baseUrl + '/cronologiacurso/update/' + id, cronologiacurso, this.headers)
 
   }
 

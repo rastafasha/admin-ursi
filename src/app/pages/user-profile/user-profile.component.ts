@@ -62,7 +62,7 @@ export class UserProfileComponent implements OnInit {
   getUserRemoto(id:number){
     this.userService.getUserById(+id).subscribe(
       res =>{
-        this.user = res[0];
+        this.user = res;
         error => this.error = error
         // console.log(this.userprofile);
         this.getProfileUser();
@@ -74,6 +74,7 @@ export class UserProfileComponent implements OnInit {
   getProfileUser(){
     this.profileService.getProfileByUser(this.user.id).subscribe((resp:any)=>{
       this.userprofile = resp;
+      console.log(this.userprofile)
     })
   }
   getPaymentUser(){

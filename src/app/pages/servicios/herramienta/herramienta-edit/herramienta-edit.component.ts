@@ -22,67 +22,31 @@ import { HerramientaService } from 'src/app/services/herramienta.service';
   styleUrls: ['./herramienta-edit.component.css']
 })
 export class HerramientaEditComponent implements OnInit {
-  /**
-     * Editor type area wyswyg
-     */
-  public Editor = DecoupledEditor;
-  public Editor1 = DecoupledEditor;
-  public editorData = `<p>This is a CKEditor 5 WYSIWYG editor instance created with Angular.</p>`;
-  public editorData1 = `<p>This is a CKEditor 5 WYSIWYG editor instance created with Angular.</p>`;
-
+  
   option_selectedd: number = 1;
   solicitud_selectedd: any = null;
   
   public servicioForm: FormGroup;
 
-  public servicio: Herramienta;
+  public herramienta: Herramienta;
 
   public imgSelect: String | ArrayBuffer;
 
   titlePage: string;
 
-  public servicioSeleccionado: Herramienta;
+  public herramientaSeleccionado: Herramienta;
   public user: User;
   id: any;
 
-
+  imageUrl = environment.apiUrlMedia;
+  public FILE_AVATAR: any;
+  public IMAGE_PREVISUALIZA: any = "assets/images/no-image.png";
+  text_validation: any = null;
+  public loading: boolean = false;
 
   imagePath: string;
   error: string;
   uploadError: string;
-  public storage = environment.apiUrlMedia
-
-  public afuConfig = {
-    multiple: false,
-    formatsAllowed: '.jpg, .png, .gif, .jpeg',
-    method: 'POST',
-    maxSize: '2',
-    uploadAPI: {
-      url: environment.apiUrl + '/herramienta/upload',
-      headers: {
-        Accept: 'application/json',
-        Authorization: 'Bearer ' + this.accountService.headers
-
-      },
-      responseType: 'json',
-    },
-    theme: 'dragNDrop',
-    selectFileBtn: 'Select Files',
-    hideProgressBar: false,
-    hideResetBtn: false,
-    hideSelectBtn: false,
-    fileNameIndex: true,
-    replaceTexts: {
-      selectFileBtn: 'Seleccionar imagen',
-      resetBtn: 'Resetear',
-      uploadBtn: 'Subir',
-      dragNDropBox: 'Arrastre y suelte aquí',
-      attachPinBtn: 'Seleccionar una imagen',
-      afterUploadMsg_success: 'Se cargó correctamente el archivo !',
-      afterUploadMsg_error: 'Se produjo un error al subir el archivo!',
-      sizeLimit: 'Límite de tamaño 2 Megas'
-    }
-  };
 
 
   constructor(
@@ -101,7 +65,7 @@ export class HerramientaEditComponent implements OnInit {
   ngOnInit(): void {
     this.validarFormulario();
     this.getUser();
-    this.activatedRoute.params.subscribe(({ id }) => this.getServicio(id));
+    this.activatedRoute.params.subscribe(({ id }) => this.getHerramienta(id));
     window.scrollTo(0, 0);
   }
 
@@ -116,7 +80,7 @@ export class HerramientaEditComponent implements OnInit {
     this.id = this.user.id;
   }
 
-  getServicio(id: number) {
+  getHerramienta(id: number) {
     if (id !== null && id !== undefined) {
       this.titlePage = 'Editando Herramienta';
       this.herramientaService.getHerramienta(+id).subscribe(
@@ -134,7 +98,8 @@ export class HerramientaEditComponent implements OnInit {
           // Update editor data with existing content
           // this.editorData = res.description || '<p></p>';
           // this.editorData1 = res.description_eng || '<p></p>';
-          this.servicioSeleccionado = res;
+          this.imagePath = res.avatar;
+          this.herramientaSeleccionado = res;
           // console.log(this.servicioSeleccionado);
         }
       );
@@ -156,6 +121,20 @@ export class HerramientaEditComponent implements OnInit {
       image: [''],
     })
   }
+
+  loadFile($event: any) {
+     if ($event.target.files[0].type.indexOf("image")) {
+      this.text_validation = "Solamente pueden ser archivos de tipo imagen";
+      return;
+    }
+    this.text_validation = "";
+    this.FILE_AVATAR = $event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(this.FILE_AVATAR);
+    reader.onloadend = () => (this.IMAGE_PREVISUALIZA = reader.result);
+  }
+
+
   get title() {
     return this.servicioForm.get('title');
   }
@@ -182,30 +161,10 @@ export class HerramientaEditComponent implements OnInit {
   get status() {
     return this.servicioForm.get('status');
   }
-  get image() {
-    return this.servicioForm.get('image');
-  }
+  
 
 
-
-  avatarUpload(datos) {
-    const data = JSON.parse(datos.response);
-    this.servicioForm.controls['image'].setValue(data.image);//almaceno el nombre de la imagen
-  }
-
-
-  deleteFotoPerfil() {
-    this.herramientaService.deleteFoto(this.servicioForm.value['id']).subscribe(response => {
-      Swal.fire(response['msg']['summary'], response['msg']['detail'], 'success');
-      this.ngOnInit();
-    }, error => {
-      Swal.fire('Error al eliminar', 'Intente de nuevo', 'error');
-    });
-  }
-
-
-
-  editServicio() {
+  editHerramienta() {
 
     const formData = new FormData();
     formData.append('title', this.servicioForm.get('title').value);
@@ -214,36 +173,38 @@ export class HerramientaEditComponent implements OnInit {
     formData.append('title_eng', this.servicioForm.get('title_eng').value);
     formData.append('subtitle_eng', this.servicioForm.get('subtitle_eng').value);
     formData.append('description_eng', this.servicioForm.get('description_eng').value);
-    formData.append('image', this.servicioForm.get('image').value);
     formData.append('status', 'PENDING');
 
+    if (this.FILE_AVATAR) {
+          formData.append("imagen", this.FILE_AVATAR);
+        }
+    
     const id = this.servicioForm.get('id').value;
 
     if (id) {
-      //actualizar
-      const data = {
-        ...this.servicioForm.value
-      }
-
-      this.herramientaService.updateHerramienta(data, +id).subscribe(
+      // Update existing herramienta - send formData directly
+      this.herramientaService.updateHerramienta(formData, +id).subscribe(
         resp => {
-          this.servicioSeleccionado = resp;
+          this.herramientaSeleccionado = resp;
           Swal.fire('Actualizado', `Actualizado correctamente`, 'success');
           this.router.navigateByUrl(`/dashboard/herramientas`);
-          // console.log(this.servicioSeleccionado);
+        },
+        err => {
+          console.error('Error updating herramienta:', err);
+          Swal.fire('Error', `Error al actualizar: ${err.message || 'Unknown error'}`, 'error');
         });
 
     } else {
-      //crear
-      const data = {
-        ...this.servicioForm.value
-      }
-      this.herramientaService.createHerramienta(data).subscribe(
+      // Create new herramienta - also use formData
+      this.herramientaService.createHerramienta(formData).subscribe(
         (resp: any) => {
-          this.servicioSeleccionado = resp;
-          Swal.fire('Creado', ` creado correctamente`, 'success');
+          this.herramientaSeleccionado = resp;
+          Swal.fire('Creado', `creado correctamente`, 'success');
           this.router.navigateByUrl(`/dashboard/herramientas`);
-          // this.enviarNotificacion();
+        },
+        err => {
+          console.error('Error creating herramienta:', err);
+          Swal.fire('Error', `Error al crear: ${err.message || 'Unknown error'}`, 'error');
         });
     }
     return false;

@@ -30,7 +30,7 @@
                                 <img src="./assets/images/no-image.jpg" class="rounded-circle">
                             </div>
                             <div *ngIf="userprofile">
-                                <img [src]="userprofile.image | imagenPipe: 'profiles'" [alt]="user.username" class="rounded-circle">
+                                <img [src]="userprofile.avatar | imagenPipe: 'profiles'" [alt]="user.username" class="rounded-circle">
                             </div>
 
                             <h3>{{user?.username}}</h3>

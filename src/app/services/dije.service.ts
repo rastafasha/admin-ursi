@@ -62,7 +62,7 @@ export class DijeService {
   }
 
    updateDije(dije, id: number) {
-    return this.http.put<any>(baseUrl + '/dije/update/' + id, dije, this.headers)
+    return this.http.post<any>(baseUrl + '/dije/update/' + id, dije, this.headers)
 
   }
 

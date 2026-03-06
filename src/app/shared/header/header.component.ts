@@ -60,7 +60,7 @@ export class HeaderComponent implements OnInit {
   getUserServer(){
     this.userService.getUserById(this.user.id).subscribe(
       res =>{
-        this.user = res[0];
+        this.user = res;
         error => this.error = error;
       }
     );

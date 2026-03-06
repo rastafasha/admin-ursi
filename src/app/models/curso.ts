@@ -14,7 +14,8 @@ export class Curso {
   description_eng: string;
   adicional_eng: string;
   slug: string;
-  image: string;
+  image: string = "";
+    avatar: string = "";
   isFeatured: boolean;
   created_at: string;
   updated_at: string;

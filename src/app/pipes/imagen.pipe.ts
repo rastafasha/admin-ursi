@@ -15,13 +15,13 @@ export class ImagenPipe implements PipeTransform {
   ): string {
 
     if(!img){
-      return `${base_url}no-image.jpg`;
+      return `${base_url}no-image.png`;
     } else if(img.includes('https')){
       return img;
     } else if(img){
       return `${base_url}${tipo}/${img}`;
     }else {
-      return `${base_url}no-image.jpg`;
+      return `${base_url}no-image.png`;
     }
 
 

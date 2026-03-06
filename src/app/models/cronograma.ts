@@ -20,7 +20,8 @@ export class Cronograma {
   proyecto_eng: string;
   duracion_eng: string;
   costo: any;
-  image: string;
+  image: string = "";
+    avatar: string = "";
   created_at: string;
   updated_at: string;
   status?: 'PUBLISHED' | 'PENDING' | 'REJECTED';

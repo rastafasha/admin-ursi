@@ -22,7 +22,8 @@
             <!-- End Page Title -->
         </div>
         <div class="buton">
-            <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
+            <button class="btn btn-outline-danger pull-right" href="javascript:void(0)"
+                (click)="goBack()">Volver</button>
         </div>
         <div class="clear"></div>
 
@@ -32,17 +33,19 @@
 
                     <div class="card">
                         <div class="card-body profile-card pt-4  fichasmall">
-                            <div *ngIf="!userprofile.image">
+                            <div *ngIf="!userprofile.avatar">
                                 <img src="./assets/images/no-image.jpg" class="rounded-circle">
                             </div>
-                            <div *ngIf="userprofile.image">
-                                <img [src]="userprofile.image | imagenPipe: 'profiles'" [alt]="user.username" class="rounded-circle">
+                            <div *ngIf="userprofile.avatar">
+                                <img [src]="userprofile.avatar | imagenPipe: 'profiles'" [alt]="user.username"
+                                    class="rounded-circle">
                             </div>
                             <div class="inffichasmall">
                                 <h2>{{userprofile.username}}</h2>
                                 <p>{{userprofile.email}}</p>
 
-                                <span class="badge bg-dark-light" *ngIf="userprofile.role === 'SUPERADMIN'">SuperAdmin</span>
+                                <span class="badge bg-dark-light"
+                                    *ngIf="userprofile.role === 'SUPERADMIN'">SuperAdmin</span>
                                 <span class="badge bg-primary" *ngIf="userprofile.role === 'ADMIN'">Admin</span>
                                 <span class="badge bg-success" *ngIf="userprofile.role === 'MEMBER'">Miembro</span>
                                 <span class="badge bg-secondary" *ngIf="userprofile.role === 'GUEST'">Invitado</span>
@@ -61,48 +64,58 @@
                             <!-- Bordered Tabs -->
                             <ul class="nav nav-tabs nav-tabs-bordered">
                                 <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#perfil">Mi perfil</button>
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#perfil">Mi
+                                        perfil</button>
                                 </li>
                                 <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">CambiarContraseña</button>
+                                    <button class="nav-link" data-bs-toggle="tab"
+                                        data-bs-target="#profile-change-password">CambiarContraseña</button>
                                 </li>
                             </ul>
                             <div class="tab-content pt-2">
 
                                 <div class="tab-pane fade show active perfil" id="perfil">
-                                    <form class="form-horizontal form-material" (ngSubmit)="guardarPerfil()" [formGroup]="perfilForm">
+                                    <form class="form-horizontal form-material" (ngSubmit)="guardarPerfil()"
+                                        [formGroup]="perfilForm">
                                         <div class="row">
 
                                             <div class="col-xs-12 col-sm-6 col-md-8">
                                                 <div class="col-xs-12 col-md-6">
                                                     <label>Nombres <span class="required">*</span></label>
-                                                    <input type="text" formControlName="nombre" value="user.profiles.nombre" class="form-control" required>
+                                                    <input type="text" formControlName="nombre"
+                                                        value="user.profiles.nombre" class="form-control" required>
 
                                                 </div>
                                                 <div class="col-xs-12 col-md-6">
                                                     <label>Apellidos <span class="required">*</span></label>
-                                                    <input type="text" formControlName="surname" value="user.profiles.surname" class="form-control" required>
+                                                    <input type="text" formControlName="surname"
+                                                        value="user.profiles.surname" class="form-control" required>
 
                                                 </div>
 
 
                                                 <div class="col-xs-12 col-md-6">
                                                     <label for="exampleInputEmail1">Pais</label>
-                                                    <input type="text" formControlName="pais" value="user.profiles.pais" class="form-control">
+                                                    <input type="text" formControlName="pais" value="user.profiles.pais"
+                                                        class="form-control">
                                                 </div>
                                                 <div class="col-xs-12 col-md-6">
                                                     <label for="exampleInputEmail1">Estado</label>
-                                                    <input type="text" formControlName="estado" value="user.profiles.estado" class="form-control">
+                                                    <input type="text" formControlName="estado"
+                                                        value="user.profiles.estado" class="form-control">
                                                 </div>
 
                                                 <div class="col-xs-12 col-md-6">
-                                                    <label for="exampleInputEmail1">Teléfonos Principal  <span class="required">*</span></label>
-                                                    <input type="text" formControlName="telhome" value="user.profiles.telhome" class="form-control" required>
+                                                    <label for="exampleInputEmail1">Teléfonos Principal <span
+                                                            class="required">*</span></label>
+                                                    <input type="text" formControlName="telhome"
+                                                        value="user.profiles.telhome" class="form-control" required>
 
                                                 </div>
                                                 <div class="col-xs-12 col-md-6">
-                                                    <label for="exampleInputEmail1">Teléfonos Móvil  </label>
-                                                    <input type="text" formControlName="telmovil" value="user.profiles.telmovil" class="form-control">
+                                                    <label for="exampleInputEmail1">Teléfonos Móvil </label>
+                                                    <input type="text" formControlName="telmovil"
+                                                        value="user.profiles.telmovil" class="form-control">
 
                                                 </div>
                                                 <div class="clear"></div>
@@ -115,30 +128,42 @@
                                                     <div class="redes">
                                                         <div class="col-xs-12 col-md-6">
                                                             <label for="facebook" class="col-xs-12 col-form-label">
-                                            <i class="bi bi-facebook"></i> Facebook</label>
+                                                                <i class="bi bi-facebook"></i> Facebook</label>
                                                             <div class="col-11">
-                                                                <input type="text" class="form-control" formControlName="facebook" value="user.profiles.facebook" placeholder="@nombredeusuario">
+                                                                <input type="text" class="form-control"
+                                                                    formControlName="facebook"
+                                                                    value="user.profiles.facebook"
+                                                                    placeholder="@nombredeusuario">
                                                             </div>
                                                         </div>
                                                         <div class="col-xs-12 col-md-6">
                                                             <label for="instagram" class="col-xs-12 col-form-label">
-                                          <i class="bi bi-instagram"></i> Instagram</label>
+                                                                <i class="bi bi-instagram"></i> Instagram</label>
                                                             <div class="col-11">
-                                                                <input type="text" class="form-control" formControlName="instagram" value="user.profiles.instagram" placeholder="@nombredeusuario">
+                                                                <input type="text" class="form-control"
+                                                                    formControlName="instagram"
+                                                                    value="user.profiles.instagram"
+                                                                    placeholder="@nombredeusuario">
                                                             </div>
                                                         </div>
                                                         <div class="col-xs-12 col-md-6">
                                                             <label for="twitter" class="col-xs-12 col-form-label">
-                                        <i class="bi bi-twitter"></i> Twitter</label>
+                                                                <i class="bi bi-twitter"></i> Twitter</label>
                                                             <div class="col-11">
-                                                                <input type="text" class="form-control" formControlName="twitter" value="user.profiles.twitter" placeholder="@nombredeusuario">
+                                                                <input type="text" class="form-control"
+                                                                    formControlName="twitter"
+                                                                    value="user.profiles.twitter"
+                                                                    placeholder="@nombredeusuario">
                                                             </div>
                                                         </div>
                                                         <div class="col-xs-12 col-md-6">
                                                             <label for="linkedin" class="col-xs-12 col-form-label">
-                                      <i class="bi bi-linkedin"></i> Linkedin</label>
+                                                                <i class="bi bi-linkedin"></i> Linkedin</label>
                                                             <div class="col-11">
-                                                                <input type="text" class="form-control" formControlName="linkedin" value="user.profiles.linkedin" placeholder="@nombredeusuario">
+                                                                <input type="text" class="form-control"
+                                                                    formControlName="linkedin"
+                                                                    value="user.profiles.linkedin"
+                                                                    placeholder="@nombredeusuario">
                                                             </div>
                                                         </div>
 
@@ -149,17 +174,28 @@
 
                                                 <div class="col-xs-12">
                                                     <div class="form-group form-row">
-                                                        <p>Subir Imagen (peso max: 500kb | medidas max: 226x226px | formato jpg)</p>
+                                                        <p>Subir Imagen (peso max: 500kb | medidas max: 226x226px |
+                                                            formato jpg)</p>
                                                         <div class="col-xs-12">
-                                                            <div *ngIf="!profileSeleccionado">
-                                                                <img src="./assets/images/no-image.jpg" style="height: 100px; width: 100px;" class="img-circle avatar">
+                                                            <img [src]="profileSeleccionado?.avatar | imagenPipe: 'herramientas'"
+                                                                class=" shadow" style="width: 100%; height: auto;">
+                                                            <div *ngIf="FILE_AVATAR">
+                                                                <!-- IMAGE_PREVISUALIZA is already a base64 data URL from FileReader, don't use imagenPipe -->
+                                                                <img [src]="IMAGE_PREVISUALIZA" style="width: 250px;"
+                                                                    alt="Preview">
                                                             </div>
-                                                            <div *ngIf="profileSeleccionado">
-                                                                <button *ngIf="profileSeleccionado.image" type="button" class="btn btn-outline-danger" (click)="deleteFotoPerfil()">Eliminar</button>
-                                                                <img [src]="profileSeleccionado.image | imagenPipe: 'profiles'" style="height: 50px; width: 50px;" class="img-circle avatar">
+                                                            <div class="form-group local-top-form">
+                                                                <div class="settings-btn upload-files-avator">
+                                                                    <label for="file" class="upload labelgoogle">
+                                                                        <input type="file" accept="image/*" name="image"
+                                                                            id="file" (change)="loadFile($event)"
+                                                                            class="hide-input input">
+                                                                        <span class="label__name">
+                                                                            {{'Select a Photo'}}
+                                                                        </span>
+                                                                    </label>
+                                                                </div>
                                                             </div>
-                                                            <angular-file-uploader [config]="afuConfig " (ApiResponse)="avatarUpload($event) ">
-                                                            </angular-file-uploader>
 
                                                         </div>
                                                     </div>
@@ -169,7 +205,8 @@
                                         </div>
 
                                         <input type="hidden" formControlName="id">
-                                        <button class="btn btn-outline-success waves-effect waves-light m-r-10" type="submit" [disabled]="!perfilForm.valid">Guardar</button>
+                                        <button class="btn btn-outline-success waves-effect waves-light m-r-10"
+                                            type="submit" [disabled]="!perfilForm.valid">Guardar</button>
 
 
                                     </form>
@@ -180,33 +217,43 @@
                                     <form [formGroup]="passwordForm" (ngSubmit)="cambiarPassword()">
                                         <div class="row mb-3">
                                             <h3>Cambiar contraseña</h3>
-                                            <p>La contraseña será cambiada al usuario <span> <b>{{userprofile.username}}</b></span>
+                                            <p>La contraseña será cambiada al usuario <span>
+                                                    <b>{{userprofile.username}}</b></span>
                                             </p>
                                         </div>
                                         <div class="row mb-3">
-                                            <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Email <span class="required">*</span></label>
+                                            <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Email
+                                                <span class="required">*</span></label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input name="email" type="email" class="form-control" formControlName="email" id="email" required>
+                                                <input name="email" type="email" class="form-control"
+                                                    formControlName="email" id="email" required>
                                             </div>
                                         </div>
 
                                         <div class="row mb-3">
-                                            <label for="password" class="col-md-4 col-lg-3 col-form-label">Nueva Contraseña</label>
+                                            <label for="password" class="col-md-4 col-lg-3 col-form-label">Nueva
+                                                Contraseña</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input name="password" type="password" class="form-control" autocomplete="false" id="password" formControlName="password" required>
+                                                <input name="password" type="password" class="form-control"
+                                                    autocomplete="false" id="password" formControlName="password"
+                                                    required>
                                             </div>
                                         </div>
 
                                         <div class="row mb-3">
-                                            <label for="password2" class="col-md-4 col-lg-3 col-form-label">Reingresar Contraseña</label>
+                                            <label for="password2" class="col-md-4 col-lg-3 col-form-label">Reingresar
+                                                Contraseña</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input name="password2" type="password" class="form-control" autocomplete="false" id="password2" formControlName="password2" required>
+                                                <input name="password2" type="password" class="form-control"
+                                                    autocomplete="false" id="password2" formControlName="password2"
+                                                    required>
                                             </div>
                                         </div>
                                         <p *ngIf="passwordNoValido()">* El password deben ser iguales </p>
                                         <div class="text-center">
                                             <input type="hidden" formControlName="id">
-                                            <button class="btn btn-outline-success waves-effect waves-light m-r-10" type="submit">Cambiar Contraseña</button>
+                                            <button class="btn btn-outline-success waves-effect waves-light m-r-10"
+                                                type="submit">Cambiar Contraseña</button>
                                         </div>
                                     </form>
                                     <!-- End Change Password Form -->

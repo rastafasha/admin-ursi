@@ -62,7 +62,7 @@ export class ServicioService {
   }
 
    updateServicio(service, id: number) {
-    return this.http.put<any>(baseUrl + '/service/update/' + id, service, this.headers)
+    return this.http.post<any>(baseUrl + '/service/update/' + id, service, this.headers)
 
   }
 

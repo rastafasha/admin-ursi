@@ -66,7 +66,7 @@ export class HerramientaService {
   }
 
    updateHerramienta(herramienta, id: number) {
-    return this.http.put<any>(baseUrl + '/herramienta/update/' + id, herramienta, this.headers)
+    return this.http.post<any>(baseUrl + '/herramienta/update/' + id, herramienta, this.headers)
 
   }
 

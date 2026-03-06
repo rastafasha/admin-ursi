@@ -62,7 +62,7 @@ export class PulseraService {
   }
 
    updatePulsera(pulsera, id: number) {
-    return this.http.put<any>(baseUrl + '/pulsera/update/' + id, pulsera, this.headers)
+    return this.http.post<any>(baseUrl + '/pulsera/update/' + id, pulsera, this.headers)
 
   }
 

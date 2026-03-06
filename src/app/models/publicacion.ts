@@ -3,7 +3,8 @@ const base_url = environment.apiUrlMedia;
 
 export class Publicacion {
   id: number;
-  image: string;
+  image: string = "";
+    avatar: string = "";
   created_at: string;
   updated_at: string;
   status?: 'PUBLISHED' | 'PENDING' | 'REJECTED';

@@ -12,9 +12,6 @@ import { PostService } from 'src/app/services/post.service';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 
-//ckeditor
-import * as DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
-import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
 const baseUrl = environment.apiUrl;
 
 @Component({
@@ -25,20 +22,12 @@ const baseUrl = environment.apiUrl;
 })
 export class PostEditComponent implements OnInit {
 
-  /**
-   * Editor type area wyswyg
-   */
-  public Editor = DecoupledEditor;
-  public editorData = `<p>This is a CKEditor 5 WYSIWYG editor instance created with Angular.</p>`;
-
-
+ 
   public postForm: FormGroup;
 
   public post: Post;
 
   public imgSelect : String | ArrayBuffer;
-  
-
   titlePage: string;
 
   public postSeleccionado: Post;
@@ -48,7 +37,6 @@ export class PostEditComponent implements OnInit {
 
   public categories: Category;
   public categorySeleccionado: Category;
-  // categories: Category;
   categoriaslista: Category;
   public msm_error = '';
   categoryForm: FormGroup;
@@ -56,43 +44,17 @@ export class PostEditComponent implements OnInit {
 option_selectedd:number = 1;
   solicitud_selectedd:any = null;
 
-
+  userId:number;
   imagePath: string;
   error: string;
   uploadError: string;
   public storage = environment.apiUrlMedia
 
-  public afuConfig = {
-    multiple: false,
-    formatsAllowed: '.jpg, .png, .gif, .jpeg',
-    method: 'POST',
-    maxSize: '2',
-    uploadAPI: {
-      url: environment.apiUrl + '/post/upload',
-      headers: {
-        Accept: 'application/json',
-        Authorization: 'Bearer ' + this.accountService.headers
-
-      },
-      responseType: 'json',
-    },
-    theme: 'dragNDrop',
-    selectFileBtn: 'Select Files',
-    hideProgressBar: false,
-    hideResetBtn: false,
-    hideSelectBtn: false,
-    fileNameIndex: true,
-    replaceTexts: {
-      selectFileBtn: 'Seleccionar imagen',
-      resetBtn: 'Resetear',
-      uploadBtn: 'Subir',
-      dragNDropBox: 'Arrastre y suelte aquí',
-      attachPinBtn: 'Seleccionar una imagen',
-      afterUploadMsg_success: 'Se cargó correctamente el archivo !',
-      afterUploadMsg_error: 'Se produjo un error al subir el archivo!',
-      sizeLimit: 'Límite de tamaño 2 Megas'
-    }
-  };
+  imageUrl = environment.apiUrlMedia;
+  public FILE_AVATAR: any;
+  public IMAGE_PREVISUALIZA: any = "assets/images/no-image.png";
+  text_validation: any = null;
+  public loading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -123,7 +85,7 @@ option_selectedd:number = 1;
       this.router.navigateByUrl('/login');
 
     }
-      this.id = this.user.id;
+      this.userId = this.user.id;
   }
 
   getPost(id: number){
@@ -144,6 +106,7 @@ option_selectedd:number = 1;
             user_id: res.user_id,
           });
           this.postSeleccionado = res;
+          this.imagePath = res.avatar;
           // console.log(this.postSeleccionado);
         }
       );
@@ -166,6 +129,18 @@ option_selectedd:number = 1;
       category_id: [''],
       user_id: [' '],
     })
+  }
+
+  loadFile($event: any) {
+     if ($event.target.files[0].type.indexOf("image")) {
+      this.text_validation = "Solamente pueden ser archivos de tipo imagen";
+      return;
+    }
+    this.text_validation = "";
+    this.FILE_AVATAR = $event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(this.FILE_AVATAR);
+    reader.onloadend = () => (this.IMAGE_PREVISUALIZA = reader.result);
   }
   get title() {
     return this.postForm.get('title');
@@ -203,21 +178,6 @@ option_selectedd:number = 1;
   }
 
 
-  avatarUpload(datos) {
-    const data = JSON.parse(datos.response);
-    this.postForm.controls['image'].setValue(data.image);//almaceno el nombre de la imagen
-  }
-
-  deleteFotoPerfil(){
-    this.postService.deleteFoto(this.postForm.value['id']).subscribe(response => {
-      Swal.fire(response['msg']['summary'], response['msg']['detail'], 'success');
-      this.ngOnInit();
-    }, error => {
-      Swal.fire('Error al eliminar', 'Intente de nuevo', 'error');
-    });
-  }
-
-
 
   editPost(){
 
@@ -229,20 +189,19 @@ option_selectedd:number = 1;
     formData.append('slug', this.postForm.get('slug').value);
     formData.append('category_id', this.postForm.get('category_id').value);
     formData.append('isFeatured', this.postForm.get('isFeatured').value);
+    formData.append('user_id', this.userId.toString());
     formData.append('status', 'PENDING');
-    formData.append('image', this.postForm.get('image').value);
-    formData.append('user_id', this.postForm.get('user_id').value);
-
+    
+    if (this.FILE_AVATAR) {
+         formData.append("imagen", this.FILE_AVATAR);
+       }
     const id = this.postForm.get('id').value;
 
     if(id){
       //actualizar
-      const data = {
-        ...this.postForm.value,
-        user_id: this.user.id
-      }
+     
 
-      this.postService.updatePost(data, +id).subscribe(
+      this.postService.updatePost(formData, +id).subscribe(
         resp =>{
           this.postSeleccionado =resp;
           Swal.fire('Actualizado', `Actualizado correctamente`, 'success');
@@ -256,7 +215,7 @@ option_selectedd:number = 1;
       ...this.postForm.value,
       user_id: this.user.id
     }
-      this.postService.createPost(data).subscribe(
+      this.postService.createPost(formData).subscribe(
         (resp: any) =>{
           this.postSeleccionado =resp;
         Swal.fire('Creado', ` creado correctamente`, 'success');

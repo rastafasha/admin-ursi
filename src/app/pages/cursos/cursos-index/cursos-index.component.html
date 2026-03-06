@@ -85,12 +85,9 @@
                                     <td>{{curso.id}}</td>
                                     <td>
                                         <div class="image">
-                                            <div *ngIf="!curso.image ">
-                                                <img [src]="curso.image | imagenPipe: 'cursos'"
-                                                    style="height: 50px; width: 50px;" class="img-circle avatar">
-                                            </div>
-                                            <div *ngIf="curso.image">
-                                                <img [src]="curso.image | imagenPipe: 'cursos'"
+                                            
+                                            <div *ngIf="curso.avatar">
+                                                <img [src]="curso.avatar | imagenPipe: 'cursos'"
                                                     style="height: 50px; width: 50px;" class="img-circle avatar">
 
                                             </div>
@@ -98,7 +95,7 @@
                                     </td>
                                     <td class="text-center">
                                         <div *ngIf="!curso.urlVideo ">
-                                            <img [src]="curso.image | imagenPipe: 'cursos'"
+                                            <img [src]="curso.avatar | imagenPipe: 'cursos'"
                                                 style="height: 50px; width: 120px;">
                                         </div>
                                         <div *ngIf="curso.urlVideo">

@@ -62,7 +62,7 @@ export class AreteService {
   }
 
    updateArete(arete, id: number) {
-    return this.http.put<any>(baseUrl + '/arete/update/' + id, arete, this.headers)
+    return this.http.post<any>(baseUrl + '/arete/update/' + id, arete, this.headers)
 
   }
 

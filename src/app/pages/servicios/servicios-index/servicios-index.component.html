@@ -69,18 +69,18 @@
                                     <td>{{servicio.id}}</td>
                                     <td>
                                         <div class="image">
-                                            <div *ngIf="!servicio.image ">
-                                                <img [src]="servicio.image | imagenPipe: 'services'" style="height: 50px; width: 50px;" class="img-circle avatar">
+                                            <div *ngIf="!servicio.avatar ">
+                                                <img [src]="servicio.avatar | imagenPipe: 'services'" style="height: 50px; width: 50px;" class="img-circle avatar">
                                             </div>
-                                            <div *ngIf="servicio.image">
-                                                <img [src]="servicio.image | imagenPipe: 'services'" style="height: 50px; width: 50px;" class="img-circle avatar">
+                                            <div *ngIf="servicio.avatar">
+                                                <img [src]="servicio.avatar | imagenPipe: 'services'" style="height: 50px; width: 50px;" class="img-circle avatar">
 
                                             </div>
                                         </div>
                                     </td>
                                     <td class="text-center">
                                         <div *ngIf="!servicio.videoUrl ">
-                                            <img [src]="servicio.image | imagenPipe: 'services'" style="height: 50px; width: 120px;">
+                                            <img [src]="servicio.avatar | imagenPipe: 'services'" style="height: 50px; width: 120px;">
                                         </div>
                                         <div *ngIf="servicio.videoUrl">
                                             <img src="http://img.youtube.com/vi/{{servicio.videoUrl}}/2.jpg" style="height: 50px; width: 120px;" alt="{{servicio.titulo}}">

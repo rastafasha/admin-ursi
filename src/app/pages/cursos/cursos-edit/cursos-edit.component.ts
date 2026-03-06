@@ -12,10 +12,6 @@ import { CursoService } from 'src/app/services/curso.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 const baseUrl = environment.apiUrl;
 
-//ckeditor
-import * as DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
-import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
-
 @Component({
   selector: 'app-cursos-edit',
   templateUrl: './cursos-edit.component.html',
@@ -23,12 +19,6 @@ import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleu
   styleUrls: ['./cursos-edit.component.css']
 })
 export class CursosEditComponent implements OnInit {
-
-   /**
-   * Editor type area wyswyg
-   */
-   public Editor = DecoupledEditor;
-   public editorData = `<p>This is a CKEditor 5 WYSIWYG editor instance created with Angular.</p>`;
 
 
    public cursoForm: FormGroup;
@@ -49,37 +39,12 @@ export class CursosEditComponent implements OnInit {
    uploadError: string;
    public storage = environment.apiUrlMedia
 
-   public afuConfig = {
-     multiple: false,
-     formatsAllowed: '.jpg, .png, .gif, .jpeg',
-     method: 'POST',
-     maxSize: '2',
-     uploadAPI: {
-       url: environment.apiUrl + '/curso/upload',
-       headers: {
-         Accept: 'application/json',
-         Authorization: 'Bearer ' + this.accountService.headers
-
-       },
-       responseType: 'json',
-     },
-     theme: 'dragNDrop',
-     selectFileBtn: 'Select Files',
-     hideProgressBar: false,
-     hideResetBtn: false,
-     hideSelectBtn: false,
-     fileNameIndex: true,
-     replaceTexts: {
-       selectFileBtn: 'Seleccionar imagen',
-       resetBtn: 'Resetear',
-       uploadBtn: 'Subir',
-       dragNDropBox: 'Arrastre y suelte aquí',
-       attachPinBtn: 'Seleccionar una imagen',
-       afterUploadMsg_success: 'Se cargó correctamente el archivo !',
-       afterUploadMsg_error: 'Se produjo un error al subir el archivo!',
-       sizeLimit: 'Límite de tamaño 2 Megas'
-     }
-   };
+   imageUrl = environment.apiUrlMedia;
+  public FILE_AVATAR: any;
+  public IMAGE_PREVISUALIZA: any = "assets/images/no-image.png";
+  text_validation: any = null;
+  public loading: boolean = false;
+  userId:number;
 
    constructor(
      private fb: FormBuilder,
@@ -110,7 +75,7 @@ export class CursosEditComponent implements OnInit {
        this.router.navigateByUrl('/login');
 
      }
-       this.id = this.user.id;
+       this.userId = this.user.id;
    }
 
    getCurso(id: number){
@@ -135,7 +100,7 @@ export class CursosEditComponent implements OnInit {
              status: res.status,
            });
            this.curso = res;
-           console.log(this.curso);
+           this.imagePath = res.avatar;
          }
        );
      } else {
@@ -210,21 +175,17 @@ export class CursosEditComponent implements OnInit {
      return this.cursoForm.get('slug');
    }
 
-
-   avatarUpload(datos) {
-     const data = JSON.parse(datos.response);
-     this.cursoForm.controls['image'].setValue(data.image);//almaceno el nombre de la imagen
-   }
-
-   deleteFotoPerfil(){
-     this.cursoService.deleteFoto(this.cursoForm.value['id']).subscribe(response => {
-       Swal.fire(response['msg']['summary'], response['msg']['detail'], 'success');
-       this.ngOnInit();
-     }, error => {
-       Swal.fire('Error al eliminar', 'Intente de nuevo', 'error');
-     });
-   }
-
+loadFile($event: any) {
+     if ($event.target.files[0].type.indexOf("image")) {
+      this.text_validation = "Solamente pueden ser archivos de tipo imagen";
+      return;
+    }
+    this.text_validation = "";
+    this.FILE_AVATAR = $event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(this.FILE_AVATAR);
+    reader.onloadend = () => (this.IMAGE_PREVISUALIZA = reader.result);
+  }
 
 
    editCurso(){
@@ -240,21 +201,21 @@ export class CursosEditComponent implements OnInit {
      formData.append('description_eng', this.cursoForm.get('description_eng').value);
      formData.append('adicional_eng', this.cursoForm.get('adicional_eng').value);
      formData.append('slug', this.cursoForm.get('slug').value);
-     formData.append('user_id', this.cursoForm.get('user_id').value);
+     formData.append('user_id', this.userId.toString());
      formData.append('isFeatured', this.cursoForm.get('isFeatured').value);
-     formData.append('image', this.cursoForm.get('image').value);
+     
      formData.append('status', 'PENDING');
+     if (this.FILE_AVATAR) {
+         formData.append("imagen", this.FILE_AVATAR);
+       }
 
      const id = this.cursoForm.get('id').value;
 
      if(id){
        //actualizar
-       const data = {
-         ...this.cursoForm.value,
-         user_id: this.user.id
-       }
+       formData
 
-       this.cursoService.updateCurso(data, +id).subscribe(
+       this.cursoService.updateCurso(formData, +id).subscribe(
          resp =>{
            Swal.fire('Actualizado', `Actualizado correctamente`, 'success');
            this.router.navigateByUrl(`/dashboard/cursos`);
@@ -268,7 +229,7 @@ export class CursosEditComponent implements OnInit {
        ...this.cursoForm.value,
        user_id: this.user.id
      }
-       this.cursoService.createCurso(data).subscribe(
+       this.cursoService.createCurso(formData).subscribe(
          (resp: any) =>{
           this.curso= resp;
          Swal.fire('Creado', ` creado correctamente`, 'success');

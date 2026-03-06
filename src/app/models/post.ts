@@ -16,6 +16,7 @@ export class Post {
   isFeatured: boolean;
   status?: 'PUBLISHED' | 'PENDING' | 'REJECTED';
   image: string = "";
+    avatar: string = "";
   created_at?: any;
   updated_at?: any;
 

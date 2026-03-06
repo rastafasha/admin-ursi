@@ -82,7 +82,7 @@ export class PostIndexComponent implements OnInit {
 
   cambiarStatus(post:Post){
     this.postService.updateStatus(post).subscribe(
-      resp =>{ console.log(resp);
+      resp =>{ 
         Swal.fire('Actualizado', `actualizado correctamente`, 'success');
         this.getPosts();
       }

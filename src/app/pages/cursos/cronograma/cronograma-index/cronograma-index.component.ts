@@ -39,8 +39,8 @@ export class CronogramaIndexComponent implements OnInit {
 
   getCursos(): void {
     // return this.planesService.carga_info();
-    this.cronogramaService.getCronogramas().subscribe((res) => {
-      this.cronologiacursos = res;
+    this.cronogramaService.getCronogramas().subscribe((res:any) => {
+      this.cronologiacursos = res.data;
       (error) => (this.error = error);
       // console.log(this.cronologiacursos);
     });

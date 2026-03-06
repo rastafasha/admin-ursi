@@ -71,7 +71,7 @@ export class CursoService {
   //  }
 
    updateCurso(curso, id: number) {
-    return this.http.put<any>(baseUrl + '/curso/update/' + id, curso, this.headers)
+    return this.http.post<any>(baseUrl + '/curso/update/' + id, curso, this.headers)
 
   }
 

@@ -67,7 +67,7 @@ export class BannerService {
   //  }
 
    updateBanner(banner, id: number) {
-    return this.http.put<any>(baseUrl + '/banner/update/' + id, banner, this.headers)
+    return this.http.post<any>(baseUrl + '/banner/update/' + id, banner, this.headers)
 
   }
 

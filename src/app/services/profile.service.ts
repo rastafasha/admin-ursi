@@ -59,10 +59,10 @@ export class ProfileService {
     return this.http.post(url, profile, this.headers);
   }
 
-  updateProfile(profile:Profile, id:number) {
+  updateProfile(profile, id:number) {
     // const url = `${baseUrl}/profile/update/${profile.id}`;
     // return this.http.put(url, profile, this.headers);
-    return this.http.put<any>(baseUrl + '/profile/update/' + id, profile, this.headers)
+    return this.http.post<any>(baseUrl + '/profile/update/' + id, profile, this.headers)
 
   }
 

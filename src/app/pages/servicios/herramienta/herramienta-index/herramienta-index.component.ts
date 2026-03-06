@@ -39,10 +39,10 @@ export class HerramientaIndexComponent implements OnInit {
   getServicios(): void {
     // return this.planesService.carga_info();
     this.herramientaService.getHerramientas().subscribe(
-      res =>{
-        this.herramientas = res;
+      (res:any) =>{
+        this.herramientas = res.data;
         error => this.error = error
-        // console.log(this.herramientas);
+        console.log(this.herramientas);
       }
     );
   }

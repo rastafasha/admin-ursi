@@ -19,6 +19,7 @@ export class Profile {
   twitter?: string = "";
   linkedin?: string = "";
   image: string = "";
+    avatar: string = "";
   status?: 'VERIFIED' | 'PENDING' | 'REJECTED';
   created_at?: any;
   updated_at?: any;

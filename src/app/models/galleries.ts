@@ -9,7 +9,8 @@ export class Galleries {
   slug: string;
   description: string;
   price: any;
-  image: string;
+  image: string = "";
+    avatar: string = "";
   created_at: string;
   updated_at: string;
   status?: 'PUBLISHED' | 'PENDING' | 'REJECTED';

@@ -78,11 +78,11 @@
                                 <tr *ngFor="let cronograma of cronologiacursos |  paginate: { itemsPerPage: count, currentPage: p }">
                                     <td>
                                         <div class="image">
-                                            <div *ngIf="!cronograma.image ">
-                                                <img [src]="cronograma.image | imagenPipe: 'cronologiacursos'" style="height: 50px; width: 50px;" class="img-circle avatar">
+                                            <div *ngIf="!cronograma.avatar ">
+                                                <img [src]="cronograma.avatar | imagenPipe: 'cronologiacursos'" style="height: 50px; width: 50px;" class="img-circle avatar">
                                             </div>
-                                            <div *ngIf="cronograma.image">
-                                                <img [src]="cronograma.image | imagenPipe: 'cronologiacursos'" style="height: 50px; width: 50px;" class="img-circle avatar">
+                                            <div *ngIf="cronograma.avatar">
+                                                <img [src]="cronograma.avatar | imagenPipe: 'cronologiacursos'" style="height: 50px; width: 50px;" class="img-circle avatar">
 
                                             </div>
                                         </div>

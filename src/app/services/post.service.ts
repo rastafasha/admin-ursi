@@ -52,8 +52,8 @@ export class PostService {
     return this.http.post(url, post, this.headers);
   }
 
-  updatePost(post:Post, id: number) {
-    return this.http.put<any>(baseUrl + '/post/update/' + id, post, this.headers)
+  updatePost(post, id: number) {
+    return this.http.post<any>(baseUrl + '/post/update/' + id, post, this.headers)
 
   }
   updateStatus(post:Post) {

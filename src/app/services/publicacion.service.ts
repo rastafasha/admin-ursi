@@ -62,7 +62,7 @@ export class PublicacionService {
   }
 
    updatePublicacion(publicacion, id: number) {
-    return this.http.put<any>(baseUrl + '/publicacion/update/' + id, publicacion, this.headers)
+    return this.http.post<any>(baseUrl + '/publicacion/update/' + id, publicacion, this.headers)
 
   }
 

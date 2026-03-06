@@ -37,8 +37,8 @@ export class CursosIndexComponent implements OnInit {
 
   getCursos(): void {
     // return this.planesService.carga_info();
-    this.cursoService.getCursos().subscribe((res) => {
-      this.cursos = res;
+    this.cursoService.getCursos().subscribe((res:any) => {
+      this.cursos = res.data;
       (error) => (this.error = error);
       // console.log(this.cursos);
     });

@@ -68,7 +68,7 @@ export class GalleriesService {
 
 
    updateGallery(gallery, id: number) {
-    return this.http.put<any>(baseUrl + '/gallery/update/' + id, gallery, this.headers)
+    return this.http.post<any>(baseUrl + '/gallery/update/' + id, gallery, this.headers)
 
   }
 

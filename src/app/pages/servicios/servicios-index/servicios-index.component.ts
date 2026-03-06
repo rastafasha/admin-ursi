@@ -39,8 +39,8 @@ export class ServiciosIndexComponent implements OnInit {
   getServicios(): void {
     // return this.planesService.carga_info();
     this.servicioService.getServicios().subscribe(
-      res =>{
-        this.services = res;
+      (res:any) =>{
+        this.services = res.data;
         error => this.error = error
         // console.log(this.servicios);
       }
