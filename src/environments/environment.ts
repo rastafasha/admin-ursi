@@ -10,7 +10,7 @@ export const environment = {
   
   //remoto
   apiUrl: "https://ursigalletti.net/backend-api-ursi2/public/api",
-  apiUrlMedia: "https://ursigalletti.net/backend-api-ursi2/storage/",
+  apiUrlMedia: "https://ursigalletti.net/backend-api-ursi2/storage/app/public/",
 
 };
 
