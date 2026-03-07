@@ -70,11 +70,11 @@
                                     <td>{{dije.id}}</td>
                                     <td>
                                         <div class="image">
-                                            <div *ngIf="!dije.image ">
-                                                <img [src]="anillo.image | imagenPipe: 'dijes'" style="height: 50px; width: 50px;" class="img-circle avatar">
-                                            </div>
-                                            <div *ngIf="dije.image">
-                                                <img [src]="dije.image | imagenPipe: 'dijes'" style="height: 50px; width: 50px;" class="img-circle avatar">
+                                            <!-- <div *ngIf="!dije.avatar ">
+                                                <img [src]="dije.avatar | imagenPipe: 'dijes'" style="height: 50px; width: 50px;" class="img-circle avatar">
+                                            </div> -->
+                                            <div *ngIf="dije.avatar">
+                                                <img [src]="dije.avatar | imagenPipe: 'dijes'" style="height: 50px; width: 50px;" class="img-circle avatar">
 
                                             </div>
                                         </div>

@@ -10,9 +10,6 @@ import { UserService } from 'src/app/services/user.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 const baseUrl = environment.apiUrl;
 
-//ckeditor
-import * as DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
-import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
 import { Herramienta } from 'src/app/models/herramienta';
 import { HerramientaService } from 'src/app/services/herramienta.service';
 @Component({

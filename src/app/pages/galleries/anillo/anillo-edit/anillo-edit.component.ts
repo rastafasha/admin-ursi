@@ -10,8 +10,6 @@ import { UserService } from 'src/app/services/user.service';
 
 const baseUrl = environment.apiUrl;
 
-//ckeditor
-import * as DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import { Anillo } from 'src/app/models/anillo';
 import { AnilloService } from 'src/app/services/anillo.service';
 
@@ -23,13 +21,7 @@ import { AnilloService } from 'src/app/services/anillo.service';
 })
 export class AnilloEditComponent implements OnInit {
 
-  /**
-   * Editor type area wyswyg
-   */
-  public Editor = DecoupledEditor;
-  public editorData = `<p>This is a CKEditor 5 WYSIWYG editor instance created with Angular.</p>`;
-
-
+ 
   public anilloForm: FormGroup;
   submitted = false;
   public anillo: Anillo;
@@ -47,37 +39,11 @@ export class AnilloEditComponent implements OnInit {
   uploadError: string;
   public storage = environment.apiUrlMedia
 
-  public afuConfig = {
-    multiple: false,
-    formatsAllowed: '.jpg, .png, .gif, .jpeg',
-    method: 'POST',
-    maxSize: '2',
-    uploadAPI: {
-      url: environment.apiUrl + '/anillo/upload',
-      headers: {
-        Accept: 'application/json',
-        Authorization: 'Bearer ' + this.accountService.headers
-
-      },
-      responseType: 'json',
-    },
-    theme: 'dragNDrop',
-    selectFileBtn: 'Select Files',
-    hideProgressBar: false,
-    hideResetBtn: false,
-    hideSelectBtn: false,
-    fileNameIndex: true,
-    replaceTexts: {
-      selectFileBtn: 'Seleccionar imagen',
-      resetBtn: 'Resetear',
-      uploadBtn: 'Subir',
-      dragNDropBox: 'Arrastre y suelte aquí',
-      attachPinBtn: 'Seleccionar una imagen',
-      afterUploadMsg_success: 'Se cargó correctamente el archivo !',
-      afterUploadMsg_error: 'Se produjo un error al subir el archivo!',
-      sizeLimit: 'Límite de tamaño 2 Megas'
-    }
-  };
+ imageUrl = environment.apiUrlMedia;
+  public FILE_AVATAR: any;
+  public IMAGE_PREVISUALIZA: any = "assets/images/no-image.png";
+  text_validation: any = null;
+  public loading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -124,6 +90,7 @@ export class AnilloEditComponent implements OnInit {
             status: res.status,
           });
           this.anilloSeleccionado = res;
+           this.imagePath = res.avatar;
           // console.log(this.anilloSeleccionado);
         }
       );
@@ -141,7 +108,6 @@ export class AnilloEditComponent implements OnInit {
       model: [''],
       status: ['PENDING'],
       image: [''],
-      user_id: [' '],
     })
   }
   get title() {
@@ -166,25 +132,20 @@ export class AnilloEditComponent implements OnInit {
     return this.anilloForm.get('image');
   }
 
-  get user_id() {
-    return this.anilloForm.get('user_id');
+  
+
+
+  loadFile($event: any) {
+     if ($event.target.files[0].type.indexOf("image")) {
+      this.text_validation = "Solamente pueden ser archivos de tipo imagen";
+      return;
+    }
+    this.text_validation = "";
+    this.FILE_AVATAR = $event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(this.FILE_AVATAR);
+    reader.onloadend = () => (this.IMAGE_PREVISUALIZA = reader.result);
   }
-
-
-  avatarUpload(datos) {
-    const data = JSON.parse(datos.response);
-    this.anilloForm.controls['image'].setValue(data.image);//almaceno el nombre de la imagen
-  }
-
-  deleteFotoPerfil(){
-    this.anilloService.deleteFoto(this.anilloForm.value['id']).subscribe(response => {
-      Swal.fire(response['msg']['summary'], response['msg']['detail'], 'success');
-      this.ngOnInit();
-    }, error => {
-      Swal.fire('Error al eliminar', 'Intente de nuevo', 'error');
-    });
-  }
-
 
 
   editAnillo(){
@@ -195,20 +156,18 @@ export class AnilloEditComponent implements OnInit {
     formData.append('price', this.anilloForm.get('price').value);
     formData.append('model', this.anilloForm.get('model').value);
     formData.append('description', this.anilloForm.get('description').value);
-    formData.append('user_id', this.anilloForm.get('user_id').value);
-    formData.append('image', this.anilloForm.get('image').value);
+    
     formData.append('status', 'PENDING');
+    if (this.FILE_AVATAR) {
+          formData.append("imagen", this.FILE_AVATAR);
+        }
 
     const id = this.anilloForm.get('id').value;
 
     if(id){
       //actualizar
-      const data = {
-        ...this.anilloForm.value,
-        user_id: this.user.id
-      }
-
-      this.anilloService.updateAnillo(data, +id).subscribe(
+      
+      this.anilloService.updateAnillo(formData, +id).subscribe(
         res =>{
           if (res.status === 'error') {
             this.uploadError = res.message;
@@ -223,11 +182,8 @@ export class AnilloEditComponent implements OnInit {
 
     }else{
       //crear
-    const data = {
-      ...this.anilloForm.value,
-      user_id: this.user.id
-    }
-      this.anilloService.createAnillo(data).subscribe(
+    
+      this.anilloService.createAnillo(formData).subscribe(
         (res: any) =>{
           if (res.status === 'error') {
             this.uploadError = res.message;

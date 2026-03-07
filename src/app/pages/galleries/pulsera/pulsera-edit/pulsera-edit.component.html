@@ -21,8 +21,6 @@
         </div>
         <div class="clear"></div>
 
-
-
         <section class="section dashboard">
 
             <div class="row">
@@ -45,8 +43,8 @@
                         <div class="col-md-12">
                             <label>Descripción <span class="required">*</span></label>
                             <div class="col-md-12">
-                                <!-- <textarea formControlName="description" id="description" cols="30" rows="4" class="form-control"></textarea> -->
-                                <ckeditor [editor]="Editor" (ready)="onReady($event)" data="<p>Hello, world!</p>" formControlName="description" value="description" rows="5" class="form-control" required></ckeditor>
+                                <textarea formControlName="description" id="description" cols="30" rows="4" class="form-control"></textarea>
+                                <!-- <ckeditor [editor]="Editor" (ready)="onReady($event)" data="<p>Hello, world!</p>" formControlName="description" value="description" rows="5" class="form-control" required></ckeditor> -->
 
                             </div>
                         </div>
@@ -61,14 +59,13 @@
                         <div class="col-xs-12">
 
 
-                            <div *ngIf="!anilloSeleccionado">
-                                <img src="./assets/images/no-image.jpg" style="height: 100px; width: 100px;" class="img-circle avatar">
+                            <img [src]="anilloSeleccionado?.avatar | imagenPipe: 'herramientas'" class=" shadow"
+                                style="width: 100%; height: auto;">
+                            <div *ngIf="FILE_AVATAR">
+                                <!-- IMAGE_PREVISUALIZA is already a base64 data URL from FileReader, don't use imagenPipe -->
+                                <img [src]="IMAGE_PREVISUALIZA" style="width: 250px;" alt="Preview">
                             </div>
 
-                            <div *ngIf="anilloSeleccionado">
-                                <button *ngIf="anilloSeleccionado.image" type="button" class="btn btn-outline-danger" (click)="deleteFotoPerfil()">Eliminar</button>
-                                <img [src]="anilloSeleccionado.image | imagenPipe: 'pulseras'" style="height: 100px; width: 100px;" class="img-circle avatar">
-                            </div>
                         </div>
                         <div class="col-xs-12">
                             <div class="especificaciones">
@@ -81,8 +78,17 @@
                             </div>
                         </div>
                         <div class="col-xs-12">
-                            <angular-file-uploader [config]="afuConfig " (ApiResponse)="avatarUpload($event) ">
-                            </angular-file-uploader>
+                            <div class="form-group local-top-form">
+                                <div class="settings-btn upload-files-avator">
+                                    <label for="file" class="upload labelgoogle">
+                                        <input type="file" accept="image/*" name="image" id="file"
+                                            (change)="loadFile($event)" class="hide-input input">
+                                        <span class="label__name">
+                                            {{'Select a Photo'}}
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

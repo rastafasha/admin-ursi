@@ -67,11 +67,11 @@
                                     <td>{{expocaf.id}}</td>
                                     <td>
                                         <div class="image">
-                                            <div *ngIf="!expocaf.image ">
+                                            <!-- <div *ngIf="!expocaf.image ">
                                                 <img [src]="expocaf.image | imagenPipe: 'expocafs'" style="height: 50px; width: 50px;" class="img-circle avatar">
-                                            </div>
-                                            <div *ngIf="expocaf.image">
-                                                <img [src]="expocaf.image | imagenPipe: 'expocafs'" style="height: 50px; width: 50px;" class="img-circle avatar">
+                                            </div> -->
+                                            <div *ngIf="expocaf.avatar">
+                                                <img [src]="expocaf.avatar | imagenPipe: 'expocafs'" style="height: 50px; width: 50px;" class="img-circle avatar">
 
                                             </div>
                                         </div>

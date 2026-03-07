@@ -31,11 +31,11 @@ export class Cronograma {
   get imagenUrl(){
 
     if(!this.image){
-      return `${base_url}cronologiacursos/no-image.jpg`;
+      return `${base_url}/no-image.png`;
     } else if(this.image.includes('https')){
       return this.image;
     } else if(this.image){
-      return `${base_url}cronologiacursos/${this.image}`;
+      return `${base_url}/cronologiacursos/${this.image}`;
     }else {
       return `${base_url}/no-image.jpg`;
       // return `./assets/img/no-image.jpg`;

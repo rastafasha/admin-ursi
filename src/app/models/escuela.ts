@@ -14,7 +14,7 @@ export class Escuela {
   get imagenUrl(){
 
     if(!this.image){
-      return `${base_url}galleryschools/no-image.jpg`;
+      return `${base_url}/no-image.png`;
     } else if(this.image.includes('https')){
       return this.image;
     } else if(this.image){

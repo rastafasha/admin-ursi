@@ -37,37 +37,12 @@ export class PublicacionEditComponent implements OnInit {
   uploadError: string;
   public storage = environment.apiUrlMedia
 
-  public afuConfig = {
-    multiple: false,
-    formatsAllowed: '.jpg, .png, .gif, .jpeg',
-    method: 'POST',
-    maxSize: '2',
-    uploadAPI: {
-      url: environment.apiUrl + '/publicacion/upload',
-      headers: {
-        Accept: 'application/json',
-        Authorization: 'Bearer ' + this.accountService.headers
+   imageUrl = environment.apiUrlMedia;
+  public FILE_AVATAR: any;
+  public IMAGE_PREVISUALIZA: any = "assets/images/no-image.png";
+  text_validation: any = null;
+  public loading: boolean = false;
 
-      },
-      responseType: 'json',
-    },
-    theme: 'dragNDrop',
-    selectFileBtn: 'Select Files',
-    hideProgressBar: false,
-    hideResetBtn: false,
-    hideSelectBtn: false,
-    fileNameIndex: true,
-    replaceTexts: {
-      selectFileBtn: 'Seleccionar imagen',
-      resetBtn: 'Resetear',
-      uploadBtn: 'Subir',
-      dragNDropBox: 'Arrastre y suelte aquí',
-      attachPinBtn: 'Seleccionar una imagen',
-      afterUploadMsg_success: 'Se cargó correctamente el archivo !',
-      afterUploadMsg_error: 'Se produjo un error al subir el archivo!',
-      sizeLimit: 'Límite de tamaño 2 Megas'
-    }
-  };
 
   constructor(
     private fb: FormBuilder,
@@ -101,7 +76,7 @@ export class PublicacionEditComponent implements OnInit {
 
   getCurso(id: number){
     if (id !== null && id !== undefined) {
-      this.titlePage = 'Editando Publicacion';
+      this.titlePage = 'Editando Publicación';
       this.publicacionService.getPublicacion(+id).subscribe(
         res => {
           this.cursoForm.patchValue({
@@ -109,11 +84,12 @@ export class PublicacionEditComponent implements OnInit {
             status: res.status,
           });
           this.escuelaSeleccionado = res;
+          this.imagePath = res.avatar;
           // console.log(this.escuelaSeleccionado);
         }
       );
     } else {
-      this.titlePage = 'Creando Publicacion';
+      this.titlePage = 'Creando Publicación';
     }
   }
 
@@ -133,43 +109,35 @@ export class PublicacionEditComponent implements OnInit {
     return this.cursoForm.get('image');
   }
 
-  get user_id() {
-    return this.cursoForm.get('user_id');
+ loadFile($event: any) {
+     if ($event.target.files[0].type.indexOf("image")) {
+      this.text_validation = "Solamente pueden ser archivos de tipo imagen";
+      return;
+    }
+    this.text_validation = "";
+    this.FILE_AVATAR = $event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(this.FILE_AVATAR);
+    reader.onloadend = () => (this.IMAGE_PREVISUALIZA = reader.result);
   }
-
-
-  avatarUpload(datos) {
-    const data = JSON.parse(datos.response);
-    this.cursoForm.controls['image'].setValue(data.image);//almaceno el nombre de la imagen
-  }
-
-  deleteFotoPerfil(){
-    this.publicacionService.deleteFoto(this.cursoForm.value['id']).subscribe(response => {
-      Swal.fire(response['msg']['summary'], response['msg']['detail'], 'success');
-      this.ngOnInit();
-    }, error => {
-      Swal.fire('Error al eliminar', 'Intente de nuevo', 'error');
-    });
-  }
-
 
 
   editCurso(){
 
     const formData = new FormData();
-    formData.append('image', this.cursoForm.get('image').value);
+    
     formData.append('status', 'PENDING');
+    if (this.FILE_AVATAR) {
+          formData.append("imagen", this.FILE_AVATAR);
+        }
 
     const id = this.cursoForm.get('id').value;
 
     if(id){
       //actualizar
-      const data = {
-        ...this.cursoForm.value,
-        user_id: this.user.id
-      }
+      
 
-      this.publicacionService.updatePublicacion(data, +id).subscribe(
+      this.publicacionService.updatePublicacion(formData, +id).subscribe(
         resp =>{
           this.escuelaSeleccionado = resp;
           Swal.fire('Actualizado', `Actualizado correctamente`, 'success');
@@ -179,11 +147,8 @@ export class PublicacionEditComponent implements OnInit {
 
     }else{
       //crear
-    const data = {
-      ...this.cursoForm.value,
-      user_id: this.user.id
-    }
-      this.publicacionService.createPublicacion(data).subscribe(
+    
+      this.publicacionService.createPublicacion(formData).subscribe(
         (resp: any) =>{
           this.escuelaSeleccionado = resp;
         Swal.fire('Creado', ` creado correctamente`, 'success');

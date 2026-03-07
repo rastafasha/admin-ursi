@@ -20,11 +20,11 @@ export class Herramienta {
    get imagenUrl(){
 
       if(!this.image){
-        return `${base_url}public/no-image.png`;
+        return `${base_url}/no-image.png`;
       } else if(this.image.includes('https')){
         return this.image;
       } else if(this.image){
-        return `${base_url}herramientas/${this.image}`;
+        return `${base_url}/herramientas/${this.image}`;
       }else {
         return `${base_url}/no-image.png`;
       }

@@ -17,7 +17,8 @@
             <!-- End Page Title -->
         </div>
         <div class="buton">
-            <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
+            <button class="btn btn-outline-danger pull-right" href="javascript:void(0)"
+                (click)="goBack()">Volver</button>
         </div>
         <div class="clear"></div>
 
@@ -29,7 +30,7 @@
                 <div class="col-12 col-md-6">
 
 
-                    <form enctype="multipart/form-data" [formGroup]="areteForm" (ngSubmit)="editCurso()">
+                    <form [formGroup]="areteForm" (ngSubmit)="editCurso()" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Titulo<span class="required">*</span></label>
                             <input formControlName="title" type="text" class="form-control" required>
@@ -45,13 +46,15 @@
                         <div class="col-md-12">
                             <label>Descripción <span class="required">*</span></label>
                             <div class="col-md-12">
-                                <!-- <textarea formControlName="description" id="description" cols="30" rows="4" class="form-control"></textarea> -->
-                                <ckeditor [editor]="Editor" (ready)="onReady($event)" data="<p>Hello, world!</p>" formControlName="description" value="description" rows="5" class="form-control" required></ckeditor>
+                                <textarea formControlName="description" id="description" cols="30" rows="4"
+                                    class="form-control"></textarea>
+                                <!-- <ckeditor [editor]="Editor" (ready)="onReady($event)" data="<p>Hello, world!</p>" formControlName="description" value="description" rows="5" class="form-control" required></ckeditor> -->
 
                             </div>
                         </div>
                         <input type="hidden" formControlName="id">
-                        <button (click)="editCurso()" class="btn btn-primary">Guardar</button>
+                        <button (click)="editCurso()" [disabled]="!areteForm.valid" class="btn btn-primary"
+                            type="submit">Guardar</button>
                     </form>
                 </div>
                 <div class="col-12 col-md-6">
@@ -59,13 +62,12 @@
                     <br>
                     <div class="row">
                         <div class="col-xs-12">
-                            <div *ngIf="!anilloSeleccionado">
-                                <img src="./assets/images/no-image.jpg" style="height: 100px; width: 100px;" class="img-circle avatar">
-                            </div>
 
-                            <div *ngIf="anilloSeleccionado">
-                                <button *ngIf="anilloSeleccionado.image" type="button" class="btn btn-outline-danger" (click)="deleteFotoPerfil()">Eliminar</button>
-                                <img [src]="anilloSeleccionado.image | imagenPipe: 'aretes'" style="height: 100px; width: 100px;" class="img-circle avatar">
+                            <img [src]="anilloSeleccionado?.avatar | imagenPipe: 'herramientas'" class=" shadow"
+                                style="width: 100%; height: auto;">
+                            <div *ngIf="FILE_AVATAR">
+                                <!-- IMAGE_PREVISUALIZA is already a base64 data URL from FileReader, don't use imagenPipe -->
+                                <img [src]="IMAGE_PREVISUALIZA" style="width: 250px;" alt="Preview">
                             </div>
 
                         </div>
@@ -80,8 +82,17 @@
                             </div>
                         </div>
                         <div class="col-xs-12">
-                            <angular-file-uploader [config]="afuConfig " (ApiResponse)="avatarUpload($event) ">
-                            </angular-file-uploader>
+                            <div class="form-group local-top-form">
+                                <div class="settings-btn upload-files-avator">
+                                    <label for="file" class="upload labelgoogle">
+                                        <input type="file" accept="image/*" name="image" id="file"
+                                            (change)="loadFile($event)" class="hide-input input">
+                                        <span class="label__name">
+                                            {{'Select a Photo'}}
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

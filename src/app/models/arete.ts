@@ -8,7 +8,8 @@ export class Arete {
   model: any;
   description: string;
   price: any;
-  image: string;
+  image: string = "";
+    avatar: string = "";
   created_at: string;
   updated_at: string;
   status?: 'PUBLISHED' | 'PENDING' | 'REJECTED';
@@ -18,7 +19,7 @@ export class Arete {
   get imagenUrl(){
 
     if(!this.image){
-      return `${base_url}aretes/no-image.jpg`;
+      return `${base_url}/no-image.png`;
     } else if(this.image.includes('https')){
       return this.image;
     } else if(this.image){

@@ -67,11 +67,11 @@
                                     <td>{{joya.id}}</td>
                                     <td>
                                         <div class="image">
-                                            <div *ngIf="!joya.image ">
+                                            <!-- <div *ngIf="!joya.image ">
                                                 <img [src]="joya.image | imagenPipe: 'joyas'" style="height: 50px; width: 50px;" class="img-circle avatar">
-                                            </div>
-                                            <div *ngIf="joya.image">
-                                                <img [src]="joya.image | imagenPipe: 'joyas'" style="height: 50px; width: 50px;" class="img-circle avatar">
+                                            </div> -->
+                                            <div *ngIf="joya.avatar">
+                                                <img [src]="joya.avatar | imagenPipe: 'joyas'" style="height: 50px; width: 50px;" class="img-circle avatar">
 
                                             </div>
                                         </div>

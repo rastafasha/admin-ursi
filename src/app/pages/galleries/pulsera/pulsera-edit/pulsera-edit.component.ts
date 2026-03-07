@@ -23,14 +23,6 @@ import { Pulsera } from 'src/app/models/pulsera';
 })
 export class PulseraEditComponent implements OnInit {
 
-
-  /**
-   * Editor type area wyswyg
-   */
-  public Editor = DecoupledEditor;
-  public editorData = `<p>This is a CKEditor 5 WYSIWYG editor instance created with Angular.</p>`;
-
-
   public pulseraForm: FormGroup;
 
   public pulsera: Pulsera;
@@ -48,37 +40,11 @@ export class PulseraEditComponent implements OnInit {
   uploadError: string;
   public storage = environment.apiUrlMedia
 
-  public afuConfig = {
-    multiple: false,
-    formatsAllowed: '.jpg, .png, .gif, .jpeg',
-    method: 'POST',
-    maxSize: '2',
-    uploadAPI: {
-      url: environment.apiUrl + '/pulsera/upload',
-      headers: {
-        Accept: 'application/json',
-        Authorization: 'Bearer ' + this.accountService.headers
-
-      },
-      responseType: 'json',
-    },
-    theme: 'dragNDrop',
-    selectFileBtn: 'Select Files',
-    hideProgressBar: false,
-    hideResetBtn: false,
-    hideSelectBtn: false,
-    fileNameIndex: true,
-    replaceTexts: {
-      selectFileBtn: 'Seleccionar imagen',
-      resetBtn: 'Resetear',
-      uploadBtn: 'Subir',
-      dragNDropBox: 'Arrastre y suelte aquí',
-      attachPinBtn: 'Seleccionar una imagen',
-      afterUploadMsg_success: 'Se cargó correctamente el archivo !',
-      afterUploadMsg_error: 'Se produjo un error al subir el archivo!',
-      sizeLimit: 'Límite de tamaño 2 Megas'
-    }
-  };
+  imageUrl = environment.apiUrlMedia;
+  public FILE_AVATAR: any;
+  public IMAGE_PREVISUALIZA: any = "assets/images/no-image.png";
+  text_validation: any = null;
+  public loading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -125,6 +91,7 @@ export class PulseraEditComponent implements OnInit {
             status: res.status,
           });
           this.anilloSeleccionado = res;
+          this.imagePath = res.avatar;
           // console.log(this.anilloSeleccionado);
         }
       );
@@ -142,7 +109,6 @@ export class PulseraEditComponent implements OnInit {
       model: [''],
       status: ['PENDING'],
       image: [''],
-      user_id: [' '],
     })
   }
   get title() {
@@ -165,23 +131,16 @@ export class PulseraEditComponent implements OnInit {
     return this.pulseraForm.get('image');
   }
 
-  get user_id() {
-    return this.pulseraForm.get('user_id');
-  }
-
-
-  avatarUpload(datos) {
-    const data = JSON.parse(datos.response);
-    this.pulseraForm.controls['image'].setValue(data.image);//almaceno el nombre de la imagen
-  }
-
-  deleteFotoPerfil(){
-    this.pulseraService.deleteFoto(this.pulseraForm.value['id']).subscribe(response => {
-      Swal.fire(response['msg']['summary'], response['msg']['detail'], 'success');
-      this.ngOnInit();
-    }, error => {
-      Swal.fire('Error al eliminar', 'Intente de nuevo', 'error');
-    });
+ loadFile($event: any) {
+     if ($event.target.files[0].type.indexOf("image")) {
+      this.text_validation = "Solamente pueden ser archivos de tipo imagen";
+      return;
+    }
+    this.text_validation = "";
+    this.FILE_AVATAR = $event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(this.FILE_AVATAR);
+    reader.onloadend = () => (this.IMAGE_PREVISUALIZA = reader.result);
   }
 
 
@@ -193,20 +152,19 @@ export class PulseraEditComponent implements OnInit {
     formData.append('price', this.pulseraForm.get('price').value);
     formData.append('model', this.pulseraForm.get('model').value);
     formData.append('description', this.pulseraForm.get('description').value);
-    formData.append('user_id', this.pulseraForm.get('user_id').value);
-    formData.append('image', this.pulseraForm.get('image').value);
+    
     formData.append('status', 'PENDING');
+    if (this.FILE_AVATAR) {
+          formData.append("imagen", this.FILE_AVATAR);
+        }
+
 
     const id = this.pulseraForm.get('id').value;
 
     if(id){
       //actualizar
-      const data = {
-        ...this.pulseraForm.value,
-        user_id: this.user.id
-      }
-
-      this.pulseraService.updatePulsera(data, +id).subscribe(
+      
+      this.pulseraService.updatePulsera(formData, +id).subscribe(
         resp =>{
           this.anilloSeleccionado = resp;
           Swal.fire('Actualizado', `Actualizado correctamente`, 'success');
@@ -216,11 +174,8 @@ export class PulseraEditComponent implements OnInit {
 
     }else{
       //crear
-    const data = {
-      ...this.pulseraForm.value,
-      user_id: this.user.id
-    }
-      this.pulseraService.createPulsera(data).subscribe(
+    
+      this.pulseraService.createPulsera(formData).subscribe(
         (resp: any) =>{
           this.anilloSeleccionado = resp;
         Swal.fire('Creado', ` creado correctamente`, 'success');

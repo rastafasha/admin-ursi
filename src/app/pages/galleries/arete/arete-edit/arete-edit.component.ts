@@ -23,13 +23,6 @@ import { AreteService } from 'src/app/services/arete.service';
 })
 export class AreteEditComponent implements OnInit {
 
-  /**
-   * Editor type area wyswyg
-   */
-  public Editor = DecoupledEditor;
-  public editorData = `<p>This is a CKEditor 5 WYSIWYG editor instance created with Angular.</p>`;
-
-
   public areteForm: FormGroup;
 
   public arete: Arete;
@@ -47,37 +40,11 @@ export class AreteEditComponent implements OnInit {
   uploadError: string;
   public storage = environment.apiUrlMedia
 
-  public afuConfig = {
-    multiple: false,
-    formatsAllowed: '.jpg, .png, .gif, .jpeg',
-    method: 'POST',
-    maxSize: '2',
-    uploadAPI: {
-      url: environment.apiUrl + '/arete/upload',
-      headers: {
-        Accept: 'application/json',
-        Authorization: 'Bearer ' + this.accountService.headers
-
-      },
-      responseType: 'json',
-    },
-    theme: 'dragNDrop',
-    selectFileBtn: 'Select Files',
-    hideProgressBar: false,
-    hideResetBtn: false,
-    hideSelectBtn: false,
-    fileNameIndex: true,
-    replaceTexts: {
-      selectFileBtn: 'Seleccionar imagen',
-      resetBtn: 'Resetear',
-      uploadBtn: 'Subir',
-      dragNDropBox: 'Arrastre y suelte aquí',
-      attachPinBtn: 'Seleccionar una imagen',
-      afterUploadMsg_success: 'Se cargó correctamente el archivo !',
-      afterUploadMsg_error: 'Se produjo un error al subir el archivo!',
-      sizeLimit: 'Límite de tamaño 2 Megas'
-    }
-  };
+ imageUrl = environment.apiUrlMedia;
+  public FILE_AVATAR: any;
+  public IMAGE_PREVISUALIZA: any = "assets/images/no-image.png";
+  text_validation: any = null;
+  public loading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -124,6 +91,7 @@ export class AreteEditComponent implements OnInit {
             status: res.status,
           });
           this.anilloSeleccionado = res;
+          this.imagePath = res.avatar;
           // console.log(this.anilloSeleccionado);
         }
       );
@@ -171,19 +139,18 @@ export class AreteEditComponent implements OnInit {
   }
 
 
-  avatarUpload(datos) {
-    const data = JSON.parse(datos.response);
-    this.areteForm.controls['image'].setValue(data.image);//almaceno el nombre de la imagen
+ loadFile($event: any) {
+     if ($event.target.files[0].type.indexOf("image")) {
+      this.text_validation = "Solamente pueden ser archivos de tipo imagen";
+      return;
+    }
+    this.text_validation = "";
+    this.FILE_AVATAR = $event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(this.FILE_AVATAR);
+    reader.onloadend = () => (this.IMAGE_PREVISUALIZA = reader.result);
   }
 
-  deleteFotoPerfil(){
-    this.areteService.deleteFoto(this.areteForm.value['id']).subscribe(response => {
-      Swal.fire(response['msg']['summary'], response['msg']['detail'], 'success');
-      this.ngOnInit();
-    }, error => {
-      Swal.fire('Error al eliminar', 'Intente de nuevo', 'error');
-    });
-  }
 
 
 
@@ -195,19 +162,19 @@ export class AreteEditComponent implements OnInit {
     formData.append('model', this.areteForm.get('model').value);
     formData.append('description', this.areteForm.get('description').value);
     formData.append('user_id', this.areteForm.get('user_id').value);
-    formData.append('image', this.areteForm.get('image').value);
     formData.append('status', 'PENDING');
+    if (this.FILE_AVATAR) {
+          formData.append("imagen", this.FILE_AVATAR);
+        }
+
 
     const id = this.areteForm.get('id').value;
 
     if(id){
       //actualizar
-      const data = {
-        ...this.areteForm.value,
-        user_id: this.user.id
-      }
+      
 
-      this.areteService.updateArete(data, +id).subscribe(
+      this.areteService.updateArete(formData, +id).subscribe(
         resp =>{
           this.anilloSeleccionado = resp;
           Swal.fire('Actualizado', `Actualizado correctamente`, 'success');
@@ -217,11 +184,8 @@ export class AreteEditComponent implements OnInit {
 
     }else{
       //crear
-    const data = {
-      ...this.areteForm.value,
-      user_id: this.user.id
-    }
-      this.areteService.createArete(data).subscribe(
+    
+      this.areteService.createArete(formData).subscribe(
         (resp: any) =>{
           this.anilloSeleccionado = resp;
         Swal.fire('Creado', ` creado correctamente`, 'success');

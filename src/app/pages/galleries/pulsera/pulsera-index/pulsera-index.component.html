@@ -70,11 +70,11 @@
                                     <td>{{pulsera.Id}}</td>
                                     <td>
                                         <div class="image">
-                                            <div *ngIf="!pulsera.image ">
+                                            <!-- <div *ngIf="!pulsera.image ">
                                                 <img [src]="pulsera.image | imagenPipe: 'pulseras'" style="height: 50px; width: 50px;" class="img-circle avatar">
-                                            </div>
-                                            <div *ngIf="pulsera.image">
-                                                <img [src]="pulsera.image | imagenPipe: 'pulseras'" style="height: 50px; width: 50px;" class="img-circle avatar">
+                                            </div> -->
+                                            <div *ngIf="pulsera.avatar">
+                                                <img [src]="pulsera.avatar | imagenPipe: 'pulseras'" style="height: 50px; width: 50px;" class="img-circle avatar">
 
                                             </div>
                                         </div>

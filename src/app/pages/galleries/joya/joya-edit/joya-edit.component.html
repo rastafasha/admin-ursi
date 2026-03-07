@@ -17,52 +17,55 @@
             <!-- End Page Title -->
         </div>
         <div class="buton">
-            <button class="btn btn-outline-danger pull-right" href="javascript:void(0)" (click)="goBack()">Volver</button>
+            <button class="btn btn-outline-danger pull-right" href="javascript:void(0)"
+                (click)="goBack()">Volver</button>
         </div>
         <div class="clear"></div>
-
-
-
         <section class="section dashboard">
-
             <div class="row">
-
-                <div class="col-12 col-md-6">
-                    <label> {{'Anexe su foto'}}</label>
-                    <br>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div *ngIf="!escuelaSeleccionado">
-                                <img src="./assets/images/no-image.jpg" style="height: 100px; width: 100px;" class="img-circle avatar">
-                            </div>
-                            <div *ngIf="escuelaSeleccionado">
-                                <button *ngIf="escuelaSeleccionado.image" type="button" class="btn btn-outline-danger" (click)="deleteFotoPerfil()">Eliminar</button>
-                                <img [src]="escuelaSeleccionado.image | imagenPipe: 'joyas'" style="height: 50px; width: 50px;" class="img-circle avatar">
-                            </div>
-                        </div>
-                        <div class="col-xs-12">
-                            <div class="especificaciones">
-                                <h4>{{'Especificaciones'}}:</h4>
-                                <ul>
-                                    <li>{{'Tamaño máximo'}}: 300px X 300px</li>
-                                    <li>{{'Peso máximo'}}: 500 kb</li>
-                                    <li>{{'Formato permitido'}}: jpg, .gif, .png</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-xs-12">
-                            <angular-file-uploader [config]="afuConfig " (ApiResponse)="avatarUpload($event) ">
-                            </angular-file-uploader>
-                        </div>
-
-                    </div>
-                </div>
                 <div class="col-12 col-md-6">
 
-                    <form enctype="multipart/form-data" [formGroup]="cursoForm" (ngSubmit)="editCurso()">
+                    <form method="POST" [formGroup]="cursoForm" (ngSubmit)="editCurso()">
+                        <label> {{'Anexe su foto'}}</label>
+                        <br>
+                        <div class="row">
+
+                            <div class="col-xs-12">
+                                <div class="especificaciones">
+                                    <h4>{{'Especificaciones'}}:</h4>
+                                    <ul>
+                                        <li>{{'Tamaño máximo'}}: 300px X 300px</li>
+                                        <li>{{'Peso máximo'}}: 500 kb</li>
+                                        <li>{{'Formato permitido'}}: jpg, .gif, .png</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group local-top-form">
+                                    <div class="settings-btn upload-files-avator">
+                                        <label for="file" class="upload labelgoogle">
+                                            <input type="file" accept="image/*" name="image" id="file"
+                                                (change)="loadFile($event)" class="hide-input input">
+                                            <span class="label__name">
+                                                {{'Select a Photo'}}
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                         <input type="hidden" formControlName="id">
                         <button (click)="editCurso()" class="btn btn-primary">Guardar</button>
                     </form>
+                </div>
+                <div class="col-12 col-md-6">
+                    <img [src]="escuelaSeleccionado?.avatar | imagenPipe: 'herramientas'" class=" shadow"
+                        style="width: 100%; height: auto;">
+                    <div *ngIf="FILE_AVATAR">
+                        <!-- IMAGE_PREVISUALIZA is already a base64 data URL from FileReader, don't use imagenPipe -->
+                        <img [src]="IMAGE_PREVISUALIZA" style="width: 250px;" alt="Preview">
+                    </div>
                 </div>
             </div>
 

@@ -21,11 +21,11 @@ export class Servicios {
   get imagenUrl(){
 
     if(!this.image){
-      return `${base_url}servicios/no-image.png`;
+      return `${base_url}/no-image.png`;
     } else if(this.image.includes('https')){
       return this.image;
     } else if(this.image){
-      return `${base_url}servicios/${this.image}`;
+      return `${base_url}/servicios/${this.image}`;
     }else {
       return `${base_url}/no-image.png`;
       // return `./assets/img/no-image.jpg`;
