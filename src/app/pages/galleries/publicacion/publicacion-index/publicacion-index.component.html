@@ -45,13 +45,10 @@
                     </div>
                 </div>
 
-
                 <div class="card recent-sales overflow-auto">
-
-
                     <div class="card-body">
 
-
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
                         <table [ngClass]="loading? 'table table-borderless datatable':'table table-borderless'">
                             <thead>
                                 <tr>

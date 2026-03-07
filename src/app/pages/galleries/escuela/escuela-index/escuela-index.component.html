@@ -51,11 +51,11 @@
 
 
                     <div class="card-body">
-
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
                         <div class="row">
                             <div class="col-xs-12 col-sm-6  col-md-4" *ngFor="let escuela of escuelas |  paginate: { itemsPerPage: count, currentPage: p }">
                                 <div class="card shadow">
-                                    <div class="card-body">
+                                    <div class="card-body tarjetaimagen">
                                         <i class="bi bi-file-post"></i>
                                         {{escuela.id}}
                                         <div *ngIf="escuela.avatar">
