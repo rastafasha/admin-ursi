@@ -69,13 +69,7 @@
                                     <td>{{servicio.id}}</td>
                                     <td>
                                         <div class="image">
-                                            <div *ngIf="!servicio.avatar ">
-                                                <img [src]="servicio.avatar | imagenPipe: 'services'" style="height: 50px; width: 50px;" class="img-circle avatar">
-                                            </div>
-                                            <div *ngIf="servicio.avatar">
-                                                <img [src]="servicio.avatar | imagenPipe: 'services'" style="height: 50px; width: 50px;" class="img-circle avatar">
-
-                                            </div>
+                                            <img [src]="servicio.avatar | imagenPipe: 'services'" style="height: 50px; width: 50px;" class="img-circle avatar">
                                         </div>
                                     </td>
                                     <td class="text-center">

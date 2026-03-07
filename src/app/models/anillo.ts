@@ -18,14 +18,14 @@ export class Anillo {
 
   get imagenUrl(){
 
-    if(!this.image){
-      return `${base_url}/no-image.png`;
+   if(!this.image){
+      return `${base_url}anillos/no-image.jpg`;
     } else if(this.image.includes('https')){
       return this.image;
     } else if(this.image){
-      return `${base_url}/anillos/${this.image}`;
+      return `${base_url}anillos/${this.image}`;
     }else {
-      return `${base_url}/no-image.jpg`;
+      return `${base_url}no-image.jpg`;
       // return `./assets/img/no-image.jpg`;
     }
 

@@ -70,13 +70,8 @@
                                     <td>{{arete.id}}</td>
                                     <td>
                                         <div class="image">
-                                            <!-- <div *ngIf="!arete.image ">
-                                                <img [src]="arete.image | imagenPipe: 'aretes'" style="height: 50px; width: 50px;" class="img-circle avatar">
-                                            </div> -->
-                                            <div *ngIf="arete.avatar">
-                                                <img [src]="arete.avatar | imagenPipe: 'aretes'" style="height: 50px; width: 50px;" class="img-circle avatar">
-
-                                            </div>
+                                           
+                                            <img [src]="arete.avatar | imagenPipe: 'aretes'" style="height: 50px; width: 50px;" class="img-circle avatar">
                                         </div>
                                     </td>
 

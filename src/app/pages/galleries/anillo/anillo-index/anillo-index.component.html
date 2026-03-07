@@ -71,13 +71,7 @@
                                     <td>{{anillo.id}}</td>
                                     <td>
                                         <div class="image">
-                                            <!-- <div *ngIf="!anillo.avatar ">
-                                                <img [src]="anillo.avatar | imagenPipe: 'anillos'" style="height: 50px; width: 50px;" class="img-circle avatar">
-                                            </div> -->
-                                            <div *ngIf="anillo.avatar">
-                                                <img [src]="anillo.avatar | imagenPipe: 'anillos'" style="height: 50px; width: 50px;" class="img-circle avatar">
-
-                                            </div>
+                                            <img [src]="anillo.avatar | imagenPipe: 'anillos'" style="height: 50px; width: 50px;" class="img-circle avatar">
                                         </div>
                                     </td>
                                     <td>{{anillo.title}}</td>

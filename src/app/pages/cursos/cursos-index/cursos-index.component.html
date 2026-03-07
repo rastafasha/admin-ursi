@@ -85,12 +85,8 @@
                                     <td>{{curso.id}}</td>
                                     <td>
                                         <div class="image">
-                                            
-                                            <div *ngIf="curso.avatar">
-                                                <img [src]="curso.avatar | imagenPipe: 'cursos'"
-                                                    style="height: 50px; width: 50px;" class="img-circle avatar">
-
-                                            </div>
+                                            <img [src]="curso.avatar | imagenPipe: 'cursos'"
+                                                style="height: 50px; width: 50px;" class="img-circle avatar">
                                         </div>
                                     </td>
                                     <td class="text-center">

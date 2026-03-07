@@ -35,7 +35,7 @@ export class CronogramaEditComponent implements OnInit {
 
    titlePage: string;
 
-   public cursoSeleccionado: Cronograma;
+   public cronoSeleccionado: Cronograma;
    public user: User;
    id:any;
 
@@ -106,7 +106,8 @@ export class CronogramaEditComponent implements OnInit {
              duracion_eng: res.duracion_eng,
              costo: res.costo,
            });
-           this.cursoSeleccionado = res;
+           this.cronoSeleccionado = res;
+           this.imagePath = res.avatar;
           //  console.log(this.cursoSeleccionado);
          }
        );
@@ -249,10 +250,10 @@ loadFile($event: any) {
 
        this.cronogramaService.updateCronograma(formData, +id).subscribe(
          resp =>{
-          this.cursoSeleccionado = resp;
+          this.cronoSeleccionado = resp;
            Swal.fire('Actualizado', `Actualizado correctamente`, 'success');
            this.router.navigateByUrl(`/dashboard/cronogramas`);
-          //  console.log(this.cursoSeleccionado);
+          //  console.log(this.cronoSeleccionado);
          });
 
      }else{
@@ -262,7 +263,7 @@ loadFile($event: any) {
      }
        this.cronogramaService.createCronograma(formData).subscribe(
          (resp: any) =>{
-          this.cursoSeleccionado = resp;
+          this.cronoSeleccionado = resp;
          Swal.fire('Creado', ` creado correctamente`, 'success');
          this.router.navigateByUrl(`/dashboard/cronogramas`);
          // this.enviarNotificacion();

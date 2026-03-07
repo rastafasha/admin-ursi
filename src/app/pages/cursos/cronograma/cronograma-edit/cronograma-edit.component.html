@@ -9,7 +9,7 @@
                 <nav>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a routerLink="/"><i class="bi bi-house"></i> Inicio</a></li>
-                        <li class="breadcrumb-item"><a routerLink="/dashboard/cursos">Cursos</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/dashboard/cronogramas">Cronograma</a></li>
                         <li class="breadcrumb-item active">{{titlePage}}</li>
                     </ol>
                 </nav>
@@ -102,7 +102,7 @@
                                     <div class="row">
                                         <div class="col-xs-12">
 
-                                            <img [src]="herramientaSeleccionado?.avatar | imagenPipe: 'herramientas'"
+                                            <img [src]="cronoSeleccionado?.avatar | imagenPipe: 'herramientas'"
                                                 class=" shadow" style="width: 100%; height: auto;">
                                             <div *ngIf="FILE_AVATAR">
                                                 <!-- IMAGE_PREVISUALIZA is already a base64 data URL from FileReader, don't use imagenPipe -->

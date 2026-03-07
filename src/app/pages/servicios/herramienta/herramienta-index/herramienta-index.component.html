@@ -65,15 +65,8 @@
                                     <td>{{herramienta.id}}</td>
                                     <td>
                                         <div class="image">
-                                            <div *ngIf="!herramienta.avatar ">
-                                                <img [src]="herramienta.avatar | imagenPipe: 'herramientas'"
-                                                    style="height: 50px; width: 50px;" class="img-circle avatar">
-                                            </div>
-                                            <div *ngIf="herramienta.avatar">
-                                                <img [src]="herramienta.avatar | imagenPipe: 'herramientas'"
-                                                    style="height: 50px; width: 50px;" class="img-circle avatar">
-
-                                            </div>
+                                            <img [src]="herramienta.avatar | imagenPipe: 'herramientas'"
+                                                style="height: 50px; width: 50px;" class="img-circle avatar">
                                         </div>
                                     </td>
                                     <td>{{herramienta.title}}</td>
