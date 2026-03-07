@@ -4,13 +4,13 @@
 
 export const environment = {
   production: false,
-  //apirest vps remoto
-  apiUrl: "http://127.0.0.1:8000/api",
-  apiUrlMedia: "http://127.0.0.1:8000/storage",
+  //apirest local
+  // apiUrl: "http://127.0.0.1:8000/api",
+  // apiUrlMedia: "http://127.0.0.1:8000/storage",
   
   //remoto
-  // apiUrl: "https://ursigalletti.net/backend-api/public/api",
-  // apiUrlMedia: "https://ursigalletti.net/backend-api/storage/",
+  apiUrl: "https://ursigalletti.net/backend-api-ursi2/public/api",
+  apiUrlMedia: "https://ursigalletti.net/backend-api-ursi2/storage/",
 
 };
 
