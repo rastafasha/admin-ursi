@@ -10,6 +10,8 @@ export class Banner {
   botonName: string;
   url: string;
   image: string;
+  avatar: string = "";
+  avatarmovil: string = "";
   imagemovil: string;
   created_at: string;
   updated_at: string;

@@ -71,24 +71,14 @@
                                     <td>{{banner.id}}</td>
                                     <td>
                                         <div class="image">
-                                            <div *ngIf="!banner.image ">
-                                                <img [src]="banner.image | imagenPipe: 'banners'" style="height: 50px; width: 50px;" class="avatar">
-                                            </div>
-                                            <div *ngIf="banner.image">
-                                                <img [src]="banner.image | imagenPipe: 'banners'" style="height: auto; width: 90px;" >
-
-                                            </div>
+                                            <img [src]="banner.avatar | imagenPipe: 'banners'" style="height: 50px; width: 50px;" class="avatar">
+                                            
                                         </div>
                                     </td>
                                     <td>
                                         <div class="imagemovil">
-                                            <div *ngIf="!banner.imagemovil ">
-                                                <img [src]="banner.imagemovil | imagenPipe: 'movil'" style="height: 50px; width: 50px;" class=" avatar">
-                                            </div>
-                                            <div *ngIf="banner.image">
-                                                <img [src]="banner.imagemovil | imagenPipe: 'movil'" style="height: auto; width: 50px;">
-
-                                            </div>
+                                            <img [src]="banner.avatarmovil | imagenPipe: 'banners'" style="height: auto; width: 50px;">
+                                            
                                         </div>
                                     </td>
                                     <td>{{banner.title}}</td>

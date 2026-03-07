@@ -4,17 +4,11 @@ import { Location } from '@angular/common';
 import Swal from 'sweetalert2';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import { AccountService } from 'src/app/services/account.service';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-const baseUrl = environment.apiUrl;
-
-//ckeditor
-import * as DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
-import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
 import { Banner } from 'src/app/models/banner';
 import { BannerService } from 'src/app/services/banner.service';
+const baseUrl = environment.apiUrl;
 
 @Component({
   selector: 'app-banner-edit',
@@ -23,13 +17,6 @@ import { BannerService } from 'src/app/services/banner.service';
   styleUrls: ['./banner-edit.component.css']
 })
 export class BannerEditComponent implements OnInit {
-
-
-   /**
-   * Editor type area wyswyg
-   */
-   public Editor = DecoupledEditor;
-   public editorData = `<p>This is a CKEditor 5 WYSIWYG editor instance created with Angular.</p>`;
 
 
    public bannerForm: FormGroup;
@@ -44,73 +31,20 @@ export class BannerEditComponent implements OnInit {
    id:any;
 
    imagePath: string;
+   imagePathMovil: string;
    error: string;
    uploadError: string;
    public storage = environment.apiUrlMedia
 
-   public afuConfig = {
-     multiple: false,
-     formatsAllowed: '.jpg, .png, .gif, .jpeg',
-     method: 'POST',
-     maxSize: '2',
-     uploadAPI: {
-       url: environment.apiUrl + '/banner/upload',
-       headers: {
-         Accept: 'application/json',
-         Authorization: 'Bearer ' + this.accountService.headers
 
-       },
-       responseType: 'json',
-     },
-     theme: 'dragNDrop',
-     selectFileBtn: 'Select Files',
-     hideProgressBar: false,
-     hideResetBtn: false,
-     hideSelectBtn: false,
-     fileNameIndex: true,
-     replaceTexts: {
-       selectFileBtn: 'Seleccionar imagen',
-       resetBtn: 'Resetear',
-       uploadBtn: 'Subir',
-       dragNDropBox: 'Arrastre y suelte aquí',
-       attachPinBtn: 'Seleccionar una imagen',
-       afterUploadMsg_success: 'Se cargó correctamente el archivo !',
-       afterUploadMsg_error: 'Se produjo un error al subir el archivo!',
-       sizeLimit: 'Límite de tamaño 500kb'
-     }
-   };
-
-   public movilConfig = {
-     multiple: false,
-     formatsAllowed: '.jpg, .png, .gif, .jpeg',
-     method: 'POST',
-     maxSize: '2',
-     uploadAPI: {
-       url: environment.apiUrl + '/banner/upload/movil',
-       headers: {
-         Accept: 'application/json',
-         Authorization: 'Bearer ' + this.accountService.headers
-
-       },
-       responseType: 'json',
-     },
-     theme: 'dragNDrop',
-     selectFileBtn: 'Select Files',
-     hideProgressBar: false,
-     hideResetBtn: false,
-     hideSelectBtn: false,
-     fileNameIndex: true,
-     replaceTexts: {
-       selectFileBtn: 'Seleccionar imagen',
-       resetBtn: 'Resetear',
-       uploadBtn: 'Subir',
-       dragNDropBox: 'Arrastre y suelte aquí',
-       attachPinBtn: 'Seleccionar una imagen',
-       afterUploadMsg_success: 'Se cargó correctamente el archivo !',
-       afterUploadMsg_error: 'Se produjo un error al subir el archivo!',
-       sizeLimit: 'Límite de tamaño 500kb'
-     }
-   };
+   imageUrl = environment.apiUrlMedia;
+    public FILE_AVATAR: any;
+    public IMAGE_PREVISUALIZA: any = "assets/images/no-image.png";
+    public FILE_AVATAR2: any;
+    public IMAGE_PREVISUALIZA2: any = "assets/images/no-image.png";
+    text_validation: any = null;
+    public loading: boolean = false;
+  
 
    constructor(
      private fb: FormBuilder,
@@ -118,9 +52,7 @@ export class BannerEditComponent implements OnInit {
      private bannerService: BannerService,
      private location: Location,
      private activatedRoute: ActivatedRoute,
-     private accountService: AccountService,
      private userService: UserService,
-     private sanitizer: DomSanitizer
      ) {
        this.user = this.userService.user;
       }
@@ -161,6 +93,8 @@ export class BannerEditComponent implements OnInit {
              imagemovil: res.imagemovil,
            });
            this.banner = res;
+           this.imagePath = res.avatar;
+           this.imagePathMovil = res.avatarmovil;
           //  console.log(this.banner);
          }
        );
@@ -207,49 +141,35 @@ export class BannerEditComponent implements OnInit {
    get status() {
      return this.bannerForm.get('status');
    }
-   get image() {
-     return this.bannerForm.get('image');
-   }
-   get imagemovil() {
-     return this.bannerForm.get('imagemovil');
-   }
+  
+  loadFile($event: any) {
+     if ($event.target.files[0].type.indexOf("image") === -1) {
+      this.text_validation = "Solamente pueden ser archivos de tipo imagen";
+      return;
+    }
+    this.text_validation = "";
+    this.FILE_AVATAR = $event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(this.FILE_AVATAR);
+    reader.onloadend = () => (this.IMAGE_PREVISUALIZA = reader.result);
+  }
+
+loadFile2($event: any) {
+     if ($event.target.files[0].type.indexOf("image") === -1) {
+      this.text_validation = "Solamente pueden ser archivos de tipo imagen";
+      return;
+    }
+    this.text_validation = "";
+    this.FILE_AVATAR2 = $event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(this.FILE_AVATAR2);
+    reader.onloadend = () => (this.IMAGE_PREVISUALIZA2 = reader.result);
+  }
 
 
 
-   avatarUpload(datos) {
-     const data = JSON.parse(datos.response);
-     this.bannerForm.controls['image'].setValue(data.image);//almaceno el nombre de la imagen
-   }
 
-   deleteFotoPerfil(){
-     this.bannerService.deleteFoto(this.bannerForm.value['id']).subscribe(response => {
-       Swal.fire(response['msg']['summary'], response['msg']['detail'], 'success');
-       this.ngOnInit();
-     }, error => {
-       Swal.fire('Error al eliminar', 'Intente de nuevo', 'error');
-     });
-   }
-
-   avatarUploadMovil(datos) {
-     const data = JSON.parse(datos.response);
-     this.bannerForm.controls['imagemovil'].setValue(data.image);//almaceno el nombre de la imagen
-    //  this.banner.imagemovil = data.imagemovil;
-     
-    //  console.log('imagermovil', data.image);
-   }
-
-   deleteFotoPerfilMovil(){
-     this.bannerService.deleteFotoMovl(this.bannerForm.value['id']).subscribe(response => {
-       Swal.fire(response['msg']['summary'], response['msg']['detail'], 'success');
-       this.ngOnInit();
-     }, error => {
-       Swal.fire('Error al eliminar', 'Intente de nuevo', 'error');
-     });
-   }
-
-
-
-   editCurso(){debugger
+   editBanner(){
 
      const formData = new FormData();
      formData.append('title', this.bannerForm.get('title').value);
@@ -258,19 +178,20 @@ export class BannerEditComponent implements OnInit {
      formData.append('botonName', this.bannerForm.get('botonName').value);
      formData.append('description', this.bannerForm.get('description').value);
      formData.append('url', this.bannerForm.get('url').value);
-     formData.append('image', this.bannerForm.get('image').value);
-     formData.append('imagemovil', this.bannerForm.get('imagemovil').value);
      formData.append('status', 'PENDING');
 
+     if (this.FILE_AVATAR) {
+         formData.append("imagen", this.FILE_AVATAR);
+       }
+     if (this.FILE_AVATAR2) {
+         formData.append("imagemovil", this.FILE_AVATAR2);
+       }
      const id = this.bannerForm.get('id').value;
 
      if(id){
        //actualizar
-       const data = {
-         ...this.bannerForm.value
-       }
-
-       this.bannerService.updateBanner(data, +id).subscribe(
+       
+       this.bannerService.updateBanner(formData, +id).subscribe(
          resp =>{
            Swal.fire('Actualizado', `Actualizado correctamente`, 'success');
            this.router.navigateByUrl(`/dashboard/banners`);
@@ -280,11 +201,7 @@ export class BannerEditComponent implements OnInit {
 
      }else{
        //crear
-     const data = {
-       ...this.bannerForm.value,
-       user_id: this.user.id
-     }
-       this.bannerService.createBanner(data).subscribe(
+       this.bannerService.createBanner(formData).subscribe(
          (resp: any) =>{
           this.banner= resp;
          Swal.fire('Creado', ` creado correctamente`, 'success');
